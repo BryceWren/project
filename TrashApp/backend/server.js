@@ -6,11 +6,5 @@ app.get("/api", (req, res) => {
 })
 
 app.listen(5000, () => {console.log("Server started on port 5000")})
-
-
-// this is a test comment to pull
-
-
-
 // hello hjshsdhjdshjfhrhr
 // like comment and sub!
