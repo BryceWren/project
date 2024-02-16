@@ -3,7 +3,7 @@ import HomePage from './pages/HomePage';
 import { AppRoutes } from './Routes';
 
 function App() {
-/*
+
   const [backendData, setBackendData] = useState([{}])
 
   useEffect(() => {
@@ -15,10 +15,10 @@ function App() {
       }
     )
   },  [])
-*/
+
   return (
     <div>
-      <p>{"testing"}</p>
+      <p>{"this is form the App.js file"}</p>
       <AppRoutes />
     </div>
   )
