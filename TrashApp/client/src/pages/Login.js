@@ -1,8 +1,8 @@
 import React from "react";
-import HeadingName from './Components/HeadingName';
-import LandR from "./Components/LandR";
-import LoginInformation from "./Components/LoginInformation";
-import NewUser from "./Components/LoginInformation";
+import HeadingName from '../Components/HeadingName';
+import LandR from "../Components/LandR";
+import LoginInformation from "../Components/LoginInformation";
+import NewUser from "../Components/LoginInformation";
 
 export const Login = () => {
     return(
