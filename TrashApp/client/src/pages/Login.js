@@ -1,8 +1,6 @@
 import React from "react";
-import HeadingName from '../Components/login';
-//import LandR from "../Components/LandR";
-//import LoginInformation from "../Components/LoginInformation";
-//import NewUser from "../Components/LoginInformation";
+import LoginC from '../Components/LoginC';
+
 
 export const Login = () => {
     return(
@@ -13,6 +11,6 @@ export const Login = () => {
   
 }
 function LoginPage(){
-    < HeadingName/>;
+    <LoginC/>
 
 }
