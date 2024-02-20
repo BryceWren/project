@@ -1,6 +1,6 @@
 // this is  the  entire login page
 import React from 'react'
-import './CSS/login.CSS'
+import './CSS/Login.css'
 
 const LoginC = () => {
   return (
