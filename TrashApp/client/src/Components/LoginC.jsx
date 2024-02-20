@@ -2,7 +2,7 @@
 import React from 'react'
 import './CSS/Login.css'
 
-const LoginC = () => {
+export const LoginC = () => {
   return (
     <div classname="Container"><h1></h1>
     <div classname="header">

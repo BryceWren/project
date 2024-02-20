@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div>
-      <p>{"this is form the App.js file"}</p>
+      <p>{"WELCOME TO THE TRASH APP"}</p>
       <AppRoutes />
     </div>
   )
