@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -9,7 +10,7 @@ export const Register = (props) => {
         e.preventDefault();
         console.log(email);
     }
-
+    const Navigate = useNavigate();
     return (
         <div className="auth-form-container">
         <h2>Register</h2>
@@ -23,7 +24,11 @@ export const Register = (props) => {
             
 
         </form>
-        <button onClick={() => props.onFormSwitch('login')}>Create Account</button>
+        <button className="link-btn" onClick={() => Navigate('/')}>Register</button>
+        <div>
+            
+        </div>
+        <button className="link-btn" onClick={() => Navigate('/')}>Already have an account? Log-in here</button>
         </div>
     )
 }

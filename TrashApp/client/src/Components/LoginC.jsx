@@ -1,8 +1,13 @@
 // this is  the  entire login page
 import React from 'react'
 import './CSS/Login.css'
+import {useNavigate} from "react-router-dom"
+
+
+
 
 export const LoginC = () => {
+  const navigate = useNavigate();
   return (
     <div classname="Container"><h1></h1>
     <div classname="header">
@@ -21,14 +26,15 @@ export const LoginC = () => {
     </div>
     <div classname= "The container"> 
     <div classname ="Submit button">
-      <p>Login</p>
-    </div>
-     </div>
-    <div classname="newUser?"><p classname="new user?">Are you A new User <a href="">Click Here!</a></p></div> {/* whoever  does the registration page this is where the link goes :) also may turn this into a button, i just  need opinions */}
  
     </div>
+     </div>
+     <button className="link-btn" onClick={() => navigate('/home')}>Login</button>
+    </div> 
+    <button className="link-btn" onClick={() => navigate('/register')}>Don't have an account? Register here</button>
     </div>
     </div>
+  
 
   
     
