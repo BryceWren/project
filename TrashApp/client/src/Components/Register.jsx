@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 export const Register = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [name, setName] = useState('');
+    const [firstname, setfName] = useState('');
+    const [lastname, setLName] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,7 +17,8 @@ export const Register = (props) => {
         <h2>Register</h2>
         <form className="register-form" onSubmit={handleSubmit}>
             <label>Name</label>
-            <input value={(name)} name="name" id="name" placeholder="Name" />
+            <input value={(firstname)} name="firstname" id="firstname" placeholder="FirstName" />
+            <input value={(lastname)} name="lastname" id="lastname" placeholder="LastName" />
             <label htmlFor="email">Email</label>
             <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email" />
             <label htmlFor="password">Password</label>
