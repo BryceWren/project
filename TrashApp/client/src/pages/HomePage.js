@@ -13,7 +13,8 @@ export const HomePage = () => {
   const navigate= useNavigate()
   return (
     
-    <div className="map-container">
+        <div className="auth-form-container">
+        
       {/* Image for the map */}
       <img src={img1} width={1250} height={900} id="image" alt="Map" className="map-image" />
       <button onclick="zoomIn()">Zoom In</button>
