@@ -4,6 +4,7 @@ import './CSS/Login.css'
 
 export const LoginC = () => {
   return (
+    <body classname ="LoginBackground">
     <div classname="Container"><h1></h1>
     <div classname="header">
     <div classname="Title"><h1>Sign In</h1></div>
@@ -21,14 +22,23 @@ export const LoginC = () => {
     </div>
     <div classname= "The container"> 
     <div classname ="Submit button">
-      <p>Login</p>
+      <a href ="">
+    <button type="LoginButton">Login</button>     
+    {/* this is for the  login button and where ever its suppose to route too :) */}
+    </a>
     </div>
      </div>
-    <div classname="newUser?"><p classname="new user?">Are you A new User <a href="">Click Here!</a></p></div> {/* whoever  does the registration page this is where the link goes :) also may turn this into a button, i just  need opinions */}
+    <div classname="newUser?"><p classname="new user?">Are you A new User</p>
+    < a href='Register.jsx '>
+    <button>Click Here!</button>
+    </a>
+    </div> {/* whoever  does the registration page this is where the link goes :) also may turn this into a button, i just  need opinions */}
+ 
  
     </div>
     </div>
     </div>
+    </body>
 
   
     
