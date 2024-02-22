@@ -1,45 +1,31 @@
-// this is  the  entire login page
-import React from 'react'
-import './CSS/Login.css'
-import {useNavigate} from "react-router-dom"
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import './CSS/Register.css';
 
+export const LoginC = (props) => {
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
 
-
-
-export const LoginC = () => {
-  const navigate = useNavigate();
-  return (
-    <div classname="Container"><h1></h1>
-    <div classname="header">
-    <div classname="Title"><h1>Sign In</h1></div>
-    <div classname ="underline"></div>
-    </div>
-    {/*  This is where the UserName goes  */}
-    <div classname ="type boxes"> 
-    <div classname=" Username">
-    <input type=" Text" placeholder="JohnDoe93" />
-    </div>
-    {/*  this is where the password  goes  */}
-    <div classname ="type boxes"> 
-    <div classname="Password">
-    <input type=" Password" placeHolder= "**********" />
-    </div>
-    <div classname= "The container"> 
-    <div classname ="Submit button">
- 
-    </div>
-     </div>
-     <button className="link-btn" onClick={() => navigate('/home')}>Login</button>
-    </div> 
-    <button className="link-btn" onClick={() => navigate('/register')}>Don't have an account? Register here</button>
-    </div>
-    </div>
-  
-
-  
-    
-  
-  )
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(email);
+    }
+    const Navigate = useNavigate();
+    return (
+        <div className="auth-form-container">
+            <h2>Login</h2>
+            <form className="register-form" onSubmit={handleSubmit}>
+                <label htmlFor="email">Email</label>
+                <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email" />
+                <label htmlFor="password">Password</label>
+                <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+            </form>
+            <button onClick={() => Navigate('/home')}>Login</button>
+            <div>
+                <a className="link-btn" onClick={() => Navigate('/register')}>Don't have an account? Register here</a>
+            </div>
+        </div>
+    )
 }
 
 export default LoginC

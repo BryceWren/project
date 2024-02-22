@@ -1,3 +1,21 @@
+body{background-image: url(diagonal-waves.png);
+  background-color: lightblue;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  div.container{ border-right:  groove lightgreen;
+  border-left:  groove lightgreen;
+  border-top: groove lightgreen;
+  border-bottom: groove lightgreen;
+  border-style: solid;
+    border-width: 5px 20px;
+  }
+  /*  if it looks like ass fix it :) cause i dont know how to run it right now :) */
+  div.title{ color: black;
+   font-size:  10px;}
+  
+  
+
+
 .auth-form-container {
     display: flex;
     flex-direction: column;
@@ -5,7 +23,7 @@
     margin: 0 auto;
     width: 300px;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #232222;
     border-radius: 4px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
@@ -33,20 +51,27 @@
     box-shadow: 0px 0px 2px 1px #4caf50;
   }
   
+button{
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  
+}
+
   .link-btn {
-    padding: 10px 20px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    color: blue;
+    text-decoration: underline;
     cursor: pointer;
+    font-size: 12px;
   }
   
-  .link-btn:hover {
+/*   .link-btn:hover {
     background-color: #3e8e41;
-  }
+  } */
