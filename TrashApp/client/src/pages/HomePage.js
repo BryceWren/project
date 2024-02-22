@@ -13,7 +13,7 @@ export const HomePage = () => {
   const navigate= useNavigate()
   return (
     
-        <div className="auth-form-container">
+      <div className="map-container">
         
       {/* Image for the map */}
       <img src={img1} width={1250} height={900} id="image" alt="Map" className="map-image" />
@@ -24,10 +24,10 @@ export const HomePage = () => {
         <img src={home} alt="Icon 1" className="bottom-icons" />
         <img src={ballot} alt="Icon 2" className="bottom-icons" />
         <img src={cog} alt="Icon 3" className="bottom-icons" />
-      </div>
+      
       <button className="logoutbtn" onClick={() => navigate('/')}>LOGOUT</button>
     </div>
-
+    </div>
   );
 
 
