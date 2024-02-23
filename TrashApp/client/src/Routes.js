@@ -1,20 +1,24 @@
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
-import { Login }  from './Components/Login';
+import { LoginC }  from './Components/LoginC';
 import Register  from './Components/Register';  //remove curly braces
 import { HomePage } from './pages/HomePage';
 import { Events } from './pages/Events';
 import { Settings } from './pages/Settings';
+import  IndividualCleanup from './Components/IndividualCleanup';
+import  Editinformation from './Components/Editinformation';
 
 export const AppRoutes = () => {
     return (
         <Router>
             <Routes>
-                <Route path='/' element={<Login />} />
+                <Route path='/' element={<LoginC />} />
                 <Route path='/register' element={<Register />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/events" element={<Events />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/IndividualCleanup" element={<IndividualCleanup />} />
+                <Route path="/Editinformation" element={< Editinformation />} />
             </Routes>
         </Router>
     )

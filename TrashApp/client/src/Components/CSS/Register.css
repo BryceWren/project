@@ -9,7 +9,6 @@ body{background-image: url(diagonal-waves.png);
   border-style: solid;
     border-width: 5px 20px;
   }
-  /*  if it looks like ass fix it :) cause i dont know how to run it right now :) */
   div.title{ color: black;
    font-size:  10px;}
   
@@ -67,4 +66,22 @@ body{background-image: url(diagonal-waves.png);
 
 .link-btn:hover {
   background-color: #3e8e41;
+}
+.Container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+}
+.EditInformation-Form{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 100%;
+
 }
