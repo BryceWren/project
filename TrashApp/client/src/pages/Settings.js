@@ -28,21 +28,11 @@ export const Settings = () => {
   };
 
   return (
-    <Box sx={{ width: 500 }}>
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      >
-        
-        
-        <BottomNavigationAction label="Home" icon={<HomeRoundedIcon />} onClick={handleHomeClick} />
-        <BottomNavigationAction label="Events" icon={<CalendarMonthRoundedIcon />} onClick={handleEventsClick}/>
-        <BottomNavigationAction label="Settings" icon={<SettingsRoundedIcon />} onClick={handleSettingsClick}/>
-      </BottomNavigation>
-      <div className="container">
+    
+    <Box sx={{ width: '100%', position: 'fixed', bottom: 0}}>
+
+      {/* Settings body */}
+      <div className="Container">
         <h1>Settings</h1>
         <div className="SettingsDataRetrieval">
           <h3>FirstName</h3>
@@ -58,12 +48,27 @@ export const Settings = () => {
 
           <button  className="EditButton"onClick={() => Navigate('/Editinformation')}> Edit Information</button>
           
-        </div>
-
-    </div>
-
+         </div>
+      </div>
+      <BottomNavigation
+        showLabels
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+      >
+        
+  
+        <BottomNavigationAction label="Home" icon={<HomeRoundedIcon />} onClick={handleHomeClick} />
+        <BottomNavigationAction label="Events" icon={<CalendarMonthRoundedIcon />} onClick={handleEventsClick}/>
+        <BottomNavigationAction label="Settings" icon={<SettingsRoundedIcon />} onClick={handleSettingsClick}/>
+      </BottomNavigation>
+      
+      
 
     </Box>
+
+    
     
   );
 }
