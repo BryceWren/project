@@ -42,7 +42,29 @@ export const Settings = () => {
         <BottomNavigationAction label="Events" icon={<CalendarMonthRoundedIcon />} onClick={handleEventsClick}/>
         <BottomNavigationAction label="Settings" icon={<SettingsRoundedIcon />} onClick={handleSettingsClick}/>
       </BottomNavigation>
+      <div className="container">
+        <h1>Settings</h1>
+        <div className="SettingsDataRetrieval">
+          <h3>FirstName</h3>
+           {/* this is where the data from the  database will go  */}
+          <h3>LastName</h3>
+           {/* this is where the data from the  database will go  */}
+          <h3>UserType</h3> 
+           {/* this is where the data from the  database will go  */}
+          <h3>Email</h3>
+           {/* this is where the data from the  database will go  */}
+          <h3>Password</h3>
+           {/* this is where the data from the  database will go  */}
+
+          <button  className="EditButton"onClick={() => Navigate('/Editinformation')}> Edit Information</button>
+          
+        </div>
+
+    </div>
+
+
     </Box>
+    
   );
 }
 
