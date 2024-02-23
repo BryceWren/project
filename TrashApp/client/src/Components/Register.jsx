@@ -31,7 +31,7 @@ export const Register = (props) => {
         <div>
             
         </div>
-        <a className="link-btn" onClick={() => Navigate('/')}>Already have an account? Log-in here</a>
+        <a className="link-btn" onClick={() => Navigate('/')}>Already have an account? Login here</a>
         </div>
     )
 }

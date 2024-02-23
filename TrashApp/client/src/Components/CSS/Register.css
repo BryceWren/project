@@ -14,7 +14,7 @@ body{background-image: url(diagonal-waves.png);
   
   
 
-
+/* login and register css */
 .auth-form-container {
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@ body{background-image: url(diagonal-waves.png);
   margin: 0 auto;
   width: 300px;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #232222;
   border-radius: 4px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
@@ -50,23 +50,34 @@ body{background-image: url(diagonal-waves.png);
   box-shadow: 0px 0px 2px 1px #4caf50;
 }
 
-.link-btn {
+button{
   padding: 10px 20px;
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
 }
 
-.link-btn:hover {
+button:hover {
   background-color: #3e8e41;
 }
+
+.link-btn {
+  padding: 10px 20px;
+  color: blue;
+  text-decoration: underline;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+ /* Settings css  */
 .Container{
   display: flex;
   flex-direction: column;
@@ -84,4 +95,45 @@ body{background-image: url(diagonal-waves.png);
   margin-bottom: 20px;
   width: 100%;
 
+}
+
+/* homepage map css */
+.map-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: 10px;
+  left: 300px;
+  width: 1250px;
+  height: 900px;
+  /* border: 10px solid #d2b48c; */
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.zoom-buttons {
+  float: left;
+  display: flex;
+}
+
+.bottom-icons{
+  position: relative;
+  top: 20px;
+  left: 110px;
+  margin-right: 215px;
+  
+}
+.logoutbtn{
+  position: relative;
+  bottom: 1070px;
+  left: 1400px;
+  background-color: #31df6b; /* Background color */
+  color: #000000; /* Text color */
+  padding: 10px 20px; /* Padding */
+  border: none; /* Border */
+  border-radius: 5px; /* Border radius */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Font weight */
+  cursor: pointer; /* Cursor style */
 }

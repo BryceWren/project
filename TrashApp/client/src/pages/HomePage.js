@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import '../pages/HomePage.css'
+import '../Components/CSS/Register.css';
 import img1 from '../mappic/South_Carolina_map.jpg'
 import home from '../mappic/home.png'
 import ballot from '../mappic/ballot.png'
@@ -77,16 +77,20 @@ export const HomePage = () => {
   return (
 
     <div>
-      <div className="auth-form-container">
+      <div className="map-container">
       <ImageWithPins imageUrl="'../mappic/South_Carolina_map.jpg'" />
-      </div>
-        <button onclick="zoomIn()">Zoom In</button>
-        <button onclick="zoomOut()">Zoom Out</button>
-        <div className="bottom-icons">
+        
+        <div className="zoom-buttons">
+          <button onclick="zoomIn()">Zoom In</button> 
+          <button onclick="zoomOut()">Zoom Out</button>
+        </div>
+        
+        {/* <div className="bottom-icons">
         <img src={home} alt="Icon 1" className="bottom-icons" />
         <img src={ballot} alt="Icon 2" className="bottom-icons" />
         <img src={cog} alt="Icon 3" className="bottom-icons" />
-      </div>
+        </div> */}
+        </div>
     </div>
 
   );
