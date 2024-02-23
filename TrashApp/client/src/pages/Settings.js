@@ -7,7 +7,6 @@ import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import { Route, useNavigate } from 'react-router-dom';
 
-
 export const Settings = () => {
   const [value, setValue] = React.useState(0);
   const navigate = useNavigate();
@@ -28,51 +27,43 @@ export const Settings = () => {
   };
 
   return (
-    
-    <Box sx={{ width: '100%', position: 'fixed', bottom: 0}}>
-
-      {/* Settings body */}
+    <div>
+      {/* Settings component at the top */}
       <div className="Container">
         <h1>Settings</h1>
         <div className="SettingsDataRetrieval">
           <h3>FirstName</h3>
-           {/* this is where the data from the  database will go  */}
+          {/* this is where the data from the  database will go  */}
           <h3>LastName</h3>
-           {/* this is where the data from the  database will go  */}
+          {/* this is where the data from the  database will go  */}
           <h3>UserType</h3> 
-           {/* this is where the data from the  database will go  */}
+          {/* this is where the data from the  database will go  */}
           <h3>Email</h3>
-           {/* this is where the data from the  database will go  */}
+          {/* this is where the data from the  database will go  */}
           <h3>Password</h3>
-           {/* this is where the data from the  database will go  */}
+          {/* this is where the data from the  database will go  */}
 
-          <button  className="EditButton"onClick={() => Navigate('/Editinformation')}> Edit Information</button>
-          
-         </div>
+          <button className="EditButton" onClick={() => navigate('/Editinformation')}> Edit Information</button>
+        </div>
       </div>
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      >
-        
-  
-        <BottomNavigationAction label="Home" icon={<HomeRoundedIcon />} onClick={handleHomeClick} />
-        <BottomNavigationAction label="Events" icon={<CalendarMonthRoundedIcon />} onClick={handleEventsClick}/>
-        <BottomNavigationAction label="Settings" icon={<SettingsRoundedIcon />} onClick={handleSettingsClick}/>
-      </BottomNavigation>
-      
-      
 
-    </Box>
-
-    
-    
+      {/* Bottom navigation */}
+      <Box sx={{ width: '100%', position: 'fixed', bottom: 0}}>
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        >
+          <BottomNavigationAction label="Home" icon={<HomeRoundedIcon />} onClick={handleHomeClick} />
+          <BottomNavigationAction label="Events" icon={<CalendarMonthRoundedIcon />} onClick={handleEventsClick}/>
+          <BottomNavigationAction label="Settings" icon={<SettingsRoundedIcon />} onClick={handleSettingsClick}/>
+        </BottomNavigation>
+      </Box>
+    </div>
   );
 }
-
 export default Settings;
 
 //<button className="logoutbtn" onClick={() => navigate('/')}>LOGOUT</button>
