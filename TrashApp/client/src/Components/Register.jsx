@@ -27,11 +27,11 @@ export const Register = (props) => {
             
 
         </form>
-        <button className="link-btn" onClick={() => Navigate('/')}>Register</button>
+        <button onClick={() => Navigate('/')}>Register</button>
         <div>
             
         </div>
-        <button className="link-btn" onClick={() => Navigate('/')}>Already have an account? Log-in here</button>
+        <a className="link-btn" onClick={() => Navigate('/')}>Already have an account? Log-in here</a>
         </div>
     )
 }
