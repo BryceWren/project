@@ -69,7 +69,7 @@ const ImageWithPins = ({ imageUrl }) => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <img src={img1} width={1250} height={900} id="image" alt="Map" className="map-image" onClick={handleImageClick} />
+      <img src={img1} width={1250} height={850} id="image" alt="Map" className="map-image" onClick={handleImageClick} />
       {pins.map((pin, index) => (
         <Pin key={index} x={pin.x} y={pin.y} />
       ))}
