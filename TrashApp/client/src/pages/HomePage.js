@@ -2,12 +2,17 @@ import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import '../Components/CSS/Register.css';
-import img1 from '../mappic/South_Carolina_map.jpg'
-import home from '../mappic/home.png'
-import ballot from '../mappic/ballot.png'
-import cog from '../mappic/3917058.png'
-
-
+import img1 from '../mappic/South_Carolina_map.jpg';
+import home from '../mappic/home.png';
+import ballot from '../mappic/ballot.png';
+import cog from '../mappic/3917058.png';
+import Box from '@mui/material/Box';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import NavigationBar from '../Components/NavBar';
 
 /*export const HomePage = () => {
   
@@ -75,15 +80,11 @@ const ImageWithPins = ({ imageUrl }) => {
 // App component
 export const HomePage = () => {
   return (
-
     <div>
+      <NavigationBar />
+      
       <div className="map-container">
       <ImageWithPins imageUrl="'../mappic/South_Carolina_map.jpg'" />
-        
-        <div className="zoom-buttons">
-          <button onclick="zoomIn()">Zoom In</button> 
-          <button onclick="zoomOut()">Zoom Out</button>
-        </div>
         
         {/* <div className="bottom-icons">
         <img src={home} alt="Icon 1" className="bottom-icons" />
@@ -91,8 +92,11 @@ export const HomePage = () => {
         <img src={cog} alt="Icon 3" className="bottom-icons" />
         </div> */}
         </div>
+        <div className="zoom-buttons">
+          <button onclick="zoomIn()">Zoom In</button> 
+          <button onclick="zoomOut()">Zoom Out</button>
+        </div>
     </div>
-
   );
 };
 

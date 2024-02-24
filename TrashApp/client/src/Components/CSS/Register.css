@@ -102,7 +102,7 @@ button{
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+  position: absolute;
   top: 10px;
   left: 300px;
   width: 1250px;
@@ -115,7 +115,9 @@ button{
 .zoom-buttons {
   float: left;
   display: flex;
+  position: static;
 }
+
 
 .bottom-icons{
   position: relative;

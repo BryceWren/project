@@ -6,28 +6,14 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import { Route, useNavigate } from 'react-router-dom';
+import NavigationBar from '../Components/NavBar';
 
 export const Settings = () => {
-  const [value, setValue] = React.useState(0);
-  const navigate = useNavigate();
-
-  const handleHomeClick = () => {
-    setValue(0);
-    navigate('/home');
-  };
-
-  const handleEventsClick = () => {
-    setValue(1);
-    navigate('/events');
-  };
-
-  const handleSettingsClick = () => {
-    setValue(2);
-    navigate('/settings');
-  };
+  // const navigate = useNavigate();
 
   return (
     <div>
+    <NavigationBar />
       {/* Settings component at the top */}
       <div className="Container">
         <h1>Settings</h1>
@@ -46,22 +32,8 @@ export const Settings = () => {
           <button className="EditButton" onClick={() => navigate('/Editinformation')}> Edit Information</button>
         </div>
       </div>
-
-      {/* Bottom navigation */}
-      <Box sx={{ width: '100%', position: 'fixed', bottom: 0}}>
-        <BottomNavigation
-          showLabels
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-        >
-          <BottomNavigationAction label="Home" icon={<HomeRoundedIcon />} onClick={handleHomeClick} />
-          <BottomNavigationAction label="Events" icon={<CalendarMonthRoundedIcon />} onClick={handleEventsClick}/>
-          <BottomNavigationAction label="Settings" icon={<SettingsRoundedIcon />} onClick={handleSettingsClick}/>
-        </BottomNavigation>
-      </Box>
     </div>
+    
   );
 }
 export default Settings;
