@@ -28,7 +28,12 @@ export const Pin = ({ x, y }) => {
   );
 };
 
+const zoomIn = () => {
 
+}
+const zoomOut = () => {
+  
+}
 // ImageWithPins component
 const ImageWithPins = ({ imageUrl }) => {
   const [pins, setPins] = useState([]);
