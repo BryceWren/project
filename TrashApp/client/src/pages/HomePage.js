@@ -3,43 +3,13 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import '../Components/CSS/Register.css';
 import img1 from '../mappic/South_Carolina_map.jpg';
-import home from '../mappic/home.png';
-import ballot from '../mappic/ballot.png';
-import cog from '../mappic/3917058.png';
-import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import NavigationBar from '../Components/NavBar';
-
-/*export const HomePage = () => {
-  
-  const navigate= useNavigate()
-  return (
-    
-      <div className="map-container">
-        
-      
-      <img src={img1} width={1250} height={900} id="image" alt="Map" className="map-image" />
-      <button onclick="zoomIn()">Zoom In</button>
-      <button onclick="zoomOut()">Zoom Out</button>
-      
-      <div className="bottom-icons">
-        <img src={home} alt="Icon 1" className="bottom-icons" />
-        <img src={ballot} alt="Icon 2" className="bottom-icons" />
-        <img src={cog} alt="Icon 3" className="bottom-icons" />
-      
-      <button className="logoutbtn" onClick={() => navigate('/')}>LOGOUT</button>
-    </div>
-    </div>
-  );
-
-
-
-}
-*/
+import Popup from 'reactjs-popup';
 
 
 export const Pin = ({ x, y }) => {
@@ -58,13 +28,16 @@ export const Pin = ({ x, y }) => {
   );
 };
 
+
 // ImageWithPins component
 const ImageWithPins = ({ imageUrl }) => {
   const [pins, setPins] = useState([]);
+  const [modalContent, setModalContent] = useState(null);
 
   const handleImageClick = (event) => {
     const { offsetX, offsetY } = event.nativeEvent;
     setPins([...pins, { x: offsetX, y: offsetY }]);
+    
   };
 
   return (
@@ -74,6 +47,7 @@ const ImageWithPins = ({ imageUrl }) => {
         <Pin key={index} x={pin.x} y={pin.y} />
       ))}
     </div>
+    
   );
 };
 
@@ -85,12 +59,6 @@ export const HomePage = () => {
       
       <div className="map-container">
       <ImageWithPins imageUrl="'../mappic/South_Carolina_map.jpg'" />
-        
-        {/* <div className="bottom-icons">
-        <img src={home} alt="Icon 1" className="bottom-icons" />
-        <img src={ballot} alt="Icon 2" className="bottom-icons" />
-        <img src={cog} alt="Icon 3" className="bottom-icons" />
-        </div> */}
         </div>
         <div className="zoom-buttons">
           <button onclick="zoomIn()">Zoom In</button> 

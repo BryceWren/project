@@ -7,9 +7,10 @@ import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import { Route, useNavigate } from 'react-router-dom';
 import NavigationBar from '../Components/NavBar';
+import { Navigate } from 'react-router-dom';
 
 export const Settings = () => {
-  // const navigate = useNavigate();
+const navigate = useNavigate();
 
   return (
     <div>
@@ -30,6 +31,7 @@ export const Settings = () => {
           {/* this is where the data from the  database will go  */}
 
           <button className="EditButton" onClick={() => navigate('/Editinformation')}> Edit Information</button>
+          <button className="button" onClick={() => navigate('/')}>LOGOUT</button>
         </div>
       </div>
     </div>
