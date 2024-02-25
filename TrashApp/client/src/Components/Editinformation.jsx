@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-
+import { Navigate, useNavigate } from "react-router-dom";
 const EditInformation = () => {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [utype, setUtype] = useState('');// user type constant 
     const [password, setPassword] = useState('');
-
+    const nav = useNavigate();
     // below is whats being used to update the Original information that the use already inputed
     const handleUpdate = () => {
+        nav('/settings')
         console.log('Settings updated:', { firstname, lastname, email, utype, password });
     };
 
