@@ -10,6 +10,7 @@ import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import NavigationBar from '../Components/NavBar';
 import Popup from 'reactjs-popup';
+import ReactMapGL, { Marker,NavigationControl,GeolocateControl, FullscreenControl } from 'react-map-gl';
 
 
 export const Pin = ({ x, y }) => {
@@ -32,7 +33,7 @@ const zoomIn = () => {
 
 }
 const zoomOut = () => {
-  
+
 }
 // ImageWithPins component
 const ImageWithPins = ({ imageUrl }) => {
@@ -57,6 +58,7 @@ const ImageWithPins = ({ imageUrl }) => {
 };
 
 // App component
+/*
 export const HomePage = () => {
   return (
     <div>
@@ -72,7 +74,40 @@ export const HomePage = () => {
     </div>
   );
 };
+*/
 
-export default HomePage;
+export const HomePage = () => {
+  
+  const [viewport, setViewPort] = useState({
+   latitude: 32.6549967,
+   longitude: -79.9406093,
+    zoom: 10
+  });
+  const mapKey = process.env.REACT_APP_MAPBOX_TOKEN;
+  return (
+    <div>
+    <NavigationBar />
 
+
+    <div className= "map-container"style ={{width: "68vw", height: "90vh", alignContent: "center"}}>
+      <ReactMapGL
+        mapboxAccessToken={mapKey}
+        {...viewport}
+        onMove={evt => setViewPort(evt.viewport)}
+        transitionDurations = "200"
+        mapStyle={"mapbox://styles/mapbox/streets-v9"}
+      >
+        <NavigationControl
+    position="bottom-right"
+    />
+    <FullscreenControl/>
+    <GeolocateControl/>
+        </ReactMapGL>
+    </div>
+    </div>
+
+  );
+}
+
+export default HomePage
 
