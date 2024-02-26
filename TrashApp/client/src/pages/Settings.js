@@ -31,7 +31,7 @@ const navigate = useNavigate();
           {/* this is where the data from the  database will go  */}
 
           <button className="EditButton" onClick={() => navigate('/Editinformation')}> Edit Information</button>
-          <button className="button" onClick={() => navigate('/')}>LOGOUT</button>
+          <button className="button" onClick={() => navigate('/')}>Logout</button>
         </div>
       </div>
     </div>
