@@ -16,22 +16,22 @@ const navigate = useNavigate();
     <div>
     <NavigationBar />
       {/* Settings component at the top */}
-      <div className="Container">
+      <div className="auth-form-container">
         <h1>Settings</h1>
-        <div className="SettingsDataRetrieval">
-          <h3>FirstName</h3>
+        <div className="register-form">
+          <h3>First Name</h3>
           {/* this is where the data from the  database will go  */}
-          <h3>LastName</h3>
+          <h3>Last Name</h3>
           {/* this is where the data from the  database will go  */}
-          <h3>UserType</h3> 
+          {/* <h3>UserType</h3>  */}
           {/* this is where the data from the  database will go  */}
           <h3>Email</h3>
           {/* this is where the data from the  database will go  */}
           <h3>Password</h3>
           {/* this is where the data from the  database will go  */}
 
-          <button className="EditButton" onClick={() => navigate('/Editinformation')}> Edit Information</button>
-          <button className="button" onClick={() => navigate('/')}>Logout</button>
+          <button className="form-btn" onClick={() => navigate('/Editinformation')}> Edit Information</button>
+          <button className="form-btn" onClick={() => navigate('/')}>Logout</button>
         </div>
       </div>
     </div>

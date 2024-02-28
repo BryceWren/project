@@ -17,7 +17,7 @@ const Settings = () => {
           <h1>Password</h1>
            {/* this is where the data from the  database will go  */}
 
-          <button  className="EditButton"onClick={() => Navigate('/Editinformation')}> Edit Information</button>
+          <button  className="form-btn"onClick={() => Navigate('/Editinformation')}> Edit Information</button>
           
         </div>
 
