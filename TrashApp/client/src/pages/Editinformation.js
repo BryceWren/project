@@ -31,8 +31,8 @@ const EditInformation = () => {
                 <label htmlFor="email">Email</label>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" placeholder="exampleEmail.gmail.com"  />
 
-                {/* <label htmlFor="UserType">User Type</label>
-                <input value={utype} onChange={(e) => setUtype(e.target.value)} type="text" id="UserType" placeholder="Host,Volunteer,Guest" /> */}
+                <label htmlFor="UserType">MemberShip</label>
+                <input value={utype} onChange={(e) => setUtype(e.target.value)} type="text" id="UserType" placeholder="Host,Volunteer,Guest" />
 
                 <label htmlFor="password">Password</label>
                 <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" id="password" placeholder="******" />
