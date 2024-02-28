@@ -3,6 +3,7 @@ import HomePage from "./HomePage"
 import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
 import '../Components/CSS/Register.css'
+// import 'react-calendar/dist/Calendar.css';
 
 
 export const Events = ()=> {

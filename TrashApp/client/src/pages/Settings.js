@@ -28,27 +28,31 @@ export const Settings = () => {
   };
 
   return (
+    <div>
+    <NavigationBar />
+      {/* Settings component at the top */}
+      <div className="auth-form-container">
     
     <Box sx={{ width: '100%', position: 'fixed', bottom: 0}}>
 
       {/* Settings body */}
       <div className="ContainerS">
         <h1>Settings</h1>
-        <div className="SettingsDataRetrieval">
+        <div className="register-form">
           <h3>First Name</h3>
-           {/* this is where the data from the  database will go  */}
+          {/* this is where the data from the  database will go  */}
           <h3>Last Name</h3>
-           {/* this is where the data from the  database will go  */}
-          <h3>Mmembership Status</h3> 
-           {/* this is where the data from the  database will go  */}
+          {/* this is where the data from the  database will go  */}
+          {/* <h3>UserType</h3>  */}
+          {/* this is where the data from the  database will go  */}
           <h3>Email</h3>
            {/* this is where the data from the  database will go  */}
           <h3>Password</h3>
            {/* this is where the data from the  database will go  */}
 
-          <button  className="EditButton"onClick={() => Navigate('/Editinformation')}> Edit Information</button>
-          
-         </div>
+          <button className="form-btn" onClick={() => navigate('/Editinformation')}> Edit Information</button>
+          <button className="form-btn" onClick={() => navigate('/')}>Logout</button>
+        </div>
       </div>
       <BottomNavigation
         showLabels
@@ -66,7 +70,7 @@ export const Settings = () => {
       
       
 
-    </Box>
+    </div>
 
     
     

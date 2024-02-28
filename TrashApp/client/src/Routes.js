@@ -6,7 +6,7 @@ import { HomePage } from './pages/HomePage';
 import { Events } from './pages/Events';
 import { Settings } from './pages/Settings';
 import  IndividualCleanup from './Components/IndividualCleanup';
-import  Editinformation from './Components/Editinformation';
+import  Editinformation from './pages/Editinformation';
 
 export const AppRoutes = () => {
     return (

@@ -97,6 +97,7 @@ export const HomePage = () => {
         transitionDurations = "200"
         mapStyle={"mapbox://styles/mapbox/streets-v9"}
       >
+        <Marker longitude={-122.4} latitude={37.8} color="red"/>
         <NavigationControl
     position="bottom-right"
     />
