@@ -2,7 +2,8 @@ import React, {useState} from "react"
 import HomePage from "./HomePage"
 import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
-import '../Components/CSS/Register.css'
+import '../Components/CSS/Register.css';
+
 
 
 
@@ -28,7 +29,7 @@ const PostUI = () => {
   return (
     <div className="auth-form-container">
       <h1>Create A Post</h1>
-      <form classname ="PostUI">
+      <form classname ="PostUI-form">
         {/* this is where the picture will be */}
         <p>Participants: </p>{/* will figure out how to make this connect and accumulate to a database */}
      {/*     this is the date */}
@@ -62,10 +63,10 @@ const PostUI = () => {
           placeholder="124 congress road"
         />
 
-        <button className="submit" onClick={handleUpdate}>
+        <button className="form-btn" onClick={handleUpdate}>
           Edit
         </button>
-        <button className="submit" onClick={handleUpdate}>
+        <button className="form-btn" onClick={handleUpdate}>
           Done
         </button>
       </form>
