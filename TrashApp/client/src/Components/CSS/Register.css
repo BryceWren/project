@@ -1,4 +1,4 @@
-body{background-image: url(diagonal-waves.png);
+body{background-image: url(black-thread.png); /* this background is questionable */
   background-color: lightblue;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
@@ -16,15 +16,21 @@ body{background-image: url(diagonal-waves.png);
 
 
 .auth-form-container {
+  background-color:whitesmoke;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
   width: 300px;
   padding: 20px;
-  border: 1px solid #232222;
-  border-radius: 4px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border: 30px solid #232222;
+  border-radius: 40px;  /* was at 4 before */
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: tan groove;
+  border-top: tan groove;
+  border-right:  tan groove;
+  border-left: tan groove;
+   margin-top: 75px; /*  added this cause when i took "WELCOME TO THE TRASHAPP " out it went straight to the top */
 }
 
 .register-form {
@@ -140,6 +146,7 @@ button {
 }
 /*event page container*/
 .event-container{
+   background-color: white; /* turned the background to white  for more readability (is that a word i have no idea) */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -153,3 +160,21 @@ button {
  margin-top: 200px;
  margin-bottom:200px;
 }
+.PostUI-form label{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.PostUI label{
+  margin-bottom: 5px;
+
+}
+
+.PostUI input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const IndividualCleanup = () => {
+const individualcleanup = () => {
     const [file, setFile] = useState();
 
     function FileUpload(event) {
@@ -22,4 +22,4 @@ const IndividualCleanup = () => {
     );
 }
 
-export default IndividualCleanup;
+export default individualcleanup;

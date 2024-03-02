@@ -17,7 +17,6 @@ function App() {
 
   return (
     <div>
-      <p>{"WELCOME TO THE TRASH APP"}</p>
       <AppRoutes />
     </div>
   )

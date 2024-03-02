@@ -23,7 +23,7 @@ const navigate = useNavigate();
           {/* this is where the data from the  database will go  */}
           <h3>Last Name</h3>
           {/* this is where the data from the  database will go  */}
-          {/* <h3>UserType</h3>  */}
+           <h3>MemberShip Status</h3> 
           {/* this is where the data from the  database will go  */}
           <h3>Email</h3>
           {/* this is where the data from the  database will go  */}
