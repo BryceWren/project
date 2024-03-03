@@ -7,8 +7,8 @@ import { Events } from './pages/Events';
 import { Settings } from './pages/Settings';
 //import  IndividualCleanup from './Components/IndividualCleanup';
 import  Editinformation from './pages/Editinformation';
- import PostUI from './pages/PostUI'
-
+import PostUI from './pages/PostUI'
+import CleanUpRegister from './pages/CleanUpRegister';
 export const AppRoutes = () => {
     return (
         <Router>
@@ -21,6 +21,8 @@ export const AppRoutes = () => {
                 {/* <Route path="/IndividualCleanup" element={<IndividualCleanup />} /> */}
                 <Route path="/Editinformation" element={< Editinformation />} />
                 <Route path="/PostUI" element={<PostUI />} />
+                <Route path ="/CleanUpRegister" element={<CleanUpRegister/>}/>
+            
 
             </Routes>
         </Router>

@@ -5,73 +5,31 @@ import Calendar from "react-calendar";
 import '../Components/CSS/Register.css';
 
 
+ 
+ const PostUI = () => {
+   return (
+     <div className="auth-form-Container">
+      <h1>Posted Cleanup</h1>
+     {/* This is where we would put the  picture if we  actually implement it */}
+     <h5>Participants: </h5> this is where we would put the accumulating  Counter for the participants
+      <h5>Date:</h5>
+      {/* information from  the database will go here */}
+      <h5>Time:</h5>
+      {/* information from  the database will go here */}
+     <h5>Description:</h5>
+     {/* information from  the database will go here */}
+     <h5>Location:</h5>
+     {/* information from  the database will go here */}
+     
 
 
-const PostUI = () => {
-  const [Date, setDate] = useState('');
-  const [Time, setTime] = useState('');
-  const [Description, setDescription] = useState('');
-  const [Location, setLocation] = useState('');
 
-  const handleChange = (e) => {
-    setDescription(e.target.value);
-  };
 
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    if (Date && Time && Location) {
-      alert('Post Successful');
-    } else {
-      alert('Please fill out the  three Required fields');
-    }
-  };
 
-  return (
-    <div className="auth-form-container">
-      <h1>Create A Post</h1>
-      <form classname ="PostUI-form">
-        {/* this is where the picture will be */}
-        <p>Participants: </p>{/* will figure out how to make this connect and accumulate to a database */}
-     {/*     this is the date */}
-        <label htmlFor="Date">Date: * Required Field</label>
-        <input
-          value={Date}
-          onChange={(e) => setDate(e.target.value)}
-          name="Date"
-          id="Date"
-          placeholder="--/--/----"
-        />
-{/*          this is the time */}
-        <label htmlFor="Time">Time: * Required Field</label>
-        <input
-          value={Time}
-          onChange={(e) => setTime(e.target.value)}
-          name="Time"
-          id="Time"
-          placeholder="3:30"
-        />
-        {/*  this is the  Desciption, i did not make this required */}
-        <label htmlFor="Description"> Description:</label>
-        <textarea value={Description} onChange={handleChange} />
-     {/*     this is the  location  */}
-        <label htmlFor="Location">Location: * Required Field  </label>
-        <input
-          value={Location}
-          onChange={(e) => setLocation(e.target.value)}
-          name="Location"
-          id="Location"
-          placeholder="124 congress road"
-        />
-
-        <button className="form-btn" onClick={handleUpdate}>
-          Edit
-        </button>
-        <button className="form-btn" onClick={handleUpdate}>
-          Done
-        </button>
-      </form>
     </div>
-  );
-};
+   )
+ }
+ 
+ export default PostUI;
 
-export default PostUI;
+
