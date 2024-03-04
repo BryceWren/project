@@ -9,6 +9,9 @@ import { Settings } from './pages/Settings';
 import  Editinformation from './pages/Editinformation';
 import PostUI from './pages/PostUI'
 import CleanUpRegister from './pages/CleanUpRegister';
+import Participants from './pages/Participants';
+
+
 export const AppRoutes = () => {
     return (
         <Router>
@@ -22,6 +25,7 @@ export const AppRoutes = () => {
                 <Route path="/Editinformation" element={< Editinformation />} />
                 <Route path="/PostUI" element={<PostUI />} />
                 <Route path ="/CleanUpRegister" element={<CleanUpRegister/>}/>
+                <Route path ="/Participants" element={<Participants/>}/>
             
 
             </Routes>
