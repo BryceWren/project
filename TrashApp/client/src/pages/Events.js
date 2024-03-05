@@ -3,7 +3,7 @@ import HomePage from "./HomePage"
 import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
 import '../Components/CSS/Register.css'
-// import 'react-calendar/dist/Calendar.css';
+//import 'react-calendar/dist/Calendar.css';
 
 
 export const Events = ()=> {
@@ -18,7 +18,7 @@ export const Events = ()=> {
     <div>
         <NavigationBar />
       <div className="event-container" >
-         <Calendar onChange = {changeValue} value = {date} />
+         <Calendar onChange = {changeValue} value = {date}/>
          <p>The selected date is - {date.toLocaleDateString()}</p>
          <div className="SettingsDataRetrieval">
           <h3>Event1</h3>
