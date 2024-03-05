@@ -18,7 +18,7 @@ export const Events = ()=> {
     <div>
         <NavigationBar />
       <div className="event-container" >
-         <Calendar onChange = {changeValue} value = {date}/>
+         <Calendar onChange = {changeValue} value = {date} locale="en-US"/> 
          <p>The selected date is - {date.toLocaleDateString()}</p>
          <div className="SettingsDataRetrieval">
           <h3>Event1</h3>
