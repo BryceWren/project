@@ -9,6 +9,7 @@ const CleanUpRegister = () => {
   const [Time, setTime] = useState('');
   const [Description, setDescription] = useState('');
   const [Location, setLocation] = useState('');
+  const [Severity, setSeverity] = useState('');
 
   const handleChange = (e) => {
     setDescription(e.target.value);
@@ -22,6 +23,11 @@ const CleanUpRegister = () => {
       alert('Please fill out the  three Required fields');
     }
   };
+  const handleSeverityChange = (severity) => {
+    setSeverity(severity);
+  };
+
+ 
 
   return (
     <div className="auth-form-container">
@@ -58,15 +64,7 @@ const CleanUpRegister = () => {
           id="Location"
           placeholder="124 congress road"
         />
-         {/* this is the dropdown list for the severity */}
-        <div className="DropDown">
-        <button className="DropDown">Severity</button>
-        <div className="DropDown-Content">
-          <a href="#"></a>
-          <a href="#"></a>
-          <a href="#"></a>
-        </div>
-       </div> 
+       
 
         <button className="form-btn" onClick={handleUpdate}>
           Edit
