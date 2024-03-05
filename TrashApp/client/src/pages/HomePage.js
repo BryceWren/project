@@ -89,7 +89,7 @@ export const HomePage = () => {
     <NavigationBar />
 
 
-    <div className= "map-container"style ={{width: "68vw", height: "90vh", alignContent: "center"}}>
+    <div className= "Container"style ={{width: "68vw", height: "90vh", alignContent: "center"}}>
       <ReactMapGL
         mapboxAccessToken={mapKey}
         {...viewport}
