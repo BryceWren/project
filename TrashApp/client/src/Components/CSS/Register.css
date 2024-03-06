@@ -1,4 +1,5 @@
-body{background-image: url(black-thread.png); /* this background is questionable */
+body{
+  /* background-image: url(black-thread.png); this background is questionable */
   background-color: lightblue;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
@@ -12,9 +13,6 @@ body{background-image: url(black-thread.png); /* this background is questionable
   div.title{ color: black;
    font-size:  10px;}
   
-  
-
-
 .auth-form-container {
   background-color:whitesmoke;
   display: flex;
@@ -59,7 +57,6 @@ body{background-image: url(black-thread.png); /* this background is questionable
 button {
   padding: 10px 20px;
   background-color: #3e8e41;
-  background-color: #3e8e41;
   color: white;
   border: none;
   border-radius: 4px;
@@ -71,10 +68,12 @@ button {
   cursor: pointer;
 }
 
-/* button:hover {
-  background-color: #3e8e41
-  #4caf50;
-} */
+button:hover {
+  /* background-color: #246c27; */
+  text-decoration: none;
+  box-shadow: none;
+  transform: translateY(1px);
+}
 
 .form-btn {
   padding: 10px 20px;
@@ -116,9 +115,9 @@ button {
   margin: 0 auto;
   width: 300px;
   padding: 20px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc;
   border-radius: 4px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);  */
 }
 .EditInformation-form{
   display: flex;
@@ -144,18 +143,7 @@ button {
   font-weight: bold; /* Font weight */
   cursor: pointer; /* Cursor style */
 }
-/*event page container*/
-.event-container{
-   background-color: white; /* turned the background to white  for more readability (is that a word i have no idea) */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-  width: 375px;
-  padding: 20px;
-  border: 1px solid #636161;
-  border-radius: 4px;
-}
+
 .ContainerS{
  margin-top: 200px;
  margin-bottom:200px;
@@ -163,6 +151,14 @@ button {
 .PostUI-form {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Add space between buttons */
+  width: 100%; /* Ensure the buttons take full width */
 }
 
 label {
@@ -181,10 +177,25 @@ textarea {
   box-sizing: border-box;
 }
 
+/*event page container*/
+.event-container{
+  background-color: white; /* turned the background to white  for more readability (is that a word i have no idea) */
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ margin: 0 auto;
+ width: 500px;
+ padding: 20px;
+ border: 2px solid #636161;
+ border-radius: 40px;
+ box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+ margin-top: 75px;
+}
+
 /* Calendar CSS */
 .react-calendar {
-  width: 350px;
-  max-width: 100%;
+  width: 500px; /* Set the desired width */
+  max-width: 100%; 
   background: #fff;
   color: #222;
   border-radius: 8px;
@@ -230,8 +241,9 @@ textarea {
   color: #3e8e41;
   min-width: 44px;
   background: none;
-  font-size: 18px;
+  font-size: 24px;
   margin-top: 8px;
+  font-weight: bold;
 }
 .react-calendar__navigation button:disabled {
   background-color: #f0f0f0;

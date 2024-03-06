@@ -32,7 +32,7 @@ const CleanUpRegister = () => {
   return (
     <div className="auth-form-container">
       <h1>Create A Post</h1>
-      <form classname ="PostUI-form">
+      <form className ="register-form">
         {/* this is where the picture will be */}
      {/*    this is the date */}
         <label htmlFor="Date">Date: * Required Field</label>
@@ -64,14 +64,16 @@ const CleanUpRegister = () => {
           id="Location"
           placeholder="124 congress road"
         />
-       
-
-        <button className="form-btn" onClick={handleUpdate}>
-          Edit
-        </button>
-        <button className="form-btn" onClick={handleUpdate}>
-          Done
-        </button>
+        
+       <div className="button-container">
+          <button className="form-btn" onClick={handleUpdate}>
+            Edit
+          </button>
+          <button className="form-btn" onClick={handleUpdate}>
+            Done
+          </button>
+        </div>
+        
       </form>
     </div>
   );
