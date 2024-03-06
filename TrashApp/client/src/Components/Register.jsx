@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './CSS/Register.css';
 
+import Axios from 'axios'
+
 export const Register = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
@@ -9,12 +11,29 @@ export const Register = (props) => {
     const [lastname, setLName] = useState('');
     const [error, setError] = useState('');
 
+    const backregister = async () => {
+    try {
+        const response = await Axios.post("http://localhost:5000/register", {
+            backFname: firstname,
+            backLname: lastname,
+            backEmail: email,
+            backPassword: pass
+        });
+        console.log("Registration successful");
+        // Redirect or perform registration action
+        console.log(response)
+        Navigate('/'); 
+    }catch (error) {
+        console.error('An error ocurred:', error)
+    }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateName(firstname) && validateName(lastname) && validateEmail(email) && validatePassword(pass)) {
             console.log("Registration successful");
             // Redirect or perform registration action
-            Navigate('/');
+            Navigate('/'); 
         } else {
             setError('Please check your input fields.');
         }
@@ -48,7 +67,7 @@ export const Register = (props) => {
                 <label htmlFor="password">Password</label>
                 <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                 {error && <p className="error-message">{error}</p>}
-                <button type="submit" className="form-btn">Register</button>
+                <button type="submit" className="form-btn" onClick={backregister}>Register</button>
             </form>
             <div>
                 <a className="link-btn" onClick={() => Navigate('/')}>Already have an account? Login here</a>
