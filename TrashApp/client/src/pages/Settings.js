@@ -29,9 +29,12 @@ const navigate = useNavigate();
           {/* this is where the data from the  database will go  */}
           <h3>Password</h3>
           {/* this is where the data from the  database will go  */}
-
+          
+          <div className="button-container">
           <button className="form-btn" onClick={() => navigate('/Editinformation')}> Edit Information</button>
           <button className="form-btn" onClick={() => navigate('/')}>Logout</button>
+          </div>
+          
         </div>
       </div>
     </div>
