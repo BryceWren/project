@@ -1,4 +1,4 @@
-body{background-image: url(diagonal-waves.png);
+body{background-image: url(black-thread.png); /* this background is questionable */
   background-color: lightblue;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
@@ -7,24 +7,30 @@ body{background-image: url(diagonal-waves.png);
   border-top: groove lightgreen;
   border-bottom: groove lightgreen;
   border-style: solid;
-    border-width: 5px 20px;
-  } */
+    border-width: 5px 20px; */
+
   div.title{ color: black;
    font-size:  10px;}
   
   
 
-/* login and register css */
+
 .auth-form-container {
+  background-color:whitesmoke;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  width: 350px;
+  width: 300px;
   padding: 20px;
-  border: 1px solid #232222;
-  border-radius: 4px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border: 30px solid #232222;
+  border-radius: 40px;  /* was at 4 before */
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: tan groove;
+  border-top: tan groove;
+  border-right:  tan groove;
+  border-left: tan groove;
+   margin-top: 75px; /*  added this cause when i took "WELCOME TO THE TRASHAPP " out it went straight to the top */
 }
 
 .register-form {
@@ -50,13 +56,15 @@ body{background-image: url(diagonal-waves.png);
   box-shadow: 0px 0px 2px 1px #4caf50;
 }
 
-button{
+button {
   padding: 10px 20px;
+  background-color: #3e8e41;
   background-color: #3e8e41;
   color: white;
   border: none;
   border-radius: 4px;
   text-align: center;
+  text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
@@ -104,7 +112,7 @@ button{
 .Container{
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
   margin: 0 auto;
   width: 300px;
   padding: 20px;
@@ -112,42 +120,16 @@ button{
   border-radius: 4px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
 }
-.EditInformation-Form{
+.EditInformation-form{
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
   width: 100%;
 
 }
+.EditInformation-form label{
+  margin-bottom: 5px;
 
-/* homepage map css */
-.map-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 10px;
-  left: 300px;
-  width: 1250px;
-  height: 900px;
-  /* border: 10px solid #d2b48c; */
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.zoom-buttons {
-  float: left;
-  display: flex;
-  position: static;
-}
-
-
-.bottom-icons{
-  position: relative;
-  top: 20px;
-  left: 110px;
-  margin-right: 215px;
-  
 }
 .logoutbtn{
   position: relative;
@@ -164,6 +146,7 @@ button{
 }
 /*event page container*/
 .event-container{
+   background-color: white; /* turned the background to white  for more readability (is that a word i have no idea) */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -172,10 +155,190 @@ button{
   padding: 20px;
   border: 1px solid #636161;
   border-radius: 4px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-
+}
+.ContainerS{
+ margin-top: 200px;
+ margin-bottom:200px;
+}
+.PostUI-form {
+  display: flex;
+  flex-direction: column;
 }
 
-.event-nav{
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Calendar CSS */
+.react-calendar {
+  width: 350px;
+  max-width: 100%;
+  background: #fff;
+  color: #222;
+  border-radius: 8px;
+  /* box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); */
+  /* border: 1px solid #a0a096; */
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+}
+.react-calendar--doubleView {
+  width: 700px;
+}
+.react-calendar--doubleView .react-calendar__viewContainer {
+  display: flex;
+  margin: -0.5em;
+}
+.react-calendar--doubleView .react-calendar__viewContainer > * {
+  width: 50%;
+  margin: 0.5em;
+}
+.react-calendar,
+.react-calendar *,
+.react-calendar *:before,
+.react-calendar *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.react-calendar button {
+  margin: 0;
+  border: 0;
+  outline: none;
+  color: black;
+}
+.react-calendar button:enabled:hover {
+  cursor: pointer;
+}
+.react-calendar__navigation {
+  display: flex;
+  height: 44px;
+  margin-bottom: 1em;
+}
+.react-calendar__navigation button {
+  color: #3e8e41;
+  min-width: 44px;
+  background: none;
+  font-size: 18px;
+  margin-top: 8px;
+}
+.react-calendar__navigation button:disabled {
+  background-color: #f0f0f0;
+}
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #f8f8fa;
+}
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.75em;
+}
+.react-calendar__month-view__weekdays__weekday {
+  padding: 0.5em;
+}
+.react-calendar__month-view__weekNumbers .react-calendar__tile {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  font-weight: bold;
 }
+.react-calendar__month-view__days__day--weekend {
+  color: #3e8e41;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #757575;
+}
+.react-calendar__year-view .react-calendar__tile,
+.react-calendar__decade-view .react-calendar__tile,
+.react-calendar__century-view .react-calendar__tile {
+  padding: 2em 0.5em;
+}
+.react-calendar__tile {
+  max-width: 100%;
+  padding: 10px 6.6667px;
+  background: none;
+  text-align: center;
+  line-height: 16px;
+}
+.react-calendar__tile:disabled {
+  background-color: #f0f0f0;
+}
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background: #f8f8fa;
+  color: #3e8e41;
+  border-radius: 6px;
+}
+.react-calendar__tile--now {
+  background: #9eeda1;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #fff;
+}
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: #3e8e4133;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #3e8e41;
+}
+.react-calendar__tile--hasActive {
+  background: #3e8e41;
+}
+.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile--hasActive:enabled:focus {
+  background: #f8f8fa;
+}
+.react-calendar__tile--active {
+  background: #3e8e41;
+  border-radius: 6px;
+  font-weight: bold;
+  color: white;
+}
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #3e8e41;
+  color: white;
+}
+.react-calendar--selectRange .react-calendar__tile--hover {
+  background-color: #f8f8fa;
+}
+
+.react-calendar__tile--range {
+  background: #bfb3e8;
+  color: #3e8e41;
+  border-radius: 0;
+}
+.react-calendar__tile--rangeStart {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  background: #3e8e41;
+  color: white;
+}
+.react-calendar__tile--rangeEnd {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background: #3e8e41;
+  color: white;
+}
+
+
+
