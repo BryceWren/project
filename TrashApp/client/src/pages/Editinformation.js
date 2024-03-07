@@ -1,38 +1,68 @@
-import { useState } from 'react';
-// import NavigationBar from 'path-to-your-components/NavigationBar'; // replace with the correct path
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import '../Components/CSS/Register.css';
+import NavigationBar from '../Components/NavBar';
 
 const EditInformation = () => {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [firstnameError, setFirstnameError] = useState('');
+    const [lastnameError, setLastnameError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
     const [updateMessage, setUpdateMessage] = useState(false);
+    const Navigate = useNavigate();
 
     const handleUpdate = (e) => {
         e.preventDefault();
-        if (validateInput()) {
+        setFirstnameError('');
+        setLastnameError('');
+        setEmailError('');
+        setPasswordError('');
+
+        const isValid = validateInput();
+        if (isValid) {
             console.log('Settings updated:', { firstname, lastname, email, password });
             setUpdateMessage(true);
             setTimeout(() => {
                 setUpdateMessage(false);
-            }, 3000); // Hide message after 3 seconds
-        } else {
-            setError('Please check your input fields.');
+                Navigate('/settings');
+            }, 3000);
         }
     };
 
     const validateInput = () => {
-        // Basic validation for first name, last name, email, and password
-        if (firstname.trim() === '' || lastname.trim() === '' || email.trim() === '' || password.trim() === '') {
-            return false;
+        let isValid = true;
+        if (!firstname.trim()) {
+            setFirstnameError('First name is required');
+            isValid = false;
         }
-        // Add more validation criteria as needed
-        return true;
+        if (!lastname.trim()) {
+            setLastnameError('Last name is required');
+            isValid = false;
+        }
+        if (!email.trim()) {
+            setEmailError('Email is required');
+            isValid = false;
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            setEmailError('Incorrect email format');
+            isValid = false;
+        }
+        if (!password.trim()) {
+            setPasswordError('Password is required');
+            isValid = false;
+        } else if (password.length < 8) {
+            setPasswordError('Password must have a minimum of 8 characters.');
+            isValid = false;
+        }
+        return isValid;
     };
 
     return (
         <div>
+            <NavigationBar />
             <div className="auth-form-container">
                 <h1>Edit Information</h1>
                 <form className="register-form">
@@ -44,6 +74,7 @@ const EditInformation = () => {
                         id="firstname"
                         placeholder="Joe"
                     />
+                    {firstnameError && <p className="error-message">{firstnameError}</p>}
 
                     <label htmlFor="lastname">Last Name</label>
                     <input
@@ -53,6 +84,7 @@ const EditInformation = () => {
                         id="lastname"
                         placeholder="Teti"
                     />
+                    {lastnameError && <p className="error-message">{lastnameError}</p>}
 
                     <label htmlFor="email">Email</label>
                     <input
@@ -62,6 +94,7 @@ const EditInformation = () => {
                         id="email"
                         placeholder="joeteti@gmail.com"
                     />
+                    {emailError && <p className="error-message">{emailError}</p>}
 
                     <label htmlFor="password">Password</label>
                     <input
@@ -71,9 +104,9 @@ const EditInformation = () => {
                         id="password"
                         placeholder="******"
                     />
+                    {passwordError && <p className="error-message">{passwordError}</p>}
 
-                    {error && <p className="error-message">{error}</p>}
-                    {updateMessage && <p className="success-message">Settings updated</p>}
+                    {updateMessage && <p className="success-message">Settings updated! Back to Settings!</p>}
                     <button type="submit" className="form-btn" onClick={handleUpdate}>
                         Save
                     </button>
