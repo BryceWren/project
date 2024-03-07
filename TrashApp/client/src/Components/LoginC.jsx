@@ -18,19 +18,7 @@ export const LoginC = (props) => {
         }
     }
 
-    const login = async () => {
-        try {
-            const response = await Axios.post("http://localhost:5000/login", {
-                backEmail: email,
-                backPassword: pass
-            });
-            console.log(response);
-            //setLoginStatus(response.data); // Assuming that you want to log the response data
-        } catch (error) {
-            // Handle any errors that might occur during the request
-            console.error('An error occurred:', error);
-        }
-    };
+
 
     const validateEmail = (email) => {
         // Regular expression for email validation
@@ -55,7 +43,7 @@ export const LoginC = (props) => {
                 <label htmlFor="password">Password</label>
                 <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                 {error && <p className="error-message">{error}</p>}
-                <button type="submit" className="form-btn" onClick ={login}>Login</button>
+                <button type="submit" className="form-btn">Login</button>
                 
                 <a className="link-btn" onClick={() => Navigate('/register')}>Don't have an account? Register here</a>
             
