@@ -41,6 +41,29 @@ pool.query("SELECT * FROM users WHERE email = $1", [email], (error, results) => 
     };
 });
 
+const loginUser = (request, response) => {
+    const email = request.body.backEmail;
+    const pass = request.body.backPassword;
+
+    pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, pass], (error, results) => {
+      if (error) {
+        throw error
+      }
+      //response.status(200).json(results.rows)
+      if (results.rows.length > 0){
+        console.log("you are logged in :)")
+        response.status(200).json(results.rows)
+        //if (bcrypt.compare(pass, result[0].pass) = true){ would like to use this to compare passwords
+        //  console.log("login was successful");
+        //}
+      } else {
+        console.log("you suck buddy, you messed something up"); //this means email or password was either wrong or doesnt exist
+        response.status(200).json(results.rows)
+      }
+    });
+
+    
+  }
 }
 module.exports = {
     registerUser
