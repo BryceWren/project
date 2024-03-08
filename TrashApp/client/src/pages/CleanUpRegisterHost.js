@@ -9,7 +9,7 @@ const CleanUpRegister = () => {
   const [Time, setTime] = useState('');
   const [Description, setDescription] = useState('');
   const [Location, setLocation] = useState('');
-  const [Severity, setSeverity] = useState('');
+
 
   const handleChange = (e) => {
     setDescription(e.target.value);
@@ -23,9 +23,7 @@ const CleanUpRegister = () => {
       alert('Please fill out the  three Required fields');
     }
   };
-  const handleSeverityChange = (severity) => {
-    setSeverity(severity);
-  };
+
 
  
 
@@ -64,6 +62,13 @@ const CleanUpRegister = () => {
           id="Location"
           placeholder="124 congress road"
         />
+        <div className="Buttons">
+          <input type = "radio" id="Minor" name="Severity" value="Minor"></input>
+          <label>Minor</label>
+          <input type = "radio" id="Major" name="Severity" value="Major"></input>
+          <label>Major</label>
+        </div>
+
         
        <div className="button-container">
           <button className="form-btn" onClick={handleUpdate}>
