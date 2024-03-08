@@ -12,10 +12,8 @@ app.get("/api", (req, res) => {
 
 app.listen(5000, () => {console.log("Server started on port 5000")})
 
-app.get('/', (request, response) => {
-    response.json({info: 'Node.js, express, and postgres API'})
-})
 
 
 
 app.post('/register', jsonParser, db.registerUser)
+app.post('/',jsonParser, db.loginUser)

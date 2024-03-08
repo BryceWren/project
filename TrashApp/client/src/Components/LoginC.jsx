@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './CSS/Register.css';
 import recycleBinImage from '../images/recycle-bin.png';
+import Axios from 'axios';
 
 export const LoginC = (props) => {
     const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ export const LoginC = (props) => {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const Navigate = useNavigate();
+
 
     const emailValidator = (email) => {
         if (!email) {
@@ -28,7 +30,7 @@ export const LoginC = (props) => {
         return "";
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const emailError = emailValidator(email);
@@ -37,11 +39,17 @@ export const LoginC = (props) => {
         setEmailError(emailError);
         setPasswordError(passwordError);
 
-        if (!emailError && !passwordError) {
-            console.log("Login successful");
+        if (!emailError && !passwordError && login) {
+            const success = await login();
+            if (success) {
+            console.log ("Login successful");
             // Redirect to home page or perform login action
             Navigate('/home');
         }
+        else {
+            console.log("incorrect email or password")
+        }
+    }
 
         // Validation for if email and password dont match
         // if (!emailError && !passwordError) {
@@ -54,7 +62,26 @@ export const LoginC = (props) => {
         //         Navigate('/home');
         //     }
         // }
+
     }
+    const login = async () => {
+        try {
+            const response = await Axios.post("http://localhost:5000/", {
+                backEmail: email,
+                backPassword: pass
+            });
+            if (response.data.length > 0){
+                return true
+            }
+            else{
+                return false
+            }
+            //setLoginStatus(response.data); // Assuming that you want to log the response data
+        } catch (error) {
+            // Handle any errors that might occur during the request
+            console.error('An error occurred:', error);
+        }
+    };
 
     return (
         <div className="auth-form-container">
@@ -71,7 +98,7 @@ export const LoginC = (props) => {
                 <label htmlFor="password">Password</label>
                 <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                 {passwordError && <p className="error-message">{passwordError}</p>}
-                <button type="submit" className="form-btn">Login</button>
+                <button type="submit" className="form-btn" onClick ={login}>Login</button>
                 
                 <a className="link-btn" onClick={() => Navigate('/register')}>Don't have an account? Register here</a>
             

@@ -31,7 +31,7 @@ export const Register = (props) => {
         }
         };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const nameError = validateName(firstname, lastname);
         const emailError = emailValidator(email);
@@ -42,11 +42,17 @@ export const Register = (props) => {
         setEmailError(emailError);
         setPasswordError(passwordError);
 
-        if (!nameError.firstName && !nameError.lastName && !emailError && !passwordError) {
-            console.log("Registration successful");
-            // Redirect or perform registration action
-            Navigate('/');
+        if (!nameError.firstName && !nameError.lastName && !emailError && !passwordError && backregister) {
+            const success = await backregister();
+            if (success) {
+            console.log ("registration successful");
+            // Redirect to home page or perform login action
+            Navigate('/home');
         }
+        else {
+            console.log("account already registered")
+        }
+    }
     }
 
     const validateName = (firstname, lastname) => {
