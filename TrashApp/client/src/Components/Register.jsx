@@ -78,7 +78,7 @@ export const Register = (props) => {
     const passwordValidator = (password) => {
         if (!password) {
             return "Password is required";
-        } else if (password.length < 8) {
+        } else if (password.length <= 8) {
             return "Password must have a minimum of 8 characters";
         }
         return "";
