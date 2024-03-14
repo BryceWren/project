@@ -61,13 +61,21 @@ const CleanUpRegister = () => {
           name="Location"
           id="Location"
           placeholder="124 congress road"
+          
         />
-        <div className="Buttons">
-          <input type = "radio" id="Minor" name="Severity" value="Minor"></input>
-          <label>Minor</label>
-          <input type = "radio" id="Major" name="Severity" value="Major"></input>
-          <label>Major</label>
-        </div>
+
+ {/*  <div className="Buttons" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', }}>
+  <input type="radio" id="Minor" name="Severity" value="Minor" />
+  <label htmlFor="Minor">Minor</label>
+  <input type="radio" id="Major" name="Severity" value="Major" />
+  <label htmlFor="Major">Major</label>
+</div> */}
+<select name="Severity" id="Severity">
+<option value="None">None</option>
+<option value="volvo">Good</option>
+<option value="saab">Dirty</option>
+<option value="mercedes">Extreme</option>
+</select>
 
         
        <div className="button-container">
