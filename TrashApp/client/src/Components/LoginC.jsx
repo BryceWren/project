@@ -9,8 +9,8 @@ export const LoginC = (props) => {
     const [pass, setPass] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [loginError, setLoginError] = useState('');
     const Navigate = useNavigate();
-
 
     const emailValidator = (email) => {
         if (!email) {
@@ -39,47 +39,34 @@ export const LoginC = (props) => {
         setEmailError(emailError);
         setPasswordError(passwordError);
 
-        if (!emailError && !passwordError && login) {
+        if (!emailError && !passwordError) {
             const success = await login();
             if (success) {
-            console.log ("Login successful");
-            // Redirect to home page or perform login action
-            Navigate('/home');
-        }
-        else {
-            console.log("incorrect email or password")
+                console.log("Login successful");
+                // Redirect to home page or perform login action
+                Navigate('/home');
+            } else {
+                setLoginError("Incorrect email or password");
+            }
         }
     }
 
-        // Validation for if email and password dont match
-        // if (!emailError && !passwordError) {
-        //     // Simulate login validation
-        //     if (email !== "test@example.com" || pass !== "password123") {
-        //         setLoginError("Email and password do not match");
-        //     } else {
-        //         console.log("Login successful");
-        //         // Redirect to home page or perform login action
-        //         Navigate('/home');
-        //     }
-        // }
-
-    }
     const login = async () => {
         try {
             const response = await Axios.post("http://localhost:5000/", {
                 backEmail: email,
                 backPassword: pass
             });
-            if (response.data.length > 0){
-                return true
-            }
-            else{
-                return false
+            if (response.data.length > 0) {
+                return true;
+            } else {
+                return false;
             }
             //setLoginStatus(response.data); // Assuming that you want to log the response data
         } catch (error) {
             // Handle any errors that might occur during the request
             console.error('An error occurred:', error);
+            return false;
         }
     };
 
@@ -90,7 +77,6 @@ export const LoginC = (props) => {
                 <img src={recycleBinImage} alt="Avatar Frame" width="130" height="130" />
             </div>
             <h2>Login</h2>
-            
             <form className="register-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">Email</label>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email" />
@@ -98,12 +84,10 @@ export const LoginC = (props) => {
                 <label htmlFor="password">Password</label>
                 <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                 {passwordError && <p className="error-message">{passwordError}</p>}
-                <button type="submit" className="form-btn" onClick ={login}>Login</button>
-                
+                {loginError && <p className="error-message">{loginError}</p>}
+                <button type="submit" className="form-btn">Login</button>
                 <a className="link-btn" onClick={() => Navigate('/register')}>Don't have an account? Register here</a>
-            
             </form>
-            
         </div>
     )
 }

@@ -53,7 +53,7 @@ const EditInformation = () => {
         if (!password.trim()) {
             setPasswordError('Password is required');
             isValid = false;
-        } else if (password.length < 8) {
+        } else if (password.length <= 8) {
             setPasswordError('Password must have a minimum of 8 characters.');
             isValid = false;
         }
