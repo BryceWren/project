@@ -5,6 +5,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Settings = () => {
@@ -37,6 +38,12 @@ export const Settings = () => {
             icon={<SettingsRoundedIcon />}
             onClick={() => handleNavigation('/settings')}
             sx={{ color: location.pathname === '/settings' ? '#288dec' : 'inherit' }}
+          />
+          <BottomNavigationAction
+            label="Logout"
+            icon={<LogoutRoundedIcon />}
+            onClick={() => handleNavigation('/')}
+            sx={{ color: location.pathname === '/' ? '#288dec' : 'inherit' }}
           />
         </BottomNavigation>
       </Box>

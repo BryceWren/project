@@ -10,6 +10,7 @@ import '../Components/CSS/Register.css';
    return (
      <div className="auth-form-container">
       <h1>Posted Cleanup</h1>
+      <div className="register-form">
      {/* This is where we would put the  picture if we  actually implement it */}
      <h5>Participants: </h5>{/*  this is where we would put the accumulating  Counter for the participants */}
       <h5>Date:</h5>
@@ -25,7 +26,8 @@ import '../Components/CSS/Register.css';
 
 
 
-
+    </div>
+   
     </div>
    )
  }
