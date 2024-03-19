@@ -14,6 +14,6 @@ app.listen(5000, () => {console.log("Server started on port 5000")})
 
 
 
-
+app.post('/home',jsonParser, db.setMapTable)
 app.post('/register', jsonParser, db.registerUser)
 app.post('/',jsonParser, db.loginUser)

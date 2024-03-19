@@ -15,6 +15,19 @@ const pool = new Pool({
     idleTimeoutMillis: 5000,
 });
 
+const setMapTable = (request, response) => {
+  const longitude = request.body.backlong;
+  const latitude = request.body.backlat;
+  console.log(request.body.backlong)
+
+  pool.query('INSERT INTO map (longitude, latitude) VALUES ($1, $2) RETURNING locationid', [longitude,latitude], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send()
+  })
+}
+
 //USERS
 
 const registerUser = (request, response) => {
@@ -69,6 +82,7 @@ const loginUser = (request, response) => {
     
   }
 module.exports = {
+    setMapTable,
     registerUser,
     loginUser
 }

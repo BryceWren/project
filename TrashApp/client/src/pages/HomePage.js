@@ -3,7 +3,7 @@ import '../Components/CSS/Register.css';
 import NavigationBar from '../Components/NavBar';
 import ReactMapGL, { Marker, NavigationControl, GeolocateControl, FullscreenControl, Popup } from 'react-map-gl';
 import { useCookies } from 'react-cookie';
-import axios from 'axios';
+import Axios from 'axios';
 
 export const HomePage = () => {
 const [cookies] = useCookies(['email', 'firstName'])
@@ -33,8 +33,8 @@ const name = cookies.firstName;
     setPopupInfo(null);
   }
 
-  const handleAddPin = () => {
-
+  const handleAddPin = async () => {
+    
     if (popupInfo && (pinColor === "red" || pinColor === "yellow")) {
       setMarkers([...markers, { id: new Date().getTime(), longitude: popupInfo.longitude, latitude: popupInfo.latitude, color: pinColor, date, time, description }]);
       setPopupInfo(null);
@@ -43,10 +43,27 @@ const name = cookies.firstName;
       setTime('');
       setDescription('');
       setPinColor('');
+      locationdb(); //check this
     }
+
   }
 
   const mapKey = process.env.REACT_APP_MAPBOX_TOKEN;
+
+  const locationdb = async () => {
+
+        console.log(markers.longitude)
+    try {
+        const response = await Axios.post("http://localhost:5000/home", {
+          backlong: popupInfo.longitude,
+          backlat: popupInfo.latitude,
+        });
+        console.log(response)
+
+    }catch (error) {
+        console.error('An error ocurred:', error)
+    }
+    };
 
   return (
     <div>
