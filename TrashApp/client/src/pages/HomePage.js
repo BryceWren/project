@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import '../Components/CSS/Register.css';
 import NavigationBar from '../Components/NavBar';
 import ReactMapGL, { Marker, NavigationControl, GeolocateControl, FullscreenControl, Popup } from 'react-map-gl';
+import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 export const HomePage = () => {
+const [cookies] = useCookies(['email', 'firstName'])
+const userEmail= cookies.email;
+const name = cookies.firstName;
+
   const [viewport, setViewPort] = useState({
     latitude: 32.6549967,
     longitude: -79.9406093,
@@ -28,6 +34,7 @@ export const HomePage = () => {
   }
 
   const handleAddPin = () => {
+
     if (popupInfo && (pinColor === "red" || pinColor === "yellow")) {
       setMarkers([...markers, { id: new Date().getTime(), longitude: popupInfo.longitude, latitude: popupInfo.latitude, color: pinColor, date, time, description }]);
       setPopupInfo(null);
@@ -43,6 +50,7 @@ export const HomePage = () => {
 
   return (
     <div>
+
       <NavigationBar />
 
       <div style={{ width: "100vw", height: "95vh", alignContent: "center" }}>

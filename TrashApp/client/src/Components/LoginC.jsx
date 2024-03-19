@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import './CSS/Register.css';
 import recycleBinImage from '../images/recycle-bin.png';
 import Axios from 'axios';
+import { useCookies } from 'react-cookie'
+
 
 export const LoginC = (props) => {
     const [email, setEmail] = useState('');
@@ -11,6 +13,8 @@ export const LoginC = (props) => {
     const [passwordError, setPasswordError] = useState('');
     const [loginError, setLoginError] = useState('');
     const Navigate = useNavigate();
+
+    const [, setCookie] = useCookies(['email','password','firstName','lastName'])
 
     const emailValidator = (email) => {
         if (!email) {
