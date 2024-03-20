@@ -12,8 +12,17 @@ const pool = new Pool({
     port: process.env.DB_PORT,
     password: process.env.DB_PASSWORD,
     database: process.env.DB,
-    idleTimeoutMillis: 5000,
 });
+//MAP 
+
+const getMapTable = (request,response) => {
+  pool.query('SELECT * FROM map', (error, results) => {
+    if (error){
+      throw error;
+    }
+    response.status(200).json(results.rows)
+  })
+}
 
 const setMapTable = (request, response) => {
   const longitude = request.body.backlong;
@@ -82,6 +91,7 @@ const loginUser = (request, response) => {
     
   }
 module.exports = {
+    getMapTable,
     setMapTable,
     registerUser,
     loginUser

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../Components/CSS/Register.css';
 import NavigationBar from '../Components/NavBar';
 import ReactMapGL, { Marker, NavigationControl, GeolocateControl, FullscreenControl, Popup } from 'react-map-gl';
@@ -22,6 +22,10 @@ const name = cookies.firstName;
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [description, setDescription] = useState('');
+  const [data, setData] = useState([])
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  useEffect(() => {Axios.get('http://localhost:5000/home').then(json => setData(json.data)) }, [])
 
   /* CLICK FOR PINS */
   const handleClick = ({ lngLat }) => {
@@ -36,17 +40,18 @@ const name = cookies.firstName;
   const handleAddPin = async () => {
     
     if (popupInfo && (pinColor === "red" || pinColor === "yellow")) {
-      setMarkers([...markers, { id: new Date().getTime(), longitude: popupInfo.longitude, latitude: popupInfo.latitude, color: pinColor, date, time, description }]);
+      setMarkers([...markers, { id: new Date().getTime(), longitude: popupInfo.longitude, latitude: popupInfo.latitude, color: pinColor, date, time, description}]);
       setPopupInfo(null);
       // Clear input fields after adding pin
       setDate('');
       setTime('');
       setDescription('');
       setPinColor('');
-      locationdb(); //check this
+      locationdb(); //this works
     }
 
   }
+
 
   const mapKey = process.env.REACT_APP_MAPBOX_TOKEN;
 
@@ -58,7 +63,6 @@ const name = cookies.firstName;
           backlong: popupInfo.longitude,
           backlat: popupInfo.latitude,
         });
-        console.log(response)
 
     }catch (error) {
         console.error('An error ocurred:', error)
@@ -80,6 +84,7 @@ const name = cookies.firstName;
           onMove={evt => setViewPort(evt.viewport)}
           transitionDurations="200"
           mapStyle={"mapbox://styles/mapbox/streets-v9"}
+
         >
 
           {/* WE MAKING PINS */}
@@ -91,10 +96,28 @@ const name = cookies.firstName;
               offsetLeft={-20}
               offsetTop={-10}
               color={marker.color}
+              //clickTolerance={-5} //to see if this has any affect on clicks
+              //could try marker.getElement.style.padding = '10px'
             >
             </Marker>
           ))}
+          {data.map(p => (
+            <Marker
+            key={p.locationid}
+            longitude={p.longitude}
+            latitude={p.latitude}
+            clickTolerance={50}
+            >
 
+            </Marker>
+          ))}
+          {selectedLocation ? (
+          <Popup latitude={selectedLocation.p.latitude} longitude={selectedLocation.p.longitude}>
+            <div>
+              park
+            </div>
+          </Popup>
+          ) : null}
           {popupInfo && (
             <Popup
               longitude={popupInfo.longitude}
@@ -103,6 +126,7 @@ const name = cookies.firstName;
               closeOnClick={false}
               onClose={handlePopupClose}
               anchor='left'
+              
             >
               {/* FORM FOR ADDING PINS */}
               <div className="popup-container">
