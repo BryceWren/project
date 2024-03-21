@@ -6,17 +6,17 @@ import { useCookies } from 'react-cookie';
 import Axios from 'axios';
 
 export const HomePage = () => {
-const [cookies] = useCookies(['email', 'firstName'])
-const userEmail= cookies.email;
-const name = cookies.firstName;
+  const [cookies] = useCookies(['email', 'firstName'])
+  const userEmail = cookies.email;
+  const name = cookies.firstName;
 
-  const [viewport, setViewPort] = useState({
+  const [viewport, setViewport] = useState({
     latitude: 32.6549967,
     longitude: -79.9406093,
     zoom: 10
   });
 
-  const [markers, setMarkers] = useState([]); /* PIN STUFF */
+  const [markers, setMarkers] = useState([]);
   const [popupInfo, setPopupInfo] = useState(null);
   const [pinColor, setPinColor] = useState(null);
   const [date, setDate] = useState('');
@@ -24,6 +24,7 @@ const name = cookies.firstName;
   const [description, setDescription] = useState('');
   const [data, setData] = useState([])
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedMarker, setSelectedMarker] = useState(null); // Track selected marker for second popup
 
   useEffect(() => {Axios.get('http://localhost:5000/home').then(json => setData(json.data)) }, [])
 
@@ -34,13 +35,13 @@ const name = cookies.firstName;
   }
 
   const handlePopupClose = () => {
-    setPopupInfo(null);
+    setPopupInfo(null); // Close the first popup
+    setSelectedMarker(null); // Close the second popup
   }
 
   const handleAddPin = async () => {
-    
     if (popupInfo && (pinColor === "red" || pinColor === "yellow")) {
-      setMarkers([...markers, { id: new Date().getTime(), longitude: popupInfo.longitude, latitude: popupInfo.latitude, color: pinColor, date, time, description}]);
+      setMarkers([...markers, { id: new Date().getTime(), longitude: popupInfo.longitude, latitude: popupInfo.latitude, color: pinColor, date, time, description }]);
       setPopupInfo(null);
       // Clear input fields after adding pin
       setDate('');
@@ -49,25 +50,28 @@ const name = cookies.firstName;
       setPinColor('');
       locationdb(); //this works
     }
-
   }
 
+  // Open info popup when clicking on a pin
+  const handleMarkerClick = (marker) => {
+    setSelectedMarker(marker);
+    setPopupInfo(null); // Close the first popup
+  }
 
   const mapKey = process.env.REACT_APP_MAPBOX_TOKEN;
 
   const locationdb = async () => {
-
-        console.log(markers.longitude)
+    console.log(markers.longitude)
     try {
-        const response = await Axios.post("http://localhost:5000/home", {
-          backlong: popupInfo.longitude,
-          backlat: popupInfo.latitude,
-        });
+      const response = await Axios.post("http://localhost:5000/home", {
+        backlong: popupInfo.longitude,
+        backlat: popupInfo.latitude,
+      });
 
-    }catch (error) {
-        console.error('An error ocurred:', error)
+    } catch (error) {
+      console.error('An error ocurred:', error)
     }
-    };
+  };
 
   return (
     <div>
@@ -81,7 +85,7 @@ const name = cookies.firstName;
           height="100%"
           mapboxAccessToken={mapKey}
           {...viewport}
-          onMove={evt => setViewPort(evt.viewport)}
+          onMove={evt => setViewport(evt.viewport)}
           transitionDurations="200"
           mapStyle={"mapbox://styles/mapbox/streets-v9"}
 
@@ -96,29 +100,51 @@ const name = cookies.firstName;
               offsetLeft={-20}
               offsetTop={-10}
               color={marker.color}
-              //clickTolerance={-5} //to see if this has any affect on clicks
-              //could try marker.getElement.style.padding = '10px'
+              onClick={() => handleMarkerClick(marker)}
             >
             </Marker>
           ))}
           {data.map(p => (
             <Marker
-            key={p.locationid}
-            longitude={p.longitude}
-            latitude={p.latitude}
-            clickTolerance={50}
+              key={p.locationid}
+              longitude={p.longitude}
+              latitude={p.latitude}
+              clickTolerance={50}
             >
-
             </Marker>
           ))}
+
+          {/* Second Popup */}
+          {selectedMarker && (
+            <Popup
+              longitude={selectedMarker.longitude}
+              latitude={selectedMarker.latitude}
+              closeButton={true}
+              closeOnClick={false}
+              onClose={handlePopupClose}
+              anchor='right'
+            >
+              {/* Display information about the selected marker */}
+              <div>
+                <h3>Event Information</h3>
+                <p>Date: {selectedMarker.date}</p>
+                <p>Time: {selectedMarker.time}</p>
+                <p>Description: {selectedMarker.description}</p>
+                <p>Longitude: {selectedMarker.longitude.toFixed(6)} Latitude: {selectedMarker.latitude.toFixed(6)}</p>
+                <p>Severity: {selectedMarker.color === 'red' ? 'Major' : 'Minor'}</p>
+              </div>
+            </Popup>
+          )}
+          
+          {/* First Popup for adding pins */}
           {selectedLocation ? (
-          <Popup latitude={selectedLocation.p.latitude} longitude={selectedLocation.p.longitude}>
-            <div>
-              park
-            </div>
-          </Popup>
+            <Popup latitude={selectedLocation.p.latitude} longitude={selectedLocation.p.longitude}>
+              <div>
+                park
+              </div>
+            </Popup>
           ) : null}
-          {popupInfo && (
+          {popupInfo && !selectedMarker && (
             <Popup
               longitude={popupInfo.longitude}
               latitude={popupInfo.latitude}
@@ -126,7 +152,6 @@ const name = cookies.firstName;
               closeOnClick={false}
               onClose={handlePopupClose}
               anchor='left'
-              
             >
               {/* FORM FOR ADDING PINS */}
               <div className="popup-container">
