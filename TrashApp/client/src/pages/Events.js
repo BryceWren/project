@@ -3,8 +3,12 @@ import HomePage from "./HomePage"
 import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
 import '../Components/CSS/Register.css'
+import Axios from "axios";
 //import 'react-calendar/dist/Calendar.css';
 
+const [setEventdata, Eventdata] = useState([]);
+
+useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
 
 export const Events = ()=> {
    const [date, changeDate] = useState(new Date());
@@ -13,7 +17,22 @@ export const Events = ()=> {
       changeDate(val);
 
    }
-
+   const AddEvent = async () => {
+      try {
+        const response = await Axios.post("http://localhost:5000/events", {
+          /*backlong: popupInfo.longitude,
+          backlat: popupInfo.latitude,
+          backName: locationName,
+          backType: locationType,
+          backSeverity: pinColor
+          */
+        });
+  
+  
+      } catch (error) {
+        console.error('An error ocurred:', error)
+      }
+    };
    return (
     <div>
         <NavigationBar />
