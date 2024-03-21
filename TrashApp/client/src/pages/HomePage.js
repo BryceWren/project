@@ -141,6 +141,8 @@ export const HomePage = () => {
               {/* Display information about the selected marker */}
               <div>
                 <h3>Location Information</h3>
+                <p>Location Name: {selectedLocation.locationname}</p>
+                <p>Location Type: {selectedLocation.locationtype}</p>
                 <p>Longitude: {selectedLocation.longitude.toFixed(6)}</p>
                 <p>Latitude: {selectedLocation.latitude.toFixed(6)}</p>
               </div>
@@ -167,11 +169,11 @@ export const HomePage = () => {
                 {/* <input type={locationType} value={locationType} onChange={(e) => setLocationType(e.target.value)} /> */}
                   <select value={locationType} onChange={(e) => setLocationType(e.target.value)}>
                     <option value="">Select type of location</option>
-                    <option value="beach">Beach</option>
-                    <option value="river">River</option>
-                    <option value="lake">Lake</option>
-                    <option value="campground">Campground</option>
-                    <option value="hikingtrail">Hiking Trail</option>
+                    <option value="Beach">Beach</option>
+                    <option value="River">River</option>
+                    <option value="Lake">Lake</option>
+                    <option value="Campground">Campground</option>
+                    <option value="Hiking Trail">Hiking Trail</option>
                   </select>
 
                 {/* <label>Location:</label>
