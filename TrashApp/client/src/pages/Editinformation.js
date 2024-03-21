@@ -8,10 +8,12 @@ const EditInformation = () => {
     const [lastname, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [firstnameError, setFirstnameError] = useState('');
     const [lastnameError, setLastnameError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
     const [updateMessage, setUpdateMessage] = useState(false);
     const Navigate = useNavigate();
 
@@ -21,6 +23,7 @@ const EditInformation = () => {
         setLastnameError('');
         setEmailError('');
         setPasswordError('');
+        setConfirmPasswordError('');
 
         const isValid = validateInput();
         if (isValid) {
@@ -55,6 +58,13 @@ const EditInformation = () => {
             isValid = false;
         } else if (password.length <= 8) {
             setPasswordError('Password must have a minimum of 8 characters.');
+            isValid = false;
+        }
+        if (!confirmPassword.trim()) {
+            setConfirmPasswordError('Please confirm your password');
+            isValid = false;
+        } else if (password !== confirmPassword) {
+            setConfirmPasswordError('Passwords do not match');
             isValid = false;
         }
         return isValid;
@@ -105,6 +115,16 @@ const EditInformation = () => {
                         placeholder="******"
                     />
                     {passwordError && <p className="error-message">{passwordError}</p>}
+
+                    <label htmlFor="confirm-password">Confirm Password</label>
+                    <input
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        type="password"
+                        id="confirm-password"
+                        placeholder="******"
+                    />
+                    {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
 
                     {updateMessage && <p className="success-message">Settings updated! Back to Settings!</p>}
                     <button type="submit" className="form-btn" onClick={handleUpdate}>

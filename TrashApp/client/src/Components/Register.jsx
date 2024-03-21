@@ -6,12 +6,14 @@ import Axios from 'axios'
 export const Register = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const [confirmPass, setConfirmPass] = useState('');
     const [firstname, setfName] = useState('');
     const [lastname, setLName] = useState('');
     const [firstNameError, setFirstNameError] = useState('');
     const [lastNameError, setLastNameError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
     const Navigate = useNavigate();
 
     const backregister = async () => {
@@ -25,34 +27,35 @@ export const Register = (props) => {
             console.log("Registration successful");
             // Redirect or perform registration action
             console.log(response)
-            Navigate('/'); 
-        }catch (error) {
-            console.error('An error ocurred:', error)
+            Navigate('/');
+        } catch (error) {
+            console.error('An error occurred:', error)
         }
-        };
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const nameError = validateName(firstname, lastname);
         const emailError = emailValidator(email);
         const passwordError = passwordValidator(pass);
+        const confirmPasswordError = confirmPasswordValidator(pass, confirmPass);
 
         setFirstNameError(nameError.firstName);
         setLastNameError(nameError.lastName);
         setEmailError(emailError);
         setPasswordError(passwordError);
+        setConfirmPasswordError(confirmPasswordError);
 
-        if (!nameError.firstName && !nameError.lastName && !emailError && !passwordError && backregister) {
+        if (!nameError.firstName && !nameError.lastName && !emailError && !passwordError && !confirmPasswordError) {
             const success = await backregister();
             if (success) {
-            console.log ("registration successful");
-            // Redirect to home page or perform login action
-            Navigate('/home');
+                console.log("Registration successful");
+                // Redirect to home page or perform login action
+                Navigate('/home');
+            } else {
+                console.log("Account already registered")
+            }
         }
-        else {
-            console.log("account already registered")
-        }
-    }
     }
 
     const validateName = (firstname, lastname) => {
@@ -78,8 +81,17 @@ export const Register = (props) => {
     const passwordValidator = (password) => {
         if (!password) {
             return "Password is required";
-        } else if (password.length <= 8) {
+        } else if (password.length < 8) {
             return "Password must have a minimum of 8 characters";
+        }
+        return "";
+    };
+
+    const confirmPasswordValidator = (password, confirmPassword) => {
+        if (!confirmPassword) {
+            return "Please confirm your password";
+        } else if (password !== confirmPassword) {
+            return "Passwords do not match";
         }
         return "";
     };
@@ -99,7 +111,10 @@ export const Register = (props) => {
                 <label htmlFor="password">Password</label>
                 <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                 {passwordError && <p className="error-message">{passwordError}</p>}
-                <button type="submit" className="form-btn" OnClick={backregister}>Register</button>
+                <label htmlFor="confirm-password">Confirm Password</label>
+                <input value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} type="password" placeholder="********" id="confirm-password" name="confirm-password" />
+                {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
+                <button type="submit" className="form-btn">Register</button>
             </form>
             <div>
                 <a className="link-btn" onClick={() => Navigate('/')}>Already have an account? Login here</a>

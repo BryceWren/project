@@ -24,7 +24,8 @@ export const HomePage = () => {
   const [description, setDescription] = useState('');
   const [data, setData] = useState([])
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [selectedMarker, setSelectedMarker] = useState(null); // Track selected marker for second popup
+  const [locationName, setLocationName] = useState('');
+  const [locationType, setLocationType] = useState('');
 
   useEffect(() => {Axios.get('http://localhost:5000/home').then(json => setData(json.data)) }, [])
 
@@ -36,7 +37,7 @@ export const HomePage = () => {
 
   const handlePopupClose = () => {
     setPopupInfo(null); // Close the first popup
-    setSelectedMarker(null); // Close the second popup
+    setSelectedLocation(null); // Close the second popup
   }
 
   const handleAddPin = async () => {
@@ -54,7 +55,12 @@ export const HomePage = () => {
 
   // Open info popup when clicking on a pin
   const handleMarkerClick = (marker) => {
-    setSelectedMarker(marker);
+    setPopupInfo(null); // Close the first popup
+    setSelectedLocation(marker);
+  }
+
+  const handleDatabaseMarkerClick = (p) => {
+    setSelectedLocation(p); // Set selectedLocation to the clicked marker object
     setPopupInfo(null); // Close the first popup
   }
 
@@ -75,9 +81,7 @@ export const HomePage = () => {
 
   return (
     <div>
-
       <NavigationBar />
-
       <div style={{ width: "100vw", height: "95vh", alignContent: "center" }}>
         <ReactMapGL
           onClick={handleClick}
@@ -104,21 +108,24 @@ export const HomePage = () => {
             >
             </Marker>
           ))}
+
+          {/* Pins rendered from Database */}
           {data.map(p => (
             <Marker
               key={p.locationid}
               longitude={p.longitude}
               latitude={p.latitude}
               clickTolerance={50}
+              onClick={() => handleDatabaseMarkerClick(p)}
             >
             </Marker>
           ))}
 
           {/* Second Popup */}
-          {selectedMarker && (
+          {selectedLocation && (
             <Popup
-              longitude={selectedMarker.longitude}
-              latitude={selectedMarker.latitude}
+              longitude={selectedLocation.longitude}
+              latitude={selectedLocation.latitude}
               closeButton={true}
               closeOnClick={false}
               onClose={handlePopupClose}
@@ -126,25 +133,15 @@ export const HomePage = () => {
             >
               {/* Display information about the selected marker */}
               <div>
-                <h3>Event Information</h3>
-                <p>Date: {selectedMarker.date}</p>
-                <p>Time: {selectedMarker.time}</p>
-                <p>Description: {selectedMarker.description}</p>
-                <p>Longitude: {selectedMarker.longitude.toFixed(6)} Latitude: {selectedMarker.latitude.toFixed(6)}</p>
-                <p>Severity: {selectedMarker.color === 'red' ? 'Major' : 'Minor'}</p>
+                <h3>Location Information</h3>
+                <p>Longitude: {selectedLocation.longitude.toFixed(6)}</p>
+                <p>Latitude: {selectedLocation.latitude.toFixed(6)}</p>
               </div>
             </Popup>
           )}
           
           {/* First Popup for adding pins */}
-          {selectedLocation ? (
-            <Popup latitude={selectedLocation.p.latitude} longitude={selectedLocation.p.longitude}>
-              <div>
-                park
-              </div>
-            </Popup>
-          ) : null}
-          {popupInfo && !selectedMarker && (
+          {popupInfo && !selectedLocation && (
             <Popup
               longitude={popupInfo.longitude}
               latitude={popupInfo.latitude}
@@ -155,14 +152,22 @@ export const HomePage = () => {
             >
               {/* FORM FOR ADDING PINS */}
               <div className="popup-container">
-                <h2>Create a Cleanup Event!</h2>
-                <label>Date:</label>
-                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                <h2>Pin a Cleanup Location!</h2>
+                <label>Name of Location:</label>
+                <input type={locationName} value={locationName} onChange={(e) => setLocationName(e.target.value)} />
                 
-                <label>Time:</label>
-                <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+                <label>Location Type: </label>
+                {/* <input type={locationType} value={locationType} onChange={(e) => setLocationType(e.target.value)} /> */}
+                  <select value={locationType} onChange={(e) => setLocationType(e.target.value)}>
+                    <option value="">Select type of location</option>
+                    <option value="beach">Beach</option>
+                    <option value="river">River</option>
+                    <option value="lake">Lake</option>
+                    <option value="campground">Campground</option>
+                    <option value="hikingtrail">Hiking Trail</option>
+                  </select>
 
-                <label>Location:</label>
+                {/* <label>Location:</label>
                 <p>Longitude: {popupInfo.longitude.toFixed(6)} Latitude: {popupInfo.latitude.toFixed(6)}</p>
                 <input
                   id="location"
@@ -171,7 +176,7 @@ export const HomePage = () => {
                 />
 
                 <label>Description:</label>
-                <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+                <textarea value={description} onChange={(e) => setDescription(e.target.value)} /> */}
                 
                 <label>Severity: </label>
                 <select value={pinColor} onChange={(e) => setPinColor(e.target.value)}>
