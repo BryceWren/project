@@ -1,16 +1,19 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import HomePage from "./HomePage"
 import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
 import '../Components/CSS/Register.css';
+import Axios from 'axios'
 
 const CleanUpRegister = () => {
   const [Date, setDate] = useState('');
   const [Time, setTime] = useState('');
   const [Description, setDescription] = useState('');
   const [Location, setLocation] = useState('');
+  const [setEventdata, Eventdata] = useState([]);
 
-
+  useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
+  
   const handleChange = (e) => {
     setDescription(e.target.value);
   };
@@ -24,7 +27,12 @@ const CleanUpRegister = () => {
     }
   };
 
-
+  const handleDateChange = (e) => {
+    const input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+    // Optionally, you can add some formatting to the input
+    const formattedInput = input.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3'); // Format as MM/DD/YYYY
+    setDate(formattedInput);
+  };
  
 
   return (
@@ -33,10 +41,11 @@ const CleanUpRegister = () => {
       <form className ="register-form">
         {/* this is where the picture will be */}
      {/*    this is the date */}
-        <label htmlFor="Date">Date: * Required Field</label>
-        <input
+          <label htmlFor="Date">Date: * Required Field</label>
+          <input
           value={Date}
-          onChange={(e) => setDate(e.target.value)}
+          onChange={handleDateChange}
+          type="text" // Use type="text" to allow custom formatting
           name="Date"
           id="Date"
           placeholder="--/--/----"
@@ -54,7 +63,7 @@ const CleanUpRegister = () => {
         <label htmlFor="Description"> Description:</label>
         <textarea value={Description} onChange={handleChange} />
      {/*     this is the  location  */}
-        <label htmlFor="Location">Location: * Required Field  </label>
+        <label >Location: * Required Field  </label>
         <input
           value={Location}
           onChange={(e) => setLocation(e.target.value)}

@@ -4,14 +4,17 @@ import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
 import '../Components/CSS/Register.css'
 import Axios from "axios";
-//import 'react-calendar/dist/Calendar.css';
 
-const [setEventdata, Eventdata] = useState([]);
 
-useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
+
+
 
 export const Events = ()=> {
+  
    const [date, changeDate] = useState(new Date());
+   const [setEventdata, Eventdata] = useState([]);
+
+  useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
 
    function changeValue(val) {
       changeDate(val);
