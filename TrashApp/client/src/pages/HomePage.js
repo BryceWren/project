@@ -4,6 +4,7 @@ import NavigationBar from '../Components/NavBar';
 import ReactMapGL, { Marker, NavigationControl, GeolocateControl, FullscreenControl, Popup } from 'react-map-gl';
 import { useCookies } from 'react-cookie';
 import Axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const HomePage = () => {
   const [cookies] = useCookies(['email', 'firstName'])
@@ -28,6 +29,11 @@ export const HomePage = () => {
   const [locationType, setLocationType] = useState('');
 
   useEffect(() => {Axios.get('http://localhost:5000/home').then(json => setData(json.data)) }, [])
+
+  const navigate = useNavigate();
+  const handleNavigation = (route) => {
+    navigate(route);
+  };
 
   /* CLICK FOR PINS */
   const handleClick = ({ lngLat }) => {
@@ -139,12 +145,17 @@ export const HomePage = () => {
               anchor='right'
             >
               {/* Display information about the selected marker */}
-              <div>
+              <div className="popup-container">
                 <h3>Location Information</h3>
                 <p>Location Name: {selectedLocation.locationname}</p>
                 <p>Location Type: {selectedLocation.locationtype}</p>
                 <p>Longitude: {selectedLocation.longitude.toFixed(6)}</p>
                 <p>Latitude: {selectedLocation.latitude.toFixed(6)}</p>
+              </div>
+
+              <div className="popup-button-container">
+                <button onClick={() => handleNavigation('/events')} className="popup-button">Join Event</button>
+                <button onClick={() => handleNavigation('/cleanupregisterhost')} className="popup-button">Create Event</button>
               </div>
             </Popup>
           )}
