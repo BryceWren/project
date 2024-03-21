@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -7,10 +7,47 @@ import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+
+const ConfirmationDialog = ({ open, onClose, onConfirm, title, content }) => {
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent>{content}</DialogContent>
+      <DialogActions>
+        <Button onClick={onClose} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={onConfirm} color="primary">
+          Confirm
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 
 export const Settings = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [logoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false);
+
+  const handleLogout = () => {
+    setLogoutConfirmationOpen(true);
+  };
+
+  const handleLogoutConfirm = () => {
+    // Perform logout actions here
+    navigate('/');
+    setLogoutConfirmationOpen(false);
+  };
+
+  const handleLogoutCancel = () => {
+    setLogoutConfirmationOpen(false);
+  };
 
   const handleNavigation = (route) => {
     navigate(route);
@@ -42,11 +79,20 @@ export const Settings = () => {
           <BottomNavigationAction
             label="Logout"
             icon={<LogoutRoundedIcon />}
-            onClick={() => handleNavigation('/')}
+            onClick={handleLogout}
             sx={{ color: location.pathname === '/' ? '#288dec' : 'inherit' }}
           />
         </BottomNavigation>
       </Box>
+      
+      {/* Logout Confirmation Dialog */}
+      <ConfirmationDialog
+        open={logoutConfirmationOpen}
+        onClose={handleLogoutCancel}
+        onConfirm={handleLogoutConfirm}
+        title="Logout Confirmation"
+        content="Are you sure you want to logout?"
+      />
     </div>
   );
 };
