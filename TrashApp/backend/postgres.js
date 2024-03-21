@@ -27,9 +27,13 @@ const getMapTable = (request,response) => {
 const setMapTable = (request, response) => {
   const longitude = request.body.backlong;
   const latitude = request.body.backlat;
+  const locationName = request.body.backName
+  const locationType = request.body.backType
+  const severity = request.body.backSeverity
+
   console.log(request.body.backlong)
 
-  pool.query('INSERT INTO map (longitude, latitude) VALUES ($1, $2) RETURNING locationid', [longitude,latitude], (error, results) => {
+  pool.query('INSERT INTO map (longitude, latitude, locationname, locationtype, severity) VALUES ($1, $2, $3, $4, $5) RETURNING locationid', [longitude,latitude,locationName,locationType,severity], (error, results) => {
     if (error) {
       throw error
     }

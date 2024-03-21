@@ -43,13 +43,13 @@ export const HomePage = () => {
   const handleAddPin = async () => {
     if (popupInfo && (pinColor === "red" || pinColor === "yellow")) {
       setMarkers([...markers, { id: new Date().getTime(), longitude: popupInfo.longitude, latitude: popupInfo.latitude, color: pinColor, date, time, description }]);
+      locationdb();
       setPopupInfo(null);
       // Clear input fields after adding pin
       setDate('');
       setTime('');
       setDescription('');
       setPinColor('');
-      locationdb(); //this works
     }
   }
 
@@ -72,7 +72,11 @@ export const HomePage = () => {
       const response = await Axios.post("http://localhost:5000/home", {
         backlong: popupInfo.longitude,
         backlat: popupInfo.latitude,
+        backName: locationName,
+        backType: locationType,
+        backSeverity: pinColor
       });
+
 
     } catch (error) {
       console.error('An error ocurred:', error)
@@ -113,8 +117,11 @@ export const HomePage = () => {
           {data.map(p => (
             <Marker
               key={p.locationid}
+              name={p.locationName}
+              
               longitude={p.longitude}
               latitude={p.latitude}
+              color={p.severity}
               clickTolerance={50}
               onClick={() => handleDatabaseMarkerClick(p)}
             >
@@ -187,7 +194,7 @@ export const HomePage = () => {
               </div>
               
               <div className="popup-button-container">
-                <button onClick={handleAddPin} className="popup-button">Add Pin</button>
+                <button onClick={handleAddPin} className="popup-button">Add Location</button>
               </div>
             </Popup>
           )}
