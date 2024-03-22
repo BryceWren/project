@@ -4,6 +4,7 @@ import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
 import '../Components/CSS/Register.css';
 import Axios from 'axios'
+import { useCookies } from 'react-cookie'
 
 const CleanUpRegister = () => {
   const [Date, setDate] = useState('');
@@ -11,9 +12,12 @@ const CleanUpRegister = () => {
   const [Description, setDescription] = useState('');
   const [Location, setLocation] = useState('');
   const [setEventdata, Eventdata] = useState([]);
+  const [cookies, setCookies] = useCookies(['locationname'])
 
   //useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
   
+  const mapToLocationName = cookies.locationname;
+
   const handleChange = (e) => {
     setDescription(e.target.value);
   };
@@ -63,15 +67,8 @@ const CleanUpRegister = () => {
         <label htmlFor="Description"> Description:</label>
         <textarea value={Description} onChange={handleChange} />
      {/*     this is the  location  */}
-        <label >Location: * Required Field  </label>
-        <input
-          value={Location}
-          onChange={(e) => setLocation(e.target.value)}
-          name="Location"
-          id="Location"
-          placeholder="124 congress road"
-          
-        />
+        <label >Location: {mapToLocationName}  </label>
+        
 
  {/*  <div className="Buttons" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', }}>
   <input type="radio" id="Minor" name="Severity" value="Minor" />
