@@ -7,9 +7,8 @@ import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export const HomePage = () => {
-  const [cookies] = useCookies(['email', 'firstName'])
-  const userEmail = cookies.email;
-  const name = cookies.firstName;
+  const [cookies, setCookies] = useCookies(['locationname'])
+
 
   const [viewport, setViewport] = useState({
     latitude: 32.6549967,
@@ -33,8 +32,13 @@ export const HomePage = () => {
 
   const navigate = useNavigate();
   const handleNavigation = (route) => {
+
     navigate(route);
   };
+  const homeCookies = (id) => {
+    setCookies('locationname', id )
+    handleNavigation('/cleanupregisterhost')
+  }
 
   /* CLICK FOR PINS */
   const handleClick = ({ lngLat }) => {
@@ -202,10 +206,11 @@ export const HomePage = () => {
                 <p><b>Location Type: </b>{selectedLocation.locationtype}</p>
                 <p><b>Longitude: </b>{selectedLocation.longitude.toFixed(6)}</p>
                 <p><b>Latitude: </b>{selectedLocation.latitude.toFixed(6)}</p>
+                <p><b>LocationID: </b>{selectedLocation.locationid}</p>
               </div>
 
               <div className="popup-button-container">
-                <button onClick={() => handleNavigation('/cleanupregisterhost')} className="popup-button">Create Event</button>
+                <button onClick={() => homeCookies(selectedLocation.locationname.toString())} className="popup-button">Create Event</button>
                 <button onClick={() => handleNavigation('/events')} className="popup-button">Join Event</button>
               </div>
             </Popup>

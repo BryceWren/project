@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import HomePage from './pages/HomePage';
 import { AppRoutes } from './Routes';
+import { CookiesProvider } from 'react-cookie';
 
 function App() {
 
@@ -17,7 +18,10 @@ function App() {
 
   return (
     <div>
+      <CookiesProvider>
+
       <AppRoutes />
+      </CookiesProvider>
     </div>
   )
 }
