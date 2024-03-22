@@ -18,13 +18,13 @@ export const AppRoutes = () => {
             <Routes>
                 <Route path='/' element={<LoginC />} />
                 <Route path='/register' element={<Register />} />
-                <Route path="/home" element={<HomePage />} />
+                <Route path="/home/*" element={<HomePage />} />
                 <Route path="/events" element={<Events />} />
                 <Route path="/settings" element={<Settings />} />
                 {/* <Route path="/IndividualCleanup" element={<IndividualCleanup />} /> */}
                 <Route path="/Editinformation" element={< Editinformation />} />
                 <Route path="/PostUI" element={<PostUI />} />
-                <Route path ="/CleanUpRegisterHost" element={<CleanUpRegisterHost/>}/>
+                <Route path ="/CleanUpRegisterHost/*" element={<CleanUpRegisterHost/>}/>
                 <Route path ="/Participants" element={<Participants/>}/>
             
 

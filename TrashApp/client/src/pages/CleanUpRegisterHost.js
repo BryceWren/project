@@ -12,7 +12,7 @@ const CleanUpRegister = () => {
   const [Location, setLocation] = useState('');
   const [setEventdata, Eventdata] = useState([]);
 
-  useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
+  //useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
   
   const handleChange = (e) => {
     setDescription(e.target.value);
