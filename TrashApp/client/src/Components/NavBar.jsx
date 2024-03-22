@@ -12,6 +12,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import { useCookies } from 'react-cookie';
 
 const ConfirmationDialog = ({ open, onClose, onConfirm, title, content }) => {
   return (
@@ -34,6 +35,7 @@ export const Settings = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [logoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false);
+  const [, removeCookies] = useCookies('userID')
 
   const handleLogout = () => {
     setLogoutConfirmationOpen(true);
@@ -41,6 +43,7 @@ export const Settings = () => {
 
   const handleLogoutConfirm = () => {
     // Perform logout actions here
+    removeCookies('userID')
     navigate('/');
     setLogoutConfirmationOpen(false);
   };

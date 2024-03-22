@@ -7,7 +7,7 @@ import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export const HomePage = () => {
-  const [cookies, setCookies] = useCookies(['locationname'])
+  const [cookies, setCookies] = useCookies(['locationname','locationid','lattitude','longitude','locationtype','severity'])
 
 
   const [viewport, setViewport] = useState({
@@ -35,8 +35,13 @@ export const HomePage = () => {
 
     navigate(route);
   };
-  const homeCookies = (id) => {
-    setCookies('locationname', id )
+  const homeCookies = (name,id,long, lat, sever, ltype) => {
+    setCookies('locationname', name)
+    setCookies('locationid', id)
+    setCookies('longitude', long)
+    setCookies('latitude', lat)
+    setCookies('severity', sever)
+    setCookies('locationType', ltype)
     handleNavigation('/cleanupregisterhost')
   }
 
@@ -210,7 +215,10 @@ export const HomePage = () => {
               </div>
 
               <div className="popup-button-container">
-                <button onClick={() => homeCookies(selectedLocation.locationname.toString())} className="popup-button">Create Event</button>
+                <button onClick={() => 
+                homeCookies(selectedLocation.locationname.toString(),selectedLocation.locationid.toString(),selectedLocation.longitude,selectedLocation.latitude,selectedLocation.severity,
+                selectedLocation.locationtype)}
+                 className="popup-button">Create Event</button>
                 <button onClick={() => handleNavigation('/events')} className="popup-button">Join Event</button>
               </div>
             </Popup>

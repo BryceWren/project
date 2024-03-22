@@ -14,7 +14,7 @@ const CleanUpRegister = () => {
   const [setEventdata, Eventdata] = useState([]);
   const [cookies, setCookies] = useCookies(['locationname'])
 
-  //useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
+
   
   const mapToLocationName = cookies.locationname;
 
@@ -40,7 +40,10 @@ const CleanUpRegister = () => {
  
 
   return (
+    <div>
+      <NavigationBar />
     <div className="auth-form-container">
+      
       <h1>Create A Post</h1>
       <form className ="register-form">
         {/* this is where the picture will be */}
@@ -95,6 +98,7 @@ const CleanUpRegister = () => {
         
       </form>
     </div>
+  </div>
   );
 };
 

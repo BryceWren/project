@@ -14,7 +14,7 @@ export const LoginC = (props) => {
     const [loginError, setLoginError] = useState('');
     const Navigate = useNavigate();
 
-    const [, setCookie] = useCookies(['email','password','firstName','lastName'])
+    const [, setCookie] = useCookies(['userID'])
 
     const emailValidator = (email) => {
         if (!email) {
@@ -61,6 +61,8 @@ export const LoginC = (props) => {
                 backEmail: email,
                 backPassword: pass
             });
+            console.log(response)
+            setCookie('userID', response.data['userID'], {path:'/'}) //THIS IS GETTING UNDEFINED WHEN TRYING TO GET THE DATA... NEEDS FIXING
             if (response.data.length > 0) {
                 return true;
             } else {
