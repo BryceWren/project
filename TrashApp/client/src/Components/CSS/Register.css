@@ -364,20 +364,67 @@ textarea {
     margin-right: 10px;
 }
 
-/* Popup styles */
-.popup-container {
-  width: 250px;
-  align-items: center;
+/* CSS for Popup */
+.popup-validation {
+  color: red;
+  font-size: 8px;
+  margin-top: 5px;
 }
-
 .mapboxgl-popup-close-button {
   color: black;
 }
 
+.popup-container {
+  width: 200px;
+  padding: 10px;
+  
+}
+
+.popup-container h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.popup-container label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.popup-container p {
+  font-size: 14px;
+}
+
+.popup-container input[type="text"],
+.popup-container input[type="number"],
+.popup-container textarea,
+.popup-container select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.popup-container textarea {
+  resize: none;
+}
+
 .popup-button-container {
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .popup-button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
   margin-top: 10px;
+  white-space: nowrap;
 }
+
+

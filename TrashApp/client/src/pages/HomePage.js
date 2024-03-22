@@ -27,6 +27,7 @@ export const HomePage = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [locationName, setLocationName] = useState('');
   const [locationType, setLocationType] = useState('');
+  const [addPinPressed, setAddPinPressed] = useState(false); // State to track if "Add Location" button is pressed
 
   useEffect(() => {Axios.get('http://localhost:5000/home').then(json => setData(json.data)) }, [])
 
@@ -46,18 +47,68 @@ export const HomePage = () => {
     setSelectedLocation(null); // Close the second popup
   }
 
+  // const handleAddPin = async () => {
+  //   if (popupInfo && (pinColor === "red" || pinColor === "yellow" && locationType === "Beach" || locationType === "River" 
+  //       || locationType === "Lake" || locationType === "Campground" || locationType === "Hiking Trail" )) {
+  //     setMarkers([...markers, { id: new Date().getTime(), longitude: popupInfo.longitude, latitude: popupInfo.latitude, color: pinColor, date, time, description }]);
+  //     locationdb();
+  //     setPopupInfo(null);
+  //     // Clear input fields after adding pin
+  //     setDate('');
+  //     setTime('');
+  //     setDescription('');
+  //     setPinColor('');
+  //     setLocationName('');
+  //     setLocationType('');
+  //   }
+  // }
+
   const handleAddPin = async () => {
-    if (popupInfo && (pinColor === "red" || pinColor === "yellow")) {
-      setMarkers([...markers, { id: new Date().getTime(), longitude: popupInfo.longitude, latitude: popupInfo.latitude, color: pinColor, date, time, description }]);
-      locationdb();
+    // Set addPinPressed to true when "Add Location" button is pressed
+    setAddPinPressed(true);
+
+    // Check if all required fields are filled
+    if (
+      popupInfo &&
+      pinColor &&
+      locationType &&
+      locationName &&
+      (pinColor === "red" || pinColor === "yellow") &&
+      (locationType === "Beach" ||
+        locationType === "River" ||
+        locationType === "Lake" ||
+        locationType === "Campground" ||
+        locationType === "Hiking Trail")
+    ) {
+      // Add pin only if validations pass
+      setMarkers([
+        ...markers,
+        {
+          id: new Date().getTime(),
+          longitude: popupInfo.longitude,
+          latitude: popupInfo.latitude,
+          color: pinColor,
+          date,
+          time,
+          description,
+        },
+      ]);
+      // Add pin to database
+      await locationdb();
+      // Reset form fields
       setPopupInfo(null);
-      // Clear input fields after adding pin
       setDate('');
       setTime('');
       setDescription('');
       setPinColor('');
+      setLocationName('');
+      setLocationType('');
+    } else {
+      // Show error message or handle validation failure
+      console.log("Validation failed. Please fill in all required fields.");
     }
-  }
+  };
+  
 
   // Open info popup when clicking on a pin
   const handleMarkerClick = (marker) => {
@@ -146,16 +197,16 @@ export const HomePage = () => {
             >
               {/* Display information about the selected marker */}
               <div className="popup-container">
-                <h3>Location Information</h3>
-                <p>Location Name: {selectedLocation.locationname}</p>
-                <p>Location Type: {selectedLocation.locationtype}</p>
-                <p>Longitude: {selectedLocation.longitude.toFixed(6)}</p>
-                <p>Latitude: {selectedLocation.latitude.toFixed(6)}</p>
+                <h2>Location Information</h2>
+                <p><b>Location Name: </b>{selectedLocation.locationname}</p>
+                <p><b>Location Type: </b>{selectedLocation.locationtype}</p>
+                <p><b>Longitude: </b>{selectedLocation.longitude.toFixed(6)}</p>
+                <p><b>Latitude: </b>{selectedLocation.latitude.toFixed(6)}</p>
               </div>
 
               <div className="popup-button-container">
-                <button onClick={() => handleNavigation('/events')} className="popup-button">Join Event</button>
                 <button onClick={() => handleNavigation('/cleanupregisterhost')} className="popup-button">Create Event</button>
+                <button onClick={() => handleNavigation('/events')} className="popup-button">Join Event</button>
               </div>
             </Popup>
           )}
@@ -175,9 +226,9 @@ export const HomePage = () => {
                 <h2>Pin a Cleanup Location!</h2>
                 <label>Name of Location:</label>
                 <input type={locationName} value={locationName} onChange={(e) => setLocationName(e.target.value)} />
-                
+                {addPinPressed && !locationName && <p className="popup-validation">Please enter name of location</p>}
+
                 <label>Location Type: </label>
-                {/* <input type={locationType} value={locationType} onChange={(e) => setLocationType(e.target.value)} /> */}
                   <select value={locationType} onChange={(e) => setLocationType(e.target.value)}>
                     <option value="">Select type of location</option>
                     <option value="Beach">Beach</option>
@@ -186,24 +237,15 @@ export const HomePage = () => {
                     <option value="Campground">Campground</option>
                     <option value="Hiking Trail">Hiking Trail</option>
                   </select>
-
-                {/* <label>Location:</label>
-                <p>Longitude: {popupInfo.longitude.toFixed(6)} Latitude: {popupInfo.latitude.toFixed(6)}</p>
-                <input
-                  id="location"
-                  type="hidden"
-                  value={`(${popupInfo.longitude.toFixed(6)}, ${popupInfo.latitude.toFixed(6)})`}
-                />
-
-                <label>Description:</label>
-                <textarea value={description} onChange={(e) => setDescription(e.target.value)} /> */}
-                
+                  {addPinPressed && !locationType && <p className="popup-validation">Please select a type of location</p>}
+              
                 <label>Severity: </label>
                 <select value={pinColor} onChange={(e) => setPinColor(e.target.value)}>
                   <option value="">Select severity</option>
                   <option value="yellow">Minor (Yellow)</option>
                   <option value="red">Major (Red)</option>
                 </select>
+                {addPinPressed && !pinColor && <p className="popup-validation">Please select a severity</p>}
               </div>
               
               <div className="popup-button-container">
