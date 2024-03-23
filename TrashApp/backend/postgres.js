@@ -13,6 +13,7 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD,
     database: process.env.DB,
 });
+
 //MAP 
 
 const getMapTable = (request,response) => {
@@ -40,7 +41,23 @@ const setMapTable = (request, response) => {
     response.status(201).send()
   })
 }
+//EVENTS
+const setEventPost = (request, response) => {
+  const desciption = request.body.backDesc
+  const date = request.body.backDate
+  const time = request.body.backTime
+  const eventSeverity = request.body.backSeverity
 
+
+  console.log(request.body.backlong)
+
+  pool.query('INSERT INTO events (eventdiscription, eventdate, eventtime, eventseverity) VALUES ($1, $2, $3, $4) RETURNING eventid', [], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send()
+  })
+}
 //USERS
 
 const registerUser = (request, response) => {
@@ -98,5 +115,6 @@ module.exports = {
     getMapTable,
     setMapTable,
     registerUser,
-    loginUser
+    loginUser,
+    setEventPost
 }

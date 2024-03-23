@@ -35,7 +35,7 @@ export const Settings = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [logoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false);
-  const [, removeCookies] = useCookies('userID')
+  const [,, removeCookies] = useCookies('userID')
 
   const handleLogout = () => {
     setLogoutConfirmationOpen(true);

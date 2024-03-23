@@ -11,8 +11,8 @@ const CleanUpRegister = () => {
   const [Time, setTime] = useState('');
   const [Description, setDescription] = useState('');
   const [Location, setLocation] = useState('');
-  const [setEventdata, Eventdata] = useState([]);
   const [cookies, setCookies] = useCookies(['locationname'])
+  const [Severity, setSeverity] = useState('');
 
 
   
@@ -25,6 +25,7 @@ const CleanUpRegister = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     if (Date && Time && Location) {
+      eventregister();
       alert('Post Successful');
     } else {
       alert('Please fill out the  three Required fields');
@@ -37,6 +38,24 @@ const CleanUpRegister = () => {
     const formattedInput = input.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3'); // Format as MM/DD/YYYY
     setDate(formattedInput);
   };
+  const eventregister = async () => {
+    try {
+        const response = await Axios.post("http://localhost:5000/cleanupregisterhost", {
+            backDesc: Description,
+            backDate: Date,
+            backTime: Time,
+            backSeverity: Severity,
+
+            
+        });
+        console.log("Registration successful");
+        // Redirect or perform registration action
+        console.log(response)
+        Navigate('/');
+    } catch (error) {
+        console.error('An error occurred:', error)
+    }
+};
  
 
   return (
@@ -79,7 +98,7 @@ const CleanUpRegister = () => {
   <input type="radio" id="Major" name="Severity" value="Major" />
   <label htmlFor="Major">Major</label>
 </div> */}
-<select name="Severity" id="Severity">
+<select value={Severity} onChange={(e) => setSeverity(e.target.value)}>
 <option value="None">None</option>
 <option value="volvo">Good</option>
 <option value="saab">Dirty</option>
