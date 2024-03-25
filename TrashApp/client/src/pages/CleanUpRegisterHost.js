@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import NavigationBar from "../Components/NavBar";
 import Axios from "axios";
 import { useCookies } from "react-cookie";
@@ -7,32 +7,17 @@ const CleanUpRegister = () => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [description, setDescription] = useState("");
-  const [cookies] = useCookies(["locationname"]);
-  const [pinColor, setPinColor] = useState("");
-  const [longitude, setLongitude] = useState(0);
-  const [latitude, setLatitude] = useState(0);
+  const [cookies] = useCookies(["locationname", "longitude", "latitude", "pinColor"]);
+  const [longitude, setLongitude] = useState(cookies.longitude || 0);
+  const [latitude, setLatitude] = useState(cookies.latitude || 0);
 
-  useEffect(() => {
-    // Fetch longitude and latitude from your database
-    Axios.get("http://localhost:5000/") // Adjust the URL to your API endpoint
-      .then((response) => {
-        const { longitude, latitude } = response.data;
-        setLongitude(longitude);
-        setLatitude(latitude);
-      })
-      .catch((error) => {
-        console.error("Error fetching location:", error);
-      });
-  }, []); // Empty dependency array ensures this effect runs only once after the component mounts
-
- const handleChange = (e) => {
+  const handleChange = (e) => {
     setDescription(e.target.value);
   };
 
-const handleDateChange = (e) => {
-    const input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
-    // Optionally, you can add some formatting to the input
-    const formattedInput = input.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3'); // Format as MM/DD/YYYY
+  const handleDateChange = (e) => {
+    const input = e.target.value.replace(/\D/g, '');
+    const formattedInput = input.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
     setDate(formattedInput);
   };
 
@@ -52,18 +37,16 @@ const handleDateChange = (e) => {
         backDesc: description,
         backDate: date,
         backTime: time,
-        backSeverity: pinColor
+        backSeverity: pinColor,
+        backLongitude: longitude,
+        backLatitude: latitude
       });
       console.log("Registration successful");
-      // Redirect or perform registration action
       console.log(response);
-      // Navigate('/');
     } catch (error) {
       console.error("An error occurred:", error);
     }
   };
-
-  
 
   return (
     <div>
@@ -71,36 +54,32 @@ const handleDateChange = (e) => {
       <div className="auth-form-container">
         <h2>Create a Cleanup Event!</h2>
         <form className="register-form">
-        <label>Date:</label>
-        <input type="date" value={date} onChange={(handleDateChange) => setDate(handleDateChange.target.value)} />
+          <label>Date:</label>
+          <input type="date" value={date} onChange={(handleDateChange) => setDate(handleDateChange.target.value)} />
 
-        <label>Time:</label>
-        <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+          <label>Time:</label>
+          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
 
-        <label>Location:</label>
-        <p>
-          Longitude: {longitude.toFixed(6)} Latitude: {latitude.toFixed(6)}
-        </p>
-        <input
-          id="location"
-          type="hidden"
-          value={`(${longitude.toFixed(6)}, ${latitude.toFixed(6)})`}
-        />
+          <label>Location:</label>
+          <p>
+            Longitude: {longitude.toFixed(6)} Latitude: {latitude.toFixed(6)}
+          </p>
+          <input
+            id="location"
+            type="hidden"
+            value={`(${longitude.toFixed(6)}, ${latitude.toFixed(6)})`}
+          />
 
-        <label>Description:</label>
-        <textarea value={description} onChange={(handleChange) => setDescription(handleChange.target.value)} />
+          <label>Description:</label>
+          <textarea value={description} onChange={(handleChange) => setDescription(handleChange.target.value)} />
 
         </form>
         <div className="button-container">
-        <button className="form-btn" onClick={handleUpdate}>
-          Create Event
-        </button>
+          <button className="form-btn" onClick={handleUpdate}>
+            Create Event
+          </button>
         </div>
       </div>
-
-      
-
-      
     </div>
   );
 };
