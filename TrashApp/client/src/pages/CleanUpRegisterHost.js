@@ -7,7 +7,7 @@ const CleanUpRegister = () => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [description, setDescription] = useState("");
-  const [cookies] = useCookies(["locationname", "longitude", "latitude", "pinColor"]);
+  const [cookies] = useCookies(["locationname", "longitude", "latitude", "severity","locationType","locationid"]);
   const [longitude, setLongitude] = useState(cookies.longitude || 0);
   const [latitude, setLatitude] = useState(cookies.latitude || 0);
 
@@ -37,9 +37,13 @@ const CleanUpRegister = () => {
         backDesc: description,
         backDate: date,
         backTime: time,
-        backSeverity: pinColor,
-        backLongitude: longitude,
-        backLatitude: latitude
+        backlat: cookies.latitude,
+        backlong: cookies.longitude,
+        backName: cookies.locationname,
+        backSeverity: cookies.severity,
+        backLocationType: cookies.locationType,
+        backlocateid: cookies.locationid
+        
       });
       console.log("Registration successful");
       console.log(response);

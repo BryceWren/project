@@ -46,12 +46,19 @@ const setEventPost = (request, response) => {
   const desciption = request.body.backDesc
   const date = request.body.backDate
   const time = request.body.backTime
-  const eventSeverity = request.body.backSeverity
+  const longitude = request.body.backlong
+  const lattitude = request.body.backlat
+  const locationname = request.body.backName
+  const locationseverity = request.body.backSeverity
+  const locationtype = request.body.backLocationType
+  const locationid = request.body.backlocateid
+
 
 
   console.log(request.body.backlong)
 
-  pool.query('INSERT INTO events (eventdiscription, eventdate, eventtime, eventseverity) VALUES ($1, $2, $3, $4) RETURNING eventid', [], (error, results) => {
+  pool.query('INSERT INTO events (locationid, longitude, latitude, locationname,locationtype ,eventseverity, eventdiscription, eventdate, eventtime, severity) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING eventid',
+   [locationid, longitude,lattitude,locationname,locationtype ,locationseverity, desciption, date, time,locationseverity], (error, results) => {
     if (error) {
       throw error
     }
