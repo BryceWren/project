@@ -1,68 +1,67 @@
-import React, {useEffect, useState} from "react"
-import HomePage from "./HomePage"
+import React, { useEffect, useState } from "react";
 import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
-import '../Components/CSS/Register.css'
+import '../Components/CSS/Register.css';
 import Axios from "axios";
 
+export const Events = () => {
+  const [date, changeDate] = useState(new Date());
+  const [eventData, setEventData] = useState(null);
 
+  useEffect(() => {
+    fetchEvents();
+  }, [date]); // Fetch events whenever the selected date changes
 
+  const fetchEvents = async () => {
+    try {
+      const response = await Axios.get("http://localhost:5000/events", {
+        params: { date: date.toISOString() } // Send the selected date in ISO format
+      });
+      setEventData(response.data);
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
 
+  function changeValue(val) {
+    changeDate(val);
+  }
 
-export const Events = ()=> {
-  
-   const [date, changeDate] = useState(new Date());
-   const [eventdata, setEventData] = useState([]);
-   const [locationName, setLocationName] = useState('')
+  const joinEvent = (event) => {
+    // Handle joining the event
+    console.log('Joining event:', event);
+    // Add any additional logic for joining the event, e.g., updating the database, showing a confirmation message, etc.
+  };
 
-  useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventData(json.data)) }, [])
-
-   function changeValue(val) {
-      changeDate(val);
-   }
-
-   const eventsTable = () => {
-      return eventdata.map(ev => {
-        return(
-          <tr key = {ev.eventid}>
-            <td> {ev.locationname}</td>
-            <td> {new Date(ev.eventdate).toLocaleDateString()}</td>
-            <td> {ev.eventtime}</td>
-
-
-          </tr>
-        )
-      })
-      
-   }
-
-
-   return (
+  return (
     <div>
-        <NavigationBar />
-      <div className="event-container" >
-         <Calendar onChange = {changeValue} value = {date} locale="en-US"/> 
-         <p>The selected date is - {date.toLocaleDateString()}</p>
-         <div className="SettingsDataRetrieval">
+      <NavigationBar />
+      <div className="event-container">
+        <Calendar onChange={changeValue} value={date} locale="en-US" />
+        <p>The selected date is - {date.toLocaleDateString()}</p>
+        <div className="event-details">
+          {eventData && eventData.map((event) => {
+            if (new Date(event.eventdate).toLocaleDateString() === date.toLocaleDateString()) {
+              return (
+                <div>
+                  <h3>Event: {event.locationname}</h3>
+                  <p>Date: {event.eventdate}</p>
+                  <p>Time: {event.eventtime}</p>
+                  <p>Location: ({event.longitude.toFixed(6)}, {event.latitude.toFixed(6)})</p>
+                  <p>Severity: {event.severity}</p>
+                  <p>Description: {event.eventdiscription}</p>
 
-         <table className='table'> 
-          <thead>
-              <tr>
-                  <th>locationName</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th />
-              </tr>
-          </thead>
-          
-          <tbody>{eventsTable()}</tbody>
-      </table>
+                  <button onClick={() => joinEvent(event)}>Join</button>
+                </div>
+              );
+            } else {
+              return null; // If event date doesn't match the selected date, don't render it
+            }
+          })}
+        </div>
       </div>
-      </div>
-      </div>
-   );
-}
-
-
+    </div>
+  );
+};
 
 export default Events;
