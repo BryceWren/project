@@ -43,7 +43,7 @@ const setMapTable = (request, response) => {
 }
 //EVENTS
 const getEventPost = (request, response) => {
-  pool.query('SELECT * FROM events', (error,results) => {
+  pool.query("SELECT * FROM events", (error,results) => {
     if (error) {
       throw error;
     }

@@ -133,7 +133,6 @@ export const HomePage = () => {
   const mapKey = process.env.REACT_APP_MAPBOX_TOKEN;
 
   const locationdb = async () => {
-    console.log(markers.longitude)
     try {
       const response = await Axios.post("http://localhost:5000/home", {
         backlong: popupInfo.longitude,
