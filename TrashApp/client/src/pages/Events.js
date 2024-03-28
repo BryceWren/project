@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react"
+import HomePage from "./HomePage"
 import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
-import '../Components/CSS/Register.css';
+import '../Components/CSS/Register.css'
 import Axios from "axios";
 
 
@@ -58,8 +59,10 @@ export const Events = ()=> {
       </table>
       </div>
       </div>
-    </div>
-  );
-};
+      </div>
+   );
+}
+
+
 
 export default Events;
