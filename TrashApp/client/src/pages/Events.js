@@ -14,8 +14,6 @@ export const Events = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await Axios.get("http://localhost:5000/events");
-      const response = await Axios.get("http://localhost:5000/events");
       setEventData(response.data);
 
     } catch (error) {
@@ -45,11 +43,15 @@ export const Events = () => {
       <div className="event-container">
         <Calendar onChange={changeValue} value={date} locale="en-US" />
         <p>The selected date is - {date.toLocaleDateString()}</p>
-        <div className="event-details">
-          {eventData && eventData.map((event) => {
-            if (new Date(event.eventdate).toLocaleDateString() === date.toLocaleDateString()) {
-              return (
-                <div>
+        <div className="SettingsDataRetrieval">
+          {eventData &&
+            eventData
+              .filter(event => {
+                const eventDate = new Date(event.eventdate);
+                return eventDate.toDateString() === date.toDateString("en-US");
+              })
+              .map((event, index) => (
+                <div key={index}>
                   <h3>Event: {event.locationname}</h3>
                   <p>Date: {formatDate(event.eventdate)}</p>
                   <p>Time: {event.eventtime}</p>
