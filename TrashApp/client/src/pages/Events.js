@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, {useEffect, useState} from "react"
 import HomePage from "./HomePage"
 import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
@@ -12,9 +12,10 @@ import Axios from "axios";
 export const Events = ()=> {
   
    const [date, changeDate] = useState(new Date());
-   const [setEventdata, Eventdata] = useState([]);
+   const [eventData, setEventdata] = useState([]);
 
-  useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
+  //useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
+  useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.eventData)) }, [])
 
    function changeValue(val) {
       changeDate(val);
@@ -43,6 +44,7 @@ export const Events = ()=> {
          <Calendar onChange = {changeValue} value = {date} locale="en-US"/> 
          <p>The selected date is - {date.toLocaleDateString()}</p>
          <div className="SettingsDataRetrieval">
+
           <h3>Event1</h3>
           {/* this is where the data from the  database will go  */}
           <h3>Event2</h3>
