@@ -43,13 +43,13 @@ const setMapTable = (request, response) => {
 }
 //EVENTS
 const getEventPost = (request, response) => {
-  pool.query('SELECT * FROM events', (error, results) => {
-      if (error) {
-          throw error;
-      }
-      response.status(200).json(results.rows);
-  });
-};
+  pool.query('SELECT * FROM events', (error,results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows)
+  })
+}
 
 const setEventPost = (request, response) => {
   const desciption = request.body.backDesc
