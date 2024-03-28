@@ -14,8 +14,8 @@ export const Events = () => {
 
   const fetchEvents = async () => {
     try {
+      const response = await Axios.get("http://localhost:5000/events");
       setEventData(response.data);
-
     } catch (error) {
       console.error('An error occurred:', error);
     }
@@ -48,7 +48,7 @@ export const Events = () => {
             eventData
               .filter(event => {
                 const eventDate = new Date(event.eventdate);
-                return eventDate.toDateString() === date.toDateString("en-US");
+                return eventDate.toDateString() === date.toDateString();
               })
               .map((event, index) => (
                 <div key={index}>
