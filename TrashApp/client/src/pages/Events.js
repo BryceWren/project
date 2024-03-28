@@ -13,30 +13,20 @@ export const Events = ()=> {
   
    const [date, changeDate] = useState(new Date());
    const [eventData, setEventdata] = useState([]);
+   const [locationName, setLocationName] = useState('')
 
-  //useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
   useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.eventData)) }, [])
 
    function changeValue(val) {
       changeDate(val);
-
    }
-   const AddEvent = async () => {
-      try {
-        const response = await Axios.post("http://localhost:5000/events", {
-          backlong: popupInfo.longitude,
-          backlat: popupInfo.latitude,
-          backName: locationName,
-          backType: locationType,
-          backSeverity: pinColor
-          
-        });
-  
-  
-      } catch (error) {
-        console.error('An error ocurred:', error)
-      }
-    };
+
+   const eventsTable = () => {
+    
+      console.log(eventData)
+   }
+
+
    return (
     <div>
         <NavigationBar />
@@ -45,12 +35,16 @@ export const Events = ()=> {
          <p>The selected date is - {date.toLocaleDateString()}</p>
          <div className="SettingsDataRetrieval">
 
-          <h3>Event1</h3>
-          {/* this is where the data from the  database will go  */}
-          <h3>Event2</h3>
-          {/* this is where the data from the  database will go  */}
-          <h3>Event3</h3> 
-          {/* this is where the data from the  database will go  */}
+         <table className='table'> 
+          <thead>
+              <tr>
+                  <th>locationName</th>
+                  <th />
+              </tr>
+          </thead>
+          
+          <tbody>{eventsTable()}</tbody>
+      </table>
       </div>
       </div>
       </div>
