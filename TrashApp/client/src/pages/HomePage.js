@@ -152,7 +152,7 @@ export const HomePage = () => {
   return (
     <div>
       <NavigationBar />
-      <div style={{ width: "100vw", height: "95vh", alignContent: "center" }}>
+      <div style={{ width: "100vw", height: "94vh", alignContent: "center" }}>
         <ReactMapGL
           onClick={handleClick}
           width="100%"

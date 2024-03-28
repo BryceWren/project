@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import HomePage from "./HomePage"
 import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
@@ -14,7 +14,7 @@ export const Events = ()=> {
    const [date, changeDate] = useState(new Date());
    const [setEventdata, Eventdata] = useState([]);
 
-  //useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
+  useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.data)) }, [])
 
    function changeValue(val) {
       changeDate(val);
@@ -23,12 +23,12 @@ export const Events = ()=> {
    const AddEvent = async () => {
       try {
         const response = await Axios.post("http://localhost:5000/events", {
-          /*backlong: popupInfo.longitude,
+          backlong: popupInfo.longitude,
           backlat: popupInfo.latitude,
           backName: locationName,
           backType: locationType,
           backSeverity: pinColor
-          */
+          
         });
   
   
