@@ -12,18 +12,28 @@ import Axios from "axios";
 export const Events = ()=> {
   
    const [date, changeDate] = useState(new Date());
-   const [eventData, setEventdata] = useState([]);
+   const [eventdata, setEventData] = useState([]);
    const [locationName, setLocationName] = useState('')
 
-  useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventdata(json.eventData)) }, [])
+  useEffect(() => {Axios.get('http://localhost:5000/events').then(json => setEventData(json.data)) }, [])
 
    function changeValue(val) {
       changeDate(val);
    }
 
    const eventsTable = () => {
-    
-      console.log(eventData)
+      return eventdata.map(ev => {
+        return(
+          <tr key = {ev.eventid}>
+            <td> {ev.locationname}</td>
+            <td> {new Date(ev.eventdate).toLocaleDateString()}</td>
+            <td> {ev.eventtime}</td>
+
+
+          </tr>
+        )
+      })
+      
    }
 
 
@@ -39,6 +49,8 @@ export const Events = ()=> {
           <thead>
               <tr>
                   <th>locationName</th>
+                  <th>Date</th>
+                  <th>Time</th>
                   <th />
               </tr>
           </thead>
