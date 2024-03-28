@@ -13,7 +13,7 @@ export const Participants = () => {
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked); // Toggle checkbox state
     };
-
+// this is a test
     return (
         <div>
             <NavigationBar />
@@ -36,5 +36,5 @@ export const Participants = () => {
         </div>
     );
 };
-
+/// IS THIS WORKING
 export default Participants;
