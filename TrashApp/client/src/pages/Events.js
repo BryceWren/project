@@ -7,6 +7,7 @@ import Axios from "axios";
 export const Events = () => {
   const [date, changeDate] = useState(new Date());
   const [eventData, setEventData] = useState(null);
+  
 
   useEffect(() => {
     fetchEvents();
@@ -16,6 +17,7 @@ export const Events = () => {
     try {
       const response = await Axios.get("http://localhost:5000/events");
       setEventData(response.data);
+      console.log(response.data)
     } catch (error) {
       console.error('An error occurred:', error);
     }
@@ -27,7 +29,7 @@ export const Events = () => {
 
   const formatDate = (dateString) => {
     const eventDate = new Date(dateString);
-    const formattedDate = `${eventDate.getMonth() + 1}/${eventDate.getDate()}/${eventDate.getFullYear()}`;
+    const formattedDate = `${eventDate.getMonth()}/${eventDate.getDate()}/${eventDate.getFullYear()}`;
     return formattedDate;
   };
 
@@ -48,12 +50,14 @@ export const Events = () => {
             eventData
               .filter(event => {
                 const eventDate = new Date(event.eventdate);
+                const clickedDate = new Date(date)
+                console.log(eventDate + " " + clickedDate)
                 return eventDate.toDateString() === date.toDateString();
               })
               .map((event, index) => (
                 <div key={index}>
                   <h3>Event: {event.locationname}</h3>
-                  <p>Date: {formatDate(event.eventdate)}</p>
+                  <p>Date: {event.eventdate}</p>
                   <p>Time: {event.eventtime}</p>
                   <p>Severity: {event.severity}</p>
                   <p>Description: {event.eventdiscription}</p>
