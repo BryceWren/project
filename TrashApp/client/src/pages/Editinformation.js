@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import '../Components/CSS/Register.css';
 import NavigationBar from '../Components/NavBar';
+import { useCookies } from 'react-cookie';
 
 const EditInformation = () => {
     const [firstname, setFirstname] = useState('');
@@ -15,7 +16,14 @@ const EditInformation = () => {
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
     const [updateMessage, setUpdateMessage] = useState(false);
+    const [cookies] = useCookies(['email', 'password', 'lastname', 'firstname', 'ishost'])
     const Navigate = useNavigate();
+
+    const usermail = cookies.email
+    const lName = cookies.lastname
+    const fName = cookies.firstname
+
+
 
     const handleUpdate = (e) => {
         e.preventDefault();
@@ -82,7 +90,7 @@ const EditInformation = () => {
                         onChange={(e) => setFirstname(e.target.value)}
                         name="firstname"
                         id="firstname"
-                        placeholder="Joe"
+                        placeholder={fName}
                     />
                     {firstnameError && <p className="error-message">{firstnameError}</p>}
 
@@ -92,7 +100,7 @@ const EditInformation = () => {
                         onChange={(e) => setLastname(e.target.value)}
                         name="lastname"
                         id="lastname"
-                        placeholder="Teti"
+                        placeholder={lName}
                     />
                     {lastnameError && <p className="error-message">{lastnameError}</p>}
 
@@ -102,7 +110,7 @@ const EditInformation = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         id="email"
-                        placeholder="joeteti@gmail.com"
+                        placeholder={usermail}
                     />
                     {emailError && <p className="error-message">{emailError}</p>}
 
