@@ -16,7 +16,7 @@ import Button from '@mui/material/Button';
 import { useCookies } from 'react-cookie';
 
 export const Settings = () => {
-  const [cookies] = useCookies(['email', 'password', 'lastName', 'firstName'])
+  const [cookies] = useCookies(['email', 'password', 'lastName', 'firstName', 'ishost'])
 
   const userEmail= cookies.email;
   const pass = cookies.password;
@@ -26,7 +26,13 @@ export const Settings = () => {
   const handleLogout = () => {
     setLogoutConfirmationOpen(true);
   };
-
+  const handleIsHost = () => {
+    if (cookies.ishost){
+    return (<h3> MemberShip Status: Host</h3>)
+  }else{
+    return (<h3> MemberShip Status: Volunteer</h3>)
+  }
+}
   const handleLogoutConfirm = () => {
     // Perform logout actions here
     navigate('/');
@@ -48,7 +54,7 @@ export const Settings = () => {
           {/* this is where the data from the  database will go  */}
           <h3>Last Name: {cookies.lastname}</h3>
           {/* this is where the data from the  database will go  */}
-          <h3>MemberShip Status: V</h3> 
+          {handleIsHost()}
           {/* this is where the data from the  database will go  */}
           <h3>Email: {userEmail}</h3>
           {/* this is where the data from the  database will go  */}
