@@ -93,7 +93,7 @@ pool.query("SELECT * FROM users WHERE email = $1", [email], (error, results) => 
         
         
     }else {
-        pool.query('INSERT INTO users ("email", "password", "firstName", "lastName") VALUES ($1, $2, $3, $4)', [email, pass, first, last],(error, results) => {
+        pool.query('INSERT INTO users ("email", "password", "firstName", "lastName", "ishost") VALUES ($1, $2, $3, $4, $5)', [email, pass, first, last, 0],(error, results) => {
             if (error) {
                 throw error
             }
