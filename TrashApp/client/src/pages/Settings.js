@@ -13,8 +13,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import { useCookies } from 'react-cookie';
 
 export const Settings = () => {
+  const [cookies] = useCookies(['email', 'password', 'lastName', 'firstName'])
+
+  const userEmail= cookies.email;
+  const pass = cookies.password;
   const navigate = useNavigate();
   const [logoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false);
 
@@ -39,15 +44,15 @@ export const Settings = () => {
       <div className="auth-form-container">
         <h1>Settings</h1>
         <div className="register-form">
-          <h3>First Name</h3>
+          <h3>First Name: {cookies.firstname}</h3>
           {/* this is where the data from the  database will go  */}
-          <h3>Last Name</h3>
+          <h3>Last Name: {cookies.lastname}</h3>
           {/* this is where the data from the  database will go  */}
-          <h3>MemberShip Status</h3> 
+          <h3>MemberShip Status: V</h3> 
           {/* this is where the data from the  database will go  */}
-          <h3>Email</h3>
+          <h3>Email: {userEmail}</h3>
           {/* this is where the data from the  database will go  */}
-          <h3>Password</h3>
+          <h3>Password: {pass}</h3>
           {/* this is where the data from the  database will go  */}
           
           <div className="button-container">
