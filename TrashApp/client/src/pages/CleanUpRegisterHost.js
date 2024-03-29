@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NavigationBar from "../Components/NavBar";
 import Axios from "axios";
 import { useCookies } from "react-cookie";
+import { Route, useNavigate } from "react-router-dom";
 
 const CleanUpRegister = () => {
   const [date, setDate] = useState("");
@@ -10,6 +11,8 @@ const CleanUpRegister = () => {
   const [cookies] = useCookies(["locationname", "longitude", "latitude", "severity","locationType","locationid"]);
   const [longitude, setLongitude] = useState(cookies.longitude || 0);
   const [latitude, setLatitude] = useState(cookies.latitude || 0);
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setDescription(e.target.value);
@@ -26,6 +29,7 @@ const CleanUpRegister = () => {
     if (date && time && description) {
       eventregister();
       alert("Post Successful");
+      navigate('/events')
     } else {
       alert("Please fill out the three Required fields");
     }

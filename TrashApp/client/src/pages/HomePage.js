@@ -56,21 +56,6 @@ export const HomePage = () => {
     setSelectedLocation(null); // Close the second popup
   }
 
-  // const handleAddPin = async () => {
-  //   if (popupInfo && (pinColor === "red" || pinColor === "yellow" && locationType === "Beach" || locationType === "River" 
-  //       || locationType === "Lake" || locationType === "Campground" || locationType === "Hiking Trail" )) {
-  //     setMarkers([...markers, { id: new Date().getTime(), longitude: popupInfo.longitude, latitude: popupInfo.latitude, color: pinColor, date, time, description }]);
-  //     locationdb();
-  //     setPopupInfo(null);
-  //     // Clear input fields after adding pin
-  //     setDate('');
-  //     setTime('');
-  //     setDescription('');
-  //     setPinColor('');
-  //     setLocationName('');
-  //     setLocationType('');
-  //   }
-  // }
 
   const handleAddPin = async () => {
     // Set addPinPressed to true when "Add Location" button is pressed
