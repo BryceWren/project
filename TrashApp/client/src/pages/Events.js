@@ -65,6 +65,8 @@ export const Events = () => {
                   <p>Description: {event.eventdiscription}</p>
                   
                   <button onClick={() => joinEvent(event)}>Join</button>
+                  {/* <button onClick={() => EditEvent(event)}>Edit Event</button> HOST VIEW ONLY!!!! */}
+                  {/* <button onClick={() => PostCleanup(event)}>Post Cleanup</button> HOST VIEW ONLY!!!!*/}
                 </div>
               ))}
         </div>
