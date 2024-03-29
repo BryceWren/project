@@ -46,11 +46,13 @@ export const Events = () => {
         <Calendar onChange={changeValue} value={date} locale="en-US" />
         <p>The selected date is - {date.toLocaleDateString()}</p>
         <div className="SettingsDataRetrieval">
-          {eventData &&
+        {eventData &&
             eventData
               .filter(event => {
                 const eventDate = new Date(event.eventdate);
-                const clickedDate = new Date(date)
+                eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
+                const clickedDate = new Date(date);
+                clickedDate.setTime(clickedDate.getTime() + clickedDate.getTimezoneOffset() * 60000);
                 console.log(eventDate + " " + clickedDate)
                 return eventDate.toDateString() === date.toDateString();
               })
