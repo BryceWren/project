@@ -16,9 +16,9 @@ import Button from '@mui/material/Button';
 import { useCookies } from 'react-cookie';
 
 export const Settings = () => {
-  const [cookies] = useCookies(['email', 'password', 'lastName', 'firstName', 'ishost'])
+  const [cookies] = useCookies(['email', 'password', 'lastName', 'firstName', 'ishost']);
 
-  const userEmail= cookies.email;
+  const userEmail = cookies.email;
   const pass = cookies.password;
   const navigate = useNavigate();
   const [logoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false);
@@ -26,13 +26,15 @@ export const Settings = () => {
   const handleLogout = () => {
     setLogoutConfirmationOpen(true);
   };
+
   const handleIsHost = () => {
-    if (cookies.ishost){
-    return (<h3> MemberShip Status: Host</h3>)
-  }else{
-    return (<h3> MemberShip Status: Volunteer</h3>)
-  }
-}
+    if (cookies.ishost) {
+      return (<h3> MemberShip Status: Host</h3>);
+    } else {
+      return (<h3> MemberShip Status: Volunteer</h3>);
+    }
+  };
+
   const handleLogoutConfirm = () => {
     // Perform logout actions here
     navigate('/');
@@ -41,6 +43,10 @@ export const Settings = () => {
 
   const handleLogoutCancel = () => {
     setLogoutConfirmationOpen(false);
+  };
+
+  const hidePassword = () => {
+    return '*'.repeat(pass.length);
   };
 
   return (
@@ -58,16 +64,15 @@ export const Settings = () => {
           {/* this is where the data from the  database will go  */}
           <h3>Email: {userEmail}</h3>
           {/* this is where the data from the  database will go  */}
-          <h3>Password: {pass}</h3>
+          <h3>Password: {hidePassword()}</h3>
           {/* this is where the data from the  database will go  */}
-          
           <div className="button-container">
             <button className="form-btn" onClick={() => navigate('/Editinformation')}> Edit Information</button>
             <button className="form-btn" onClick={handleLogout}>Logout</button>
           </div>
         </div>
       </div>
-      
+
       {/* Logout Confirmation Dialog */}
       <Dialog
         open={logoutConfirmationOpen}
@@ -88,6 +93,6 @@ export const Settings = () => {
       </Dialog>
     </div>
   );
-}
+};
 
 export default Settings;

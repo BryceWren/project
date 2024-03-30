@@ -187,18 +187,62 @@ textarea {
 
 
 /*event page container*/
-.event-container{
-  background-color: white; /* turned the background to white  for more readability (is that a word i have no idea) */
- display: flex;
- flex-direction: column;
- align-items: center;
- margin: 0 auto;
- width: 500px;
- padding: 20px;
- border: 2px solid #636161;
- border-radius: 40px;
- box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
- margin-top: 75px;
+.event-container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto 0 auto; /* Adjust margin for spacing from the top */
+  width: 500px;
+  padding: 10px;
+  border: 2px solid #636161;
+  border-radius: 40px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+  
+}
+
+.event-details-container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto 0 auto;
+  width: 500px;
+  padding: 20px;
+  border: 2px solid #636161;
+  border-radius: 40px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+  max-height: 410px; 
+  overflow-y: scroll;
+}
+
+/* .event-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: small;
+  
+} */
+.event-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.event-details-left {
+  flex: 3; /* Take up remaining space */
+}
+
+.event-details-right {
+  flex: 2;
+  gap: 10px; /* Adjust the gap between buttons */
+}
+
+.event-details-container::-webkit-scrollbar {
+  width: 0;
 }
 
 /* Calendar CSS */

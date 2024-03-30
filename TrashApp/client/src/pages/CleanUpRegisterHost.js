@@ -1,37 +1,78 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavigationBar from "../Components/NavBar";
 import Axios from "axios";
 import { useCookies } from "react-cookie";
-import { Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+const PopupMessage = ({ message }) => {
+  return (
+    <div className="popup">
+      <div className="popup-inner">
+        <p>{message}</p>
+      </div>
+    </div>
+  );
+};
 
 const CleanUpRegister = () => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [description, setDescription] = useState("");
-  const [cookies] = useCookies(["locationname", "longitude", "latitude", "severity","locationType","locationid"]);
+  const [cookies] = useCookies(["locationname", "longitude", "latitude", "severity", "locationType", "locationid"]);
   const [longitude, setLongitude] = useState(cookies.longitude || 0);
   const [latitude, setLatitude] = useState(cookies.latitude || 0);
-
+  const [dateError, setDateError] = useState("");
+  const [timeError, setTimeError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let timer;
+    if (message) {
+      timer = setTimeout(() => {
+        setMessage("");
+        navigate("/events");
+      }, 3000); // hide message after 3 seconds
+    }
+    return () => clearTimeout(timer);
+  }, [message, navigate]);
 
   const handleChange = (e) => {
     setDescription(e.target.value);
   };
 
   const handleDateChange = (e) => {
-    const input = e.target.value.replace(/\D/g, '');
-    const formattedInput = input.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
+    const input = e.target.value.replace(/\D/g, "");
+    const formattedInput = input.replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3");
     setDate(formattedInput);
   };
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
-    if (date && time && description) {
-      eventregister();
-      alert("Post Successful");
-      navigate('/events')
-    } else {
-      alert("Please fill out the three Required fields");
+    setDateError("");
+    setTimeError("");
+    setDescriptionError("");
+    let isValid = true;
+
+    if (!date) {
+      setDateError("Please select a date.");
+      isValid = false;
+    }
+
+    if (!time) {
+      setTimeError("Please select a time.");
+      isValid = false;
+    }
+
+    if (!description) {
+      setDescriptionError("Please provide a description.");
+      isValid = false;
+    }
+
+    if (isValid) {
+      await eventregister();
+      setMessage("Event has been created!");
     }
   };
 
@@ -47,7 +88,6 @@ const CleanUpRegister = () => {
         backSeverity: cookies.severity,
         backLocationType: cookies.locationType,
         backlocateid: cookies.locationid
-        
       });
       console.log("Registration successful");
       console.log(response);
@@ -61,12 +101,15 @@ const CleanUpRegister = () => {
       <NavigationBar />
       <div className="auth-form-container">
         <h2>Create a Cleanup Event!</h2>
+        {message && <PopupMessage message={message} />}
         <form className="register-form">
           <label>Date:</label>
-          <input type="date" value={date} onChange={(handleDateChange) => setDate(handleDateChange.target.value)} />
+          <input type="date" value={date} onChange={(event) => setDate(event.target.value)} />
+          <div className="error-message">{dateError}</div>
 
           <label>Time:</label>
           <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+          <div className="error-message">{timeError}</div>
 
           <label>Location:</label>
           <p>
@@ -79,14 +122,15 @@ const CleanUpRegister = () => {
           />
 
           <label>Description:</label>
-          <textarea value={description} onChange={(handleChange) => setDescription(handleChange.target.value)} />
+          <textarea value={description} onChange={handleChange} />
+          <div className="error-message">{descriptionError}</div>
 
+          <div className="button-container">
+            <button className="form-btn" onClick={handleUpdate}>
+              Create Event
+            </button>
+          </div>
         </form>
-        <div className="button-container">
-          <button className="form-btn" onClick={handleUpdate}>
-            Create Event
-          </button>
-        </div>
       </div>
     </div>
   );
