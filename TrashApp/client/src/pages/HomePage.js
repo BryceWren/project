@@ -195,7 +195,6 @@ export const HomePage = () => {
                 <p><b>Location Type: </b>{selectedLocation.locationtype}</p>
                 <p><b>Longitude: </b>{selectedLocation.longitude.toFixed(6)}</p>
                 <p><b>Latitude: </b>{selectedLocation.latitude.toFixed(6)}</p>
-                {/* <p><b>LocationID: </b>{selectedLocation.locationid}</p> */}
               </div>
 
               <div className="popup-button-container">

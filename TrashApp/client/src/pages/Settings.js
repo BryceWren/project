@@ -29,9 +29,9 @@ export const Settings = () => {
 
   const handleIsHost = () => {
     if (cookies.ishost) {
-      return (<h3> MemberShip Status: Host</h3>);
+      return (<h3> Membership Status: Host</h3>);
     } else {
-      return (<h3> MemberShip Status: Volunteer</h3>);
+      return (<h3> Membership Status: Volunteer</h3>);
     }
   };
 
