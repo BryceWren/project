@@ -227,7 +227,6 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
   margin-bottom: 10px;
   padding: 10px;
 }
@@ -242,7 +241,26 @@ textarea {
 }
 
 .event-details-container::-webkit-scrollbar {
-  width: 0;
+  width: 15px;
+}
+
+/* Track */
+.event-details-container::-webkit-scrollbar-track {
+  background: transparent; /* Color of the track */
+  height: 5px;
+}
+
+/* Handle */
+.event-details-container::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar handle */
+  border-radius: 20px; /* Rounded corners */
+  width: 5px;
+
+}
+
+/* Handle on hover */
+.event-details-container::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar handle on hover */
 }
 
 /* Calendar CSS */
