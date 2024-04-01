@@ -210,7 +210,7 @@ textarea {
   width: 500px;
   padding: 20px;
   border: 2px solid #636161;
-  border-radius: 40px;
+  border-radius: 15px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
   max-height: 410px; 
   overflow-y: scroll;
@@ -253,7 +253,7 @@ textarea {
 /* Handle */
 .event-details-container::-webkit-scrollbar-thumb {
   background: #888; /* Color of the scrollbar handle */
-  border-radius: 20px; /* Rounded corners */
+  border-radius: 50px; /* Rounded corners */
   width: 5px;
 
 }
