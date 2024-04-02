@@ -5,7 +5,7 @@ import Register  from './Components/Register';  //remove curly braces
 import { HomePage } from './pages/HomePage';
 import { Events } from './pages/Events';
 import { Settings } from './pages/Settings';
-//import  IndividualCleanup from './Components/IndividualCleanup';
+import  IndividualCleanup from './Components/IndividualCleanup';
 import  Editinformation from './pages/Editinformation';
 import PostUI from './pages/PostUI'
 import CleanUpRegisterHost from './pages/CleanUpRegisterHost';
@@ -21,7 +21,7 @@ export const AppRoutes = () => {
                 <Route path="/home/*" element={<HomePage />} />
                 <Route path="/events" element={<Events />} />
                 <Route path="/settings" element={<Settings />} />
-                {/* <Route path="/IndividualCleanup" element={<IndividualCleanup />} /> */}
+                <Route path="/IndividualCleanup" element={<IndividualCleanup />} />
                 <Route path="/Editinformation" element={< Editinformation />} />
                 <Route path="/PostUI" element={<PostUI />} />
                 <Route path ="/CleanUpRegisterHost/*" element={<CleanUpRegisterHost/>}/>

@@ -85,6 +85,8 @@ export const HomePage = () => {
           date,
           time,
           description,
+          locationname: locationName,
+          locationtype: locationType,
         },
       ]);
       // Add pin to database
@@ -193,8 +195,8 @@ export const HomePage = () => {
                 <h2>Location Information</h2>
                 <p><b>Location Name: </b>{selectedLocation.locationname}</p>
                 <p><b>Location Type: </b>{selectedLocation.locationtype}</p>
-                <p><b>Longitude: </b>{selectedLocation.longitude.toFixed(6)}</p>
-                <p><b>Latitude: </b>{selectedLocation.latitude.toFixed(6)}</p>
+                {/* <p><b>Longitude: </b>{selectedLocation.longitude.toFixed(6)}</p>
+                <p><b>Latitude: </b>{selectedLocation.latitude.toFixed(6)}</p> */}
               </div>
 
               <div className="popup-button-container">
@@ -202,7 +204,7 @@ export const HomePage = () => {
                 homeCookies(selectedLocation.locationname.toString(),selectedLocation.locationid.toString(),selectedLocation.longitude,selectedLocation.latitude,selectedLocation.severity,
                 selectedLocation.locationtype)}
                  className="popup-button">Create Event</button>
-                <button onClick={() => handleNavigation('/events')} className="popup-button">Join Event</button>
+                <button onClick={() => handleNavigation('/IndividualCleanup')} className="popup-button">Individual Cleanup</button>
               </div>
             </Popup>
           )}

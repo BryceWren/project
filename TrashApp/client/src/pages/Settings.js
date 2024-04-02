@@ -1,10 +1,4 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import { Route, useNavigate } from 'react-router-dom';
 import NavigationBar from '../Components/NavBar';
 import { Navigate } from 'react-router-dom';
@@ -45,9 +39,9 @@ export const Settings = () => {
     setLogoutConfirmationOpen(false);
   };
 
-  const hidePassword = () => {
-    return '*'.repeat(pass.length);
-  };
+  // const hidePassword = () => {
+  //   return '*'.repeat(pass.length);
+  // };
 
   return (
     <div>
@@ -57,15 +51,15 @@ export const Settings = () => {
         <h1>Settings</h1>
         <div className="register-form">
           <h3>First Name: {cookies.firstname}</h3>
-          {/* this is where the data from the  database will go  */}
+          
           <h3>Last Name: {cookies.lastname}</h3>
-          {/* this is where the data from the  database will go  */}
+          
           {handleIsHost()}
-          {/* this is where the data from the  database will go  */}
+          
           <h3>Email: {userEmail}</h3>
-          {/* this is where the data from the  database will go  */}
-          <h3>Password: {hidePassword()}</h3>
-          {/* this is where the data from the  database will go  */}
+         
+          {/* <h3>Password: {hidePassword()}</h3> */}
+          
           <div className="button-container">
             <button className="form-btn" onClick={() => navigate('/Editinformation')}> Edit Information</button>
             <button className="form-btn" onClick={handleLogout}>Logout</button>
