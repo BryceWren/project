@@ -7,6 +7,7 @@ import Axios from "axios";
 export const Events = () => {
   const [date, changeDate] = useState(new Date());
   const [eventData, setEventData] = useState(null);
+  
 
   useEffect(() => {
     fetchEvents();
@@ -25,6 +26,15 @@ export const Events = () => {
   function changeValue(val) {
     changeDate(val);
   }
+
+  const formatDate = (dateString) => {
+    const eventDate = new Date(dateString);
+    return eventDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
 
   const formatTime = (timeString) => {
     const eventTime = new Date(`1970-01-01T${timeString}`);
@@ -53,39 +63,42 @@ export const Events = () => {
       </div>
       <div className="event-details-container">
         {eventData &&
-            (eventData.filter(event => {
-              const eventDate = new Date(event.eventdate);
-              const clickedDate = new Date(date);
-              return eventDate.toDateString() === clickedDate.toDateString();
-            }).length === 0 ? 
-              <p>No events going on today!</p>
-              :
-              eventData
-                .filter(event => {
-                  const eventDate = new Date(event.eventdate);
-                  const clickedDate = new Date(date);
-                  return eventDate.toDateString() === clickedDate.toDateString();
-                })
-                .map((event, index) => {
-                  const formattedEventDate = new Date(event.eventdate).toLocaleDateString('en-US');
-                  const severityText = event.severity === 'red' ? 'Major' : 'Minor';
-                  return (
-                    <div className="event-details" key={index}>
-                      <div className="event-details-left">
-                        <h3>Event: {event.locationname}</h3>
-                        <p>Date: {formattedEventDate}</p>
-                        <p>Time: {formatTime(event.eventtime)}</p>
-                        <p>Severity: {severityText}</p>
-                        <p>Description: {event.eventdiscription}</p>
-                      </div>
-                      <div className="event-details-right">
-                        <button onClick={() => joinEvent(event)}>Join Event</button>
-                        <button onClick={() => editEvent(event)}>Edit Event</button>  {/*HOST VIEW ONLY!!!! */}
-                        <button onClick={() => postCleanup(event)}>Post Cleanup</button> {/*HOST VIEW ONLY!!!! */}
-                      </div>
-                    </div>
-                  );
-                })
+          (eventData.filter(event => {
+            const eventDate = new Date(event.eventdate);
+            eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
+            const clickedDate = new Date(date);
+            clickedDate.setTime(clickedDate.getTime() + clickedDate.getTimezoneOffset() * 60000);
+            console.log(eventDate + " " + clickedDate)
+            return eventDate.toDateString() === date.toDateString();
+          }).length === 0 ? 
+            <p>No events going on today!</p>
+            :
+            eventData
+              .filter(event => {
+                const eventDate = new Date(event.eventdate);
+                eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
+                const clickedDate = new Date(date);
+                clickedDate.setTime(clickedDate.getTime() + clickedDate.getTimezoneOffset() * 60000);
+                console.log(eventDate + " " + clickedDate)
+                return eventDate.toDateString() === date.toDateString();
+              })
+              .map((event, index) => (
+                <div className="event-details" key={index}>
+                  <div className="event-details-left">
+                    <h3>Event: {event.locationname}</h3>
+                    <p>Date: {event.eventdate}</p>
+                    <p>Time: {formatTime(event.eventtime)}</p>
+                    <p>Severity: {event.severity === 'red' ? 'Major' : 'Minor'}</p>
+                    <p>Description: {event.eventdiscription}</p>
+                    
+                  </div>
+                  <div className="event-details-right">
+                    <button onClick={() => joinEvent(event)}>Join Event</button>
+                    <button onClick={() => editEvent(event)}>Edit Event</button>  {/*HOST VIEW ONLY!!!! */}
+                    <button onClick={() => postCleanup(event)}>Post Cleanup</button> {/*HOST VIEW ONLY!!!! */}
+                  </div>
+                </div>
+              ))
           )}
       </div>
     </div>
