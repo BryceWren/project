@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import '../Components/CSS/Register.css';
 import NavigationBar from '../Components/NavBar';
 import { useCookies } from 'react-cookie';
+import Axios from 'axios';
+
+// WOULD LIKE TO ADD BUTTONS ON EMAIL AND PASSWORD TO GIVE A CONFIRMATION TO THE USER WHICH OPTION THEY WANT TO CHANGE
 
 const EditInformation = () => {
     const [firstname, setFirstname] = useState('');
@@ -16,19 +19,31 @@ const EditInformation = () => {
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
     const [updateMessage, setUpdateMessage] = useState(false);
-    const [cookies] = useCookies(['email', 'password', 'lastname', 'firstname', 'ishost'])
+    const [cookies] = useCookies(['userID', 'email', 'password', 'lastname', 'firstname', 'ishost'])
     const Navigate = useNavigate();
 
     const usermail = cookies.email
     const lName = cookies.lastname
     const fName = cookies.firstname
-
-
-
+/*
+    const updateUserInfo = async () => {
+        try {
+            const response = await Axios.put("http://localhost:5000/Editinformation", {
+                backemail: cookies.email,
+                backpass: cookies.password,
+                backUserID: cookies.userID
+            });
+            console.log(response)
+            //setLoginStatus(response.data); // Assuming that you want to log the response data
+        } catch (error) {
+            // Handle any errors that might occur during the request
+            console.error('An error occurred:', error);
+            return false;
+        }
+    };
+*/
     const handleUpdate = (e) => {
         e.preventDefault();
-        setFirstnameError('');
-        setLastnameError('');
         setEmailError('');
         setPasswordError('');
         setConfirmPasswordError('');
@@ -44,16 +59,9 @@ const EditInformation = () => {
         }
     };
 
+
     const validateInput = () => {
         let isValid = true;
-        if (!firstname.trim()) {
-            setFirstnameError('First name is required');
-            isValid = false;
-        }
-        if (!lastname.trim()) {
-            setLastnameError('Last name is required');
-            isValid = false;
-        }
         if (!email.trim()) {
             setEmailError('Email is required');
             isValid = false;
@@ -84,27 +92,10 @@ const EditInformation = () => {
             <div className="auth-form-container">
                 <h1>Edit Information</h1>
                 <form className="register-form">
-                    <label htmlFor="firstname">First Name</label>
-                    <input
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
-                        name="firstname"
-                        id="firstname"
-                        placeholder={fName}
-                    />
-                    {firstnameError && <p className="error-message">{firstnameError}</p>}
-
-                    <label htmlFor="lastname">Last Name</label>
-                    <input
-                        value={lastname}
-                        onChange={(e) => setLastname(e.target.value)}
-                        name="lastname"
-                        id="lastname"
-                        placeholder={lName}
-                    />
                     {lastnameError && <p className="error-message">{lastnameError}</p>}
 
                     <label htmlFor="email">Email</label>
+                    <button>change email?</button> 
                     <input
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}

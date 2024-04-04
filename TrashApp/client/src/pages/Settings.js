@@ -13,7 +13,6 @@ export const Settings = () => {
   const [cookies,,removeCookies] = useCookies(['email', 'password', 'lastName', 'firstName', 'ishost']);
   
   const userEmail = cookies.email;
-  const pass = cookies.password;
   const navigate = useNavigate();
   const [logoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false);
 
