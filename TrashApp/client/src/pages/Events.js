@@ -3,11 +3,13 @@ import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
 import '../Components/CSS/Register.css';
 import Axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export const Events = () => {
   const [date, changeDate] = useState(new Date());
   const [eventData, setEventData] = useState(null);
   
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchEvents();
@@ -51,6 +53,7 @@ export const Events = () => {
   };
 
   const postCleanup = (event) => {
+    navigate('/postUI') // WILL NEED TO CHANGE THIS TO A DIFFERENT PAGE FOR CLEANUP GROUPS I JUST DID THIS TO TEST
     console.log('Post Cleanup', event);
   };
 
