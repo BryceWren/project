@@ -42,8 +42,10 @@ const setMapTable = (request, response) => {
   })
 }
 //EVENTS
-const getSpecificEvent = (request, response) => {
-  pool.query("SELECT * FROM events WHERE eventid = $1",[15], (error,results) => { //place holder is 15 for when i get the actual eventid from another location
+const updateMarkerIndividualEvent = (request, response) => {
+  const locationid = request.body.backlocationid
+  const locationseveritychange = request.body.changedcolor
+  pool.query("UPDATE map SET severity = $1 WHERE locationid = $2",[locationseveritychange, locationid], (error,results) => { //place holder is 15 for when i get the actual eventid from another location
     if (error) {
       throw error;
     }
@@ -137,7 +139,7 @@ const loginUser = (request, response) => {
     
   }
 module.exports = {
-    getSpecificEvent,
+    updateMarkerIndividualEvent,
     getMapTable,
     setMapTable,
     registerUser,
