@@ -1,19 +1,32 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import HomePage from "./HomePage"
 import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
 import '../Components/CSS/Register.css';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 
 const PostUI = () => {
 const [cookies] = useCookies(['lastname', 'firstname', 'locationname', 'ishost']);
-
+const [eventData, setData] = useState(null);
+const [discriptor, setDescription] = useState('')
 
 const firstName = cookies.firstname
 const lastName = cookies.lastname
 const locationName = cookies.locationname
 const navigate = useNavigate();
+
+useEffect(() => {
+  Axios.post('http://localhost:5000/postUI')
+    .then(response => {
+      setData(response.data);
+      
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+}, []);
 
 
 const submitButton = () => {
@@ -25,6 +38,7 @@ function getDate()  {
   const month = today.getMonth()+1;
   const year = today.getFullYear();
   const date = today. getDate();
+  
   return `${month}/${date}/${year}`;
   }
 
@@ -57,7 +71,7 @@ function getDate()  {
       <h5>Time:</h5>
       {getTime()}
      <h5>Description:</h5>
-     {/* information from  the database will go here */}
+      {}
      <h5>Location:</h5>
      {locationName}
      <label>Severity: </label>

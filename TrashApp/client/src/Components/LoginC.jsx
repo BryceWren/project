@@ -62,7 +62,7 @@ export const LoginC = (props) => {
                 backPassword: pass
             });
             console.log(response)
-            setCookie('userID', response.data[0].userID) //THIS IS GETTING UNDEFINED WHEN TRYING TO GET THE DATA... NEEDS FIXING
+            setCookie('userID', response.data[0].userID) 
             setCookie('firstname', response.data[0].firstName)
             setCookie('lastname', response.data[0].lastName)
             setCookie('email', response.data[0].email)

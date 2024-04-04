@@ -44,6 +44,17 @@ export const Settings = () => {
   const handleLogoutConfirm = () => {
     // Perform logout actions here
     removeCookies('userID')
+    removeCookies('email')
+    removeCookies('firstname')
+    removeCookies('ishost')
+    removeCookies('lastname')
+    removeCookies('latitude')
+    removeCookies('longitude')
+    removeCookies('locationType')
+    removeCookies('locationid')
+    removeCookies('locationname')
+    removeCookies('password')
+    removeCookies('severity')
     navigate('/');
     setLogoutConfirmationOpen(false);
   };

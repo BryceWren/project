@@ -12,7 +12,7 @@ app.get("/api", (req, res) => {
 
 app.listen(5000, () => {console.log("Server started on port 5000")})
 
-
+app.get('/IndividualCleanup', jsonParser, db.getSpecificEvent)
 app.get('/events', jsonParser,db.getEventPost)
 app.post('/cleanupregisterhost', jsonParser, db.setEventPost)
 app.get('/home', jsonParser, db.getMapTable)

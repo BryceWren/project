@@ -42,6 +42,15 @@ const setMapTable = (request, response) => {
   })
 }
 //EVENTS
+const getSpecificEvent = (request, response) => {
+  pool.query("SELECT * FROM events WHERE eventid = $1",[15], (error,results) => { //place holder is 15 for when i get the actual eventid from another location
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
 const getEventPost = (request, response) => {
   pool.query("SELECT * FROM events", (error,results) => {
     if (error) {
@@ -128,6 +137,7 @@ const loginUser = (request, response) => {
     
   }
 module.exports = {
+    getSpecificEvent,
     getMapTable,
     setMapTable,
     registerUser,

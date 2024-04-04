@@ -44,6 +44,15 @@ export const HomePage = () => {
     setCookies('locationType', ltype)
     handleNavigation('/cleanupregisterhost')
   }
+  const individualCookies = (name,id,long, lat, sever, ltype) => {
+    setCookies('locationname', name)
+    setCookies('locationid', id)
+    setCookies('longitude', long)
+    setCookies('latitude', lat)
+    setCookies('severity', sever)
+    setCookies('locationType', ltype)
+    handleNavigation('/IndividualCleanup')
+  }
 
   /* CLICK FOR PINS */
   const handleClick = ({ lngLat }) => {
@@ -205,7 +214,8 @@ export const HomePage = () => {
                 homeCookies(selectedLocation.locationname,selectedLocation.locationid,selectedLocation.longitude,selectedLocation.latitude,selectedLocation.severity,
                 selectedLocation.locationtype)}
                  className="popup-button">Create Event</button>
-                <button onClick={() => handleNavigation('/IndividualCleanup')} className="popup-button">Individual Cleanup</button>
+                <button onClick={() => individualCookies(selectedLocation.locationname,selectedLocation.locationid,selectedLocation.longitude,selectedLocation.latitude,selectedLocation.severity,
+                selectedLocation.locationtype)} className="popup-button">Individual Cleanup</button>
               </div>
             </Popup>
           )}

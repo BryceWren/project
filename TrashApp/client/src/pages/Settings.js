@@ -10,8 +10,8 @@ import Button from '@mui/material/Button';
 import { useCookies } from 'react-cookie';
 
 export const Settings = () => {
-  const [cookies] = useCookies(['email', 'password', 'lastName', 'firstName', 'ishost']);
-
+  const [cookies,,removeCookies] = useCookies(['email', 'password', 'lastName', 'firstName', 'ishost']);
+  
   const userEmail = cookies.email;
   const pass = cookies.password;
   const navigate = useNavigate();
@@ -31,6 +31,18 @@ export const Settings = () => {
 
   const handleLogoutConfirm = () => {
     // Perform logout actions here
+    removeCookies('userID')
+    removeCookies('email')
+    removeCookies('firstname')
+    removeCookies('ishost')
+    removeCookies('lastname')
+    removeCookies('latitude')
+    removeCookies('longitude')
+    removeCookies('locationType')
+    removeCookies('locationid')
+    removeCookies('locationname')
+    removeCookies('password')
+    removeCookies('severity')
     navigate('/');
     setLogoutConfirmationOpen(false);
   };

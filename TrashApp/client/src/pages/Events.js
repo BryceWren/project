@@ -19,7 +19,6 @@ export const Events = () => {
     try {
       const response = await Axios.get("http://localhost:5000/events");
       setEventData(response.data);
-      console.log(response.data)
     } catch (error) {
       console.error('An error occurred:', error);
     }
@@ -45,11 +44,11 @@ export const Events = () => {
   };
 
   const joinEvent = (event) => {
-    console.log('Joining event:', event);
+    console.log('Joining event:', event); //THIS NEEDS TO HAVE SOME SORT OF COUNTER ON THE BACKEND ALONGSIDE USER CREDENTIALS
   };
   
   const editEvent = (event) => {
-    console.log('Edit event:', event);
+    console.log('Edit event:', event); //ONLY THE USER THAT CREATED THIS EVENT CAN MANIPULATED THE EVENT THEY CREATED... MAKE USERID POST TO THE DB TO SAVE WHICH USER DID WHAT ON EVENTS
   };
 
   const postCleanup = (event) => {
@@ -71,7 +70,6 @@ export const Events = () => {
             eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
             const clickedDate = new Date(date);
             clickedDate.setTime(clickedDate.getTime() + clickedDate.getTimezoneOffset() * 60000);
-            console.log(eventDate + " " + clickedDate)
             return eventDate.toDateString() === date.toDateString();
           }).length === 0 ? 
             <p>No events going on today!</p>
@@ -82,7 +80,6 @@ export const Events = () => {
                 eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
                 const clickedDate = new Date(date);
                 clickedDate.setTime(clickedDate.getTime() + clickedDate.getTimezoneOffset() * 60000);
-                console.log(eventDate + " " + clickedDate)
                 return eventDate.toDateString() === date.toDateString();
               })
               .map((event, index) => (
