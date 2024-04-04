@@ -7,7 +7,7 @@ import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export const HomePage = () => {
-  const [cookies, setCookies] = useCookies(['locationname','locationid','lattitude','longitude','locationtype','severity'])
+  const [cookies, setCookies] = useCookies(['locationname','locationid','lattitude','longitude','locationtype','severity', 'parking', 'dumpster'])
 
 
   const [viewport, setViewport] = useState({
@@ -27,6 +27,8 @@ export const HomePage = () => {
   const [locationName, setLocationName] = useState('');
   const [locationType, setLocationType] = useState('');
   const [addPinPressed, setAddPinPressed] = useState(false); // State to track if "Add Location" button is pressed
+  const [parking, setParking] = useState('');
+  const [dumpster, setDumpster] = useState('');
 
   useEffect(() => {Axios.get('http://localhost:5000/home').then(json => setData(json.data)) }, [])
 
@@ -35,7 +37,7 @@ export const HomePage = () => {
 
     navigate(route);
   };
-  const homeCookies = (name,id,long, lat, sever, ltype) => {
+  const homeCookies = (name,id,long, lat, sever, ltype, park, dump) => {
     setCookies('locationname', name)
     setCookies('locationid', id)
     setCookies('longitude', long)
@@ -43,6 +45,8 @@ export const HomePage = () => {
     setCookies('severity', sever)
     setCookies('locationType', ltype)
     handleNavigation('/cleanupregisterhost')
+    setCookies( "parking", park)
+    setCookies("dumpster", dump)
   }
   const individualCookies = (name,id,long, lat, sever, ltype) => {
     setCookies('locationname', name)
@@ -52,6 +56,7 @@ export const HomePage = () => {
     setCookies('severity', sever)
     setCookies('locationType', ltype)
     handleNavigation('/IndividualCleanup')
+    //DO WE NEED INDIVIDUAL COOKIES FOR PARKING AND DUMPSTER LOCATIONS
   }
 
   /* CLICK FOR PINS */
@@ -82,7 +87,10 @@ export const HomePage = () => {
         locationType === "River" ||
         locationType === "Lake" ||
         locationType === "Campground" ||
-        locationType === "Hiking Trail")
+        locationType === "Hiking Trail") &&
+        parking &&
+        dumpster
+        
     ) {
       // Add pin only if validations pass
       setMarkers([
@@ -97,6 +105,8 @@ export const HomePage = () => {
           description,
           locationname: locationName,
           locationtype: locationType,
+          parking,
+          dumpster
         },
       ]);
       // Add pin to database
@@ -109,6 +119,8 @@ export const HomePage = () => {
       setPinColor('');
       setLocationName('');
       setLocationType('');
+      setParking('');
+      setDumpster('');
     } else {
       // Show error message or handle validation failure
       console.log("Validation failed. Please fill in all required fields.");
@@ -136,7 +148,9 @@ export const HomePage = () => {
         backlat: popupInfo.latitude,
         backName: locationName,
         backType: locationType,
-        backSeverity: pinColor
+        backSeverity: pinColor,
+        backParking: parking,
+        backDumpster: dumpster
       });
 
 
@@ -180,7 +194,6 @@ export const HomePage = () => {
             <Marker
               key={p.locationid}
               name={p.locationName}
-              
               longitude={p.longitude}
               latitude={p.latitude}
               color={p.severity}
@@ -205,8 +218,8 @@ export const HomePage = () => {
                 <h2>Location Information</h2>
                 <p><b>Location Name: </b>{selectedLocation.locationname}</p>
                 <p><b>Location Type: </b>{selectedLocation.locationtype}</p>
-                {/* <p><b>Longitude: </b>{selectedLocation.longitude.toFixed(6)}</p>
-                <p><b>Latitude: </b>{selectedLocation.latitude.toFixed(6)}</p> */}
+                <p><b>Parking Details: </b>{selectedLocation.parking}</p>
+                <p><b>Dumpster Location: </b>{selectedLocation.dumpster}</p>
               </div>
 
               <div className="popup-button-container">
@@ -255,6 +268,15 @@ export const HomePage = () => {
                   <option value="red">Major (Red)</option>
                 </select>
                 {addPinPressed && !pinColor && <p className="popup-validation">Please select a severity</p>}
+
+                <label>Parking Details: </label>
+                <input type={parking} value={parking} onChange={(e) => setParking(e.target.value)} />
+                {addPinPressed && !parking && <p className="popup-validation">Please enter parking details</p>}
+
+                <label>Dumpster Location: </label>
+                <input type={dumpster} value={dumpster} onChange={(e) => setDumpster(e.target.value)} />
+                {addPinPressed && !dumpster && <p className="popup-validation">Please enter dumpster location</p>}
+
               </div>
               
               <div className="popup-button-container">
