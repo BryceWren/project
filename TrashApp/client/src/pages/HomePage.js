@@ -152,7 +152,7 @@ export const HomePage = () => {
         backParking: parking,
         backDumpster: dumpster
       });
-
+      console.log(response)
 
     } catch (error) {
       console.error('An error ocurred:', error)
@@ -197,6 +197,8 @@ export const HomePage = () => {
               longitude={p.longitude}
               latitude={p.latitude}
               color={p.severity}
+              dumpster={p.dumpster}
+              parking={p.parking}
               clickTolerance={50}
               onClick={() => handleDatabaseMarkerClick(p)}
             >
@@ -225,10 +227,10 @@ export const HomePage = () => {
               <div className="popup-button-container">
                 <button onClick={() => 
                 homeCookies(selectedLocation.locationname,selectedLocation.locationid,selectedLocation.longitude,selectedLocation.latitude,selectedLocation.severity,
-                selectedLocation.locationtype)}
+                selectedLocation.locationtype, selectedLocation.parking, selectedLocation.dumpster)}
                  className="popup-button">Create Event</button>
                 <button onClick={() => individualCookies(selectedLocation.locationname,selectedLocation.locationid,selectedLocation.longitude,selectedLocation.latitude,selectedLocation.severity,
-                selectedLocation.locationtype)} className="popup-button">Individual Cleanup</button>
+                selectedLocation.locationtype, selectedLocation.parking, selectedLocation.dumpster)} className="popup-button">Individual Cleanup</button>
               </div>
             </Popup>
           )}

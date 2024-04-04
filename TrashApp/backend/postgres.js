@@ -31,10 +31,12 @@ const setMapTable = (request, response) => {
   const locationName = request.body.backName
   const locationType = request.body.backType
   const severity = request.body.backSeverity
+  const dumpster = request.body.backDumpster
+  const parking = request.body.backParking
 
   console.log(request.body.backlong)
 
-  pool.query('INSERT INTO map (longitude, latitude, locationname, locationtype, severity) VALUES ($1, $2, $3, $4, $5) RETURNING locationid', [longitude,latitude,locationName,locationType,severity], (error, results) => {
+  pool.query('INSERT INTO map (longitude, latitude, locationname, locationtype, severity, dumpster, parking) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING locationid', [longitude,latitude,locationName,locationType,severity, dumpster, parking], (error, results) => {
     if (error) {
       throw error
     }
