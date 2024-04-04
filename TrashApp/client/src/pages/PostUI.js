@@ -51,6 +51,13 @@ function getDate()  {
      {/* information from  the database will go here */}
      <h5>Location:</h5>
      {locationName}
+     <label>Severity: </label>
+     <select >
+                  <option value="">Select severity</option>
+                  <option value="yellow">Spotless (Green)</option>
+                  <option value="yellow">Minor (Yellow)</option>
+                  <option value="red">Major (Red)</option>
+                  </select >
     </div>
     <div className="popup-button">
     <button onClick={submitButton}> Submit Form </button>
