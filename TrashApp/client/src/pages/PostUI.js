@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 
 const PostUI = () => {
-const [cookies] = useCookies(['lastname', 'firstname', 'locationname']);
+const [cookies] = useCookies(['lastname', 'firstname', 'locationname', 'ishost']);
 
 
 const firstName = cookies.firstname
@@ -35,6 +35,15 @@ function getDate()  {
     return `${hour}:${min}`;
     }
 
+  function getMembership() {
+    const membership = cookies.ishost;
+    if (membership){
+      return ('H')
+    }
+    else{
+      return ("V")
+    }
+  }
    return (
     <div>
     <NavigationBar />
@@ -42,7 +51,7 @@ function getDate()  {
       <h1>Posted Cleanup</h1>
       <div className="register-form">
      {/* This is where we would put the  picture if we  actually implement it */}
-     <h5>Participants: </h5>{firstName +" "}{lastName}
+     <h5>Participants: </h5>{firstName +" "}{lastName} {getMembership()}
       <h5>Date:</h5>
       {getDate()}
       <h5>Time:</h5>
