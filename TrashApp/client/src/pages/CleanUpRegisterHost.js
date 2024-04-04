@@ -18,12 +18,16 @@ const CleanUpRegister = () => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [description, setDescription] = useState("");
+  const [clothingAttire, setClothingAttire] = useState("");
+  const [itemsToBring, setItemsToBring] = useState("");
   const [cookies] = useCookies(["locationname", "longitude", "latitude", "severity", "locationType", "locationid"]);
   const [longitude, setLongitude] = useState(cookies.longitude || 0);
   const [latitude, setLatitude] = useState(cookies.latitude || 0);
   const [dateError, setDateError] = useState("");
   const [timeError, setTimeError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
+  const [clothingAttireError, setClothingAttireError] = useState("");
+  const [itemsToBringError, setItemsToBringError] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -53,6 +57,8 @@ const CleanUpRegister = () => {
     setDateError("");
     setTimeError("");
     setDescriptionError("");
+    setClothingAttireError("");
+    setItemsToBringError("");
     let isValid = true;
 
     if (!date) {
@@ -66,7 +72,17 @@ const CleanUpRegister = () => {
     }
 
     if (!description) {
-      setDescriptionError("Please provide a description.");
+      setDescriptionError("Please provide a description of the event.");
+      isValid = false;
+    }
+
+    if (!clothingAttire) {
+      setClothingAttireError("Please provide clothing attire.");
+      isValid = false;
+    }
+
+    if (!itemsToBring) {
+      setItemsToBringError("Please provide items to bring.");
       isValid = false;
     }
 
@@ -87,7 +103,9 @@ const CleanUpRegister = () => {
         backName: cookies.locationname,
         backSeverity: cookies.severity,
         backLocationType: cookies.locationType,
-        backlocateid: cookies.locationid
+        backlocateid: cookies.locationid,
+        backClothing: cookies.clothing,
+        backItems: cookies.items
       });
       console.log("Registration successful");
       console.log(response);
@@ -104,7 +122,7 @@ const CleanUpRegister = () => {
         {message && <PopupMessage message={message} />}
         <form className="register-form">
           <label>Date:</label>
-          <input type="date" value={date} onChange={(event) => setDate(event.target.value)} />
+          <input type="date" value={date} onChange={handleDateChange} />
           <div className="error-message">{dateError}</div>
 
           <label>Time:</label>
@@ -112,23 +130,23 @@ const CleanUpRegister = () => {
           <div className="error-message">{timeError}</div>
 
           <label>Location:</label>
-          <p>
-            Longitude: {longitude.toFixed(6)} Latitude: {latitude.toFixed(6)}
-          </p>
-          <input
-            id="location"
-            type="hidden"
-            value={`(${longitude.toFixed(6)}, ${latitude.toFixed(6)})`}
-          />
+          <p>Longitude: {longitude.toFixed(6)} Latitude: {latitude.toFixed(6)}</p>
+          <input id="location" type="hidden" value={`(${longitude.toFixed(6)}, ${latitude.toFixed(6)})`} />
 
-          <label>Description:</label>
+          <label>What is the event about?</label>
           <textarea value={description} onChange={handleChange} />
           <div className="error-message">{descriptionError}</div>
 
+          <label>What should participants wear?</label>
+          <input type="text" value={clothingAttire} onChange={(e) => setClothingAttire(e.target.value)} />
+          <div className="error-message">{clothingAttireError}</div>
+
+          <label>What items should participants bring?</label>
+          <input type ="text" value={itemsToBring} onChange={(e) => setItemsToBring(e.target.value)} />
+          <div className="error-message">{itemsToBringError}</div>
+
           <div className="button-container">
-            <button className="form-btn" onClick={handleUpdate}>
-              Create Event
-            </button>
+            <button className="form-btn" onClick={handleUpdate}>Create Event</button>
           </div>
         </form>
       </div>
