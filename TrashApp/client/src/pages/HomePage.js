@@ -60,6 +60,7 @@ export const HomePage = () => {
   const handleAddPin = async () => {
     // Set addPinPressed to true when "Add Location" button is pressed
     setAddPinPressed(true);
+    window.location.reload();
 
     // Check if all required fields are filled
     if (
@@ -201,7 +202,7 @@ export const HomePage = () => {
 
               <div className="popup-button-container">
                 <button onClick={() => 
-                homeCookies(selectedLocation.locationname.toString(),selectedLocation.locationid.toString(),selectedLocation.longitude,selectedLocation.latitude,selectedLocation.severity,
+                homeCookies(selectedLocation.locationname,selectedLocation.locationid,selectedLocation.longitude,selectedLocation.latitude,selectedLocation.severity,
                 selectedLocation.locationtype)}
                  className="popup-button">Create Event</button>
                 <button onClick={() => handleNavigation('/IndividualCleanup')} className="popup-button">Individual Cleanup</button>
