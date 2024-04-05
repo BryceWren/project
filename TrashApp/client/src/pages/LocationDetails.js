@@ -80,7 +80,9 @@ const LocationDetails = () => {
                 <li key={event.id}>
                   <p>Event: {event.locationname}</p>
                   <p>Date: {event.eventdate}</p>
+                  <button>Join Event</button>
                 </li>
+                
               ))}
             </ul>
           </div>
