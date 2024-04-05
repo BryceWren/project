@@ -54,8 +54,24 @@ const LocationDetails = () => {
       .catch(error => console.error('Error fetching events:', error));
   }, [cookies]);
 
+  function getDate(test)  {
+    const today = new Date()
+    const month = today.getMonth()+1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    const newtest = test.toString().replace('-','')
+    const newDate =  `${year}${month}${date}`;
+    
+    console.log(newtest + ' this is new date obj ' + newDate)
+
+    return newDate
+    }
+
+
   // Filter events based on matching location names
-  const filteredEvents = events.filter(event => event.locationname === cookies.locationname);
+ 
+  const filteredEvents = events.filter(event => event.locationname === cookies.locationname &&
+    event.eventdate.toString().replace('-','') <= getDate(event.eventdate.replace('-','')) ); //trying to compare the numbers but have to figure out how to match the numbers perfectly including 0's
 
   return (
     <div>
