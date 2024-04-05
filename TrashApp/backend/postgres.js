@@ -88,6 +88,17 @@ const setEventPost = (request, response) => {
   })
 }
 //USERS
+const joinEvent = (request, response) => {
+  const eventid = request.body.backEventID
+  const email = request.body.backEmail
+
+  pool.query('INSERT INTO participants (eventid, email) VALUES ($1, $2)', [eventid, email, 0], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send('User successfully joined event')
+  })
+}
 
 const registerUser = (request, response) => {
     const first = request.body.backFname;
@@ -154,6 +165,7 @@ const loginUser = (request, response) => {
   */
 module.exports = {
   //updateUserInfo,
+  joinEvent,
   updateMarkerIndividualEvent,
   getMapTable,
   setMapTable,

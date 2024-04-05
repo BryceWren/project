@@ -4,8 +4,10 @@ import Calendar from "react-calendar";
 import '../Components/CSS/Register.css';
 import Axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 export const Events = () => {
+  const [cookies] = useCookies(['lastname', 'firstname', 'email'])
   const [date, changeDate] = useState(new Date());
   const [eventData, setEventData] = useState(null);
   
@@ -15,7 +17,7 @@ export const Events = () => {
     fetchEvents();
   }, [date]); // Fetch events whenever the selected date changes
 
-  const fetchEvents = async () => {
+  const fetchEvents = async () => { 
     try {
       const response = await Axios.get("http://localhost:5000/events");
       setEventData(response.data);
@@ -43,9 +45,38 @@ export const Events = () => {
     return formattedTime;
   };
 
-  const joinEvent = (event) => {
-    console.log('Joining event:', event); //THIS NEEDS TO HAVE SOME SORT OF COUNTER ON THE BACKEND ALONGSIDE USER CREDENTIALS
-  };
+  //get eventID of specific event, then post 
+  
+ /* const getEventID = (event) => {
+    const eventID = event.eventid
+    return eventID;
+  }*/
+
+  /* const joinEvent = async (event) => {
+    try {
+      const response = await Axios.post("http://localhost:5000/events", {
+          backEventID: getEventID(event),
+          backEmail: cookies.email,
+      });
+  } catch (error) {
+      console.error('An error occurred:', error);
+  }
+  console.log(event.eventID);
+  }*/
+  const joinEvent = async (event) => {
+      try {
+        const eventID = await event.eventid
+        console.log(eventID)
+        console.log(cookies.email)
+        const response = await Axios.post("http://localhost:5000/events", {
+          backEventID: eventID,
+          backEmail: cookies.email
+        });
+      }catch (error) {
+        console.error('An error occurred:', error);
+      }
+  }
+         //THIS NEEDS TO HAVE SOME SORT OF COUNTER ON THE BACKEND ALONGSIDE USER CREDENTIALS
   
   const editEvent = (event) => {
     console.log('Edit event:', event); //ONLY THE USER THAT CREATED THIS EVENT CAN MANIPULATED THE EVENT THEY CREATED... MAKE USERID POST TO THE DB TO SAVE WHICH USER DID WHAT ON EVENTS
