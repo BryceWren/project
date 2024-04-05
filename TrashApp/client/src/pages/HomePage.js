@@ -220,8 +220,10 @@ export const HomePage = () => {
                 <h2>Location Information</h2>
                 <p><b>Location Name: </b>{selectedLocation.locationname}</p>
                 <p><b>Location Type: </b>{selectedLocation.locationtype}</p>
-                <p><b>Parking Details: </b>{selectedLocation.parking}</p>
-                <p><b>Dumpster Location: </b>{selectedLocation.dumpster}</p>
+                <div>
+                <a className="link-btn" onClick={() => navigate('/locationdetails')}>View Location Details</a>
+                </div>
+                
               </div>
 
               <div className="popup-button-container">
