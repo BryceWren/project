@@ -14,7 +14,7 @@ const LocationDetails = () => {
   const [locationImage, setLocationImage] = useState(null);
   const [parking, setParking] = useState('');
   const [dumpster, setDumpster] = useState('');
-  const [data, setData] = useState(null);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     Axios.get('http://localhost:5000/locationdetails')
@@ -47,7 +47,15 @@ const LocationDetails = () => {
     }
     setParking(parking);
     setDumpster(dumpster);
+
+    // Fetch events happening in this location
+    Axios.get(`http://localhost:5000/events?location=${cookies.locationname}`)
+      .then(response => setEvents(response.data))
+      .catch(error => console.error('Error fetching events:', error));
   }, [cookies]);
+
+  // Filter events based on matching location names
+  const filteredEvents = events.filter(event => event.locationname === cookies.locationname);
 
   return (
     <div>
@@ -61,10 +69,20 @@ const LocationDetails = () => {
           )}
           {/* Display parking details and dumpster location based on cookie values */}
           <div>
-            <p>Parking Details: {parking}</p>
-            <p>Dumpster Location: {dumpster}</p>
-            <p>Events Happening In This Location:</p>
-            {/* list  of events happening in this location */}
+            <p>Location Name: {cookies.locationname}</p>
+            <p>Location Type: {cookies.locationtype}</p>
+            <p>Parking Details: {cookies.parking}</p>
+            <p>Dumpster Location: {cookies.dumpster}</p>
+            <p>Events Happening In <b>{cookies.locationname}</b></p>
+            {/* List of events happening in this location */}
+            <ul>
+              {filteredEvents.map(event => (
+                <li key={event.id}>
+                  <p>Event: {event.locationname}</p>
+                  <p>Date: {event.eventdate}</p>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="button-container"></div>
         </form>

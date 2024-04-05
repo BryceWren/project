@@ -122,7 +122,7 @@ const CleanUpRegister = () => {
         {message && <PopupMessage message={message} />}
         <form className="register-form">
           <label>Date:</label>
-          <input type="date" value={date} onChange={handleDateChange} />
+          <input type="date" value={date} onChange={(event) => setDate(event.target.value)} />
           <div className="error-message">{dateError}</div>
 
           <label>Time:</label>
