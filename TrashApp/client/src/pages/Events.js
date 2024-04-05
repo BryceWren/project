@@ -45,32 +45,14 @@ export const Events = () => {
     return formattedTime;
   };
 
-  //get eventID of specific event, then post 
-  
- /* const getEventID = (event) => {
-    const eventID = event.eventid
-    return eventID;
-  }*/
-
-  /* const joinEvent = async (event) => {
-    try {
-      const response = await Axios.post("http://localhost:5000/events", {
-          backEventID: getEventID(event),
-          backEmail: cookies.email,
-      });
-  } catch (error) {
-      console.error('An error occurred:', error);
-  }
-  console.log(event.eventID);
-  }*/
   const joinEvent = async (event) => {
       try {
         const eventID = await event.eventid
         console.log(eventID)
-        console.log(cookies.email)
+        console.log(cookies.firstname)
         const response = await Axios.post("http://localhost:5000/events", {
           backEventID: eventID,
-          backEmail: cookies.email
+          backFirstName: cookies.firstname
         });
       }catch (error) {
         console.error('An error occurred:', error);

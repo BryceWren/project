@@ -90,9 +90,9 @@ const setEventPost = (request, response) => {
 //USERS
 const joinEvent = (request, response) => {
   const eventid = request.body.backEventID
-  const email = request.body.backEmail
+  const firstname = request.body.backFirstName
 
-  pool.query('INSERT INTO participants (eventid, email) VALUES ($1, $2)', [eventid, email], (error, results) => {
+  pool.query('INSERT INTO participants (eventid, firstname) VALUES ($1, $2)', [eventid, firstname], (error, results) => {
     if (error) {
       throw error
     }
