@@ -10,7 +10,7 @@ import campgroundImage from '../images/campground.png';
 import hikingTrailImage from '../images/hikingtrail.jpg';
 
 const LocationDetails = () => {
-  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationtype', 'severity', 'parking', 'dumpster']);
+  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'parking', 'dumpster']);
   const [locationImage, setLocationImage] = useState(null);
   const [parking, setParking] = useState('');
   const [dumpster, setDumpster] = useState('');
@@ -70,7 +70,7 @@ const LocationDetails = () => {
           {/* Display parking details and dumpster location based on cookie values */}
           <div>
             <p>Location Name: {cookies.locationname}</p>
-            <p>Location Type: {cookies.locationtype}</p>
+            <p>Location Type: {cookies.locationType}</p>
             <p>Parking Details: {cookies.parking}</p>
             <p>Dumpster Location: {cookies.dumpster}</p>
             <p>Events Happening In <b>{cookies.locationname}</b></p>
