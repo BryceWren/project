@@ -21,6 +21,32 @@ body{
   align-items: center;
 }
 
+.password-input {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-input input {
+  flex-grow: 1;
+  padding-right: 40px; /* Add some space for the toggle button */
+}
+
+.show-hide-password {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+.password-toggle-icon {
+  color: #999;
+  font-size: 20px;
+}
+
+.password-toggle-icon:hover {
+  color: #666;
+}
+
 .auth-form-container {
   background-color:whitesmoke;
   display: flex;

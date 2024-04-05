@@ -4,8 +4,8 @@ import '../Components/CSS/Register.css';
 import NavigationBar from '../Components/NavBar';
 import { useCookies } from 'react-cookie';
 import Axios from 'axios';
-
-// WOULD LIKE TO ADD BUTTONS ON EMAIL AND PASSWORD TO GIVE A CONFIRMATION TO THE USER WHICH OPTION THEY WANT TO CHANGE
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
 const EditInformation = () => {
     const [firstname, setFirstname] = useState('');
@@ -19,29 +19,14 @@ const EditInformation = () => {
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
     const [updateMessage, setUpdateMessage] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const [cookies] = useCookies(['userID', 'email', 'password', 'lastname', 'firstname', 'ishost'])
     const Navigate = useNavigate();
 
     const usermail = cookies.email
     const lName = cookies.lastname
     const fName = cookies.firstname
-/*
-    const updateUserInfo = async () => {
-        try {
-            const response = await Axios.put("http://localhost:5000/Editinformation", {
-                backemail: cookies.email,
-                backpass: cookies.password,
-                backUserID: cookies.userID
-            });
-            console.log(response)
-            //setLoginStatus(response.data); // Assuming that you want to log the response data
-        } catch (error) {
-            // Handle any errors that might occur during the request
-            console.error('An error occurred:', error);
-            return false;
-        }
-    };
-*/
+
     const handleUpdate = (e) => {
         e.preventDefault();
         setEmailError('');
@@ -58,7 +43,6 @@ const EditInformation = () => {
             }, 3000);
         }
     };
-
 
     const validateInput = () => {
         let isValid = true;
@@ -95,7 +79,7 @@ const EditInformation = () => {
                     {lastnameError && <p className="error-message">{lastnameError}</p>}
 
                     <label htmlFor="email">Email</label>
-                    <button>change email?</button> 
+                    <button>change email?</button>
                     <input
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -106,23 +90,43 @@ const EditInformation = () => {
                     {emailError && <p className="error-message">{emailError}</p>}
 
                     <label htmlFor="password">Password</label>
-                    <input
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        type="password"
-                        id="password"
-                        placeholder="******"
-                    />
+                    <div className="password-input">
+                        <input
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            type={showPassword ? 'text' : 'password'}
+                            id="password"
+                            placeholder="******"
+                            className="password-field"
+                        />
+                        <div className="show-hide-password" onClick={() => setShowPassword(!showPassword)}>
+                            {showPassword ? (
+                                <VisibilityOffOutlinedIcon className="password-toggle-icon" />
+                            ) : (
+                                <VisibilityOutlinedIcon className="password-toggle-icon" />
+                            )}
+                        </div>
+                    </div>
                     {passwordError && <p className="error-message">{passwordError}</p>}
 
                     <label htmlFor="confirm-password">Confirm Password</label>
-                    <input
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        type="password"
-                        id="confirm-password"
-                        placeholder="******"
-                    />
+                    <div className="password-input">
+                        <input
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            type={showPassword ? 'text' : 'password'}
+                            id="confirm-password"
+                            placeholder="******"
+                            className="password-field"
+                        />
+                        <div className="show-hide-password" onClick={() => setShowPassword(!showPassword)}>
+                            {showPassword ? (
+                                <VisibilityOffOutlinedIcon className="password-toggle-icon" />
+                            ) : (
+                                <VisibilityOutlinedIcon className="password-toggle-icon" />
+                            )}
+                        </div>
+                    </div>
                     {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
 
                     {updateMessage && <p className="success-message">Settings updated! Back to Settings!</p>}

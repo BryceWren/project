@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './CSS/Register.css';
 import Axios from 'axios'
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -14,6 +16,7 @@ export const Register = (props) => {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const Navigate = useNavigate();
 
     const backregister = async () => {
@@ -81,7 +84,7 @@ export const Register = (props) => {
     const passwordValidator = (password) => {
         if (!password) {
             return "Password is required";
-        } else if (password.length < 8) {
+        } else if (password.length <= 8) {
             return "Password must have a minimum of 8 characters";
         }
         return "";
@@ -109,10 +112,42 @@ export const Register = (props) => {
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email" />
                 {emailError && <p className="error-message">{emailError}</p>}
                 <label htmlFor="password">Password</label>
-                <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+                <div className="password-input">
+                    <input
+                        value={pass}
+                        onChange={(e) => setPass(e.target.value)}
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="********"
+                        id="password"
+                        name="password"
+                    />
+                    <div className="show-hide-password" onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? (
+                            <VisibilityOffOutlinedIcon className="password-toggle-icon" />
+                        ) : (
+                            <VisibilityOutlinedIcon className="password-toggle-icon" />
+                        )}
+                    </div>
+                </div>
                 {passwordError && <p className="error-message">{passwordError}</p>}
                 <label htmlFor="confirm-password">Confirm Password</label>
-                <input value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} type="password" placeholder="********" id="confirm-password" name="confirm-password" />
+                <div className="password-input">
+                    <input
+                        value={confirmPass}
+                        onChange={(e) => setConfirmPass(e.target.value)}
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="********"
+                        id="confirm-password"
+                        name="confirm-password"
+                    />
+                    <div className="show-hide-password" onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? (
+                            <VisibilityOffOutlinedIcon className="password-toggle-icon" />
+                        ) : (
+                            <VisibilityOutlinedIcon className="password-toggle-icon" />
+                        )}
+                    </div>
+                </div>
                 {confirmPasswordError && <p className="error-message">{confirmPasswordError}</p>}
                 <button type="submit" className="form-btn">Register</button>
             </form>

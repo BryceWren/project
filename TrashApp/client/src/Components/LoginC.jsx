@@ -4,7 +4,8 @@ import './CSS/Register.css';
 import recycleBinImage from '../images/recycle-bin.png';
 import Axios from 'axios';
 import { useCookies } from 'react-cookie'
-
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
 export const LoginC = (props) => {
     const [email, setEmail] = useState('');
@@ -12,6 +13,7 @@ export const LoginC = (props) => {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [loginError, setLoginError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const Navigate = useNavigate();
 
     const [, setCookie] = useCookies(['userID','firstname','lastname','email','ishost'])
@@ -28,7 +30,7 @@ export const LoginC = (props) => {
     const passwordValidator = (password) => {
         if (!password) {
             return "Password is required";
-        } else if (password.length < 8) {
+        } else if (password.length <= 8) {
             return "Password must have a minimum of 8 characters";
         }
         return "";
@@ -72,9 +74,7 @@ export const LoginC = (props) => {
             } else {
                 return false;
             }
-            //setLoginStatus(response.data); // Assuming that you want to log the response data
         } catch (error) {
-            // Handle any errors that might occur during the request
             console.error('An error occurred:', error);
             return false;
         }
@@ -92,7 +92,24 @@ export const LoginC = (props) => {
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email" />
                 {emailError && <p className="error-message">{emailError}</p>}
                 <label htmlFor="password">Password</label>
-                <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+                <div className="password-input">
+                    <input
+                        value={pass}
+                        onChange={(e) => setPass(e.target.value)}
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="********"
+                        id="password"
+                        name="password"
+                        className="password-field"
+                    />
+                    <div className="show-hide-password" onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? (
+                            <VisibilityOffOutlinedIcon className="password-toggle-icon" />
+                        ) : (
+                            <VisibilityOutlinedIcon className="password-toggle-icon" />
+                        )}
+                    </div>
+                </div>
                 {passwordError && <p className="error-message">{passwordError}</p>}
                 {loginError && <p className="error-message">{loginError}</p>}
                 <button type="submit" className="form-btn">Login</button>
