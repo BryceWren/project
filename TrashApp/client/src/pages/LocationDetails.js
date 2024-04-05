@@ -65,7 +65,7 @@ const LocationDetails = () => {
         <form className="register-form">
           {/* Render location image */}
           {locationImage && (
-            <img src={locationImage} alt={cookies.locationtype} style={{ maxWidth: '100%', height: 'auto' }} />
+            <img src={locationImage} alt={cookies.locationType} style={{ maxWidth: '100%', height: 'auto' }} />
           )}
           {/* Display parking details and dumpster location based on cookie values */}
           <div>
