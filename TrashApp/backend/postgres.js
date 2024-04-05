@@ -92,7 +92,7 @@ const joinEvent = (request, response) => {
   const eventid = request.body.backEventID
   const email = request.body.backEmail
 
-  pool.query('INSERT INTO participants (eventid, email) VALUES ($1, $2)', [eventid, email, 0], (error, results) => {
+  pool.query('INSERT INTO participants (eventid, email) VALUES ($1, $2)', [eventid, email], (error, results) => {
     if (error) {
       throw error
     }
