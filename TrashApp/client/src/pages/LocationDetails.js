@@ -24,8 +24,8 @@ const LocationDetails = () => {
 
   useEffect(() => {
     // Set locationImage, parking, and dumpster based on the cookie values
-    const { locationtype, parking, dumpster } = cookies;
-    switch (locationtype) {
+    const { locationType, parking, dumpster } = cookies;
+    switch (locationType) {
       case 'Beach':
         setLocationImage(beachImage);
         break;
