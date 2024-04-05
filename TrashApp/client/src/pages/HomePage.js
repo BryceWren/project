@@ -58,7 +58,17 @@ export const HomePage = () => {
     handleNavigation('/IndividualCleanup')
     //DO WE NEED INDIVIDUAL COOKIES FOR PARKING AND DUMPSTER LOCATIONS
   }
-
+  const locationDetailsCookies = (name,id,long, lat, sever, ltype, park, dump) => {
+    setCookies('locationname', name)
+    setCookies('locationid', id)
+    setCookies('longitude', long)
+    setCookies('latitude', lat)
+    setCookies('severity', sever)
+    setCookies('locationType', ltype)
+    setCookies( "parking", park)
+    setCookies("dumpster", dump)
+    handleNavigation('/locationdetails')
+  }
   /* CLICK FOR PINS */
   const handleClick = ({ lngLat }) => {
     const { lng, lat } = lngLat;
@@ -221,7 +231,8 @@ export const HomePage = () => {
                 <p><b>Location Name: </b>{selectedLocation.locationname}</p>
                 <p><b>Location Type: </b>{selectedLocation.locationtype}</p>
                 <div>
-                <a className="link-btn" onClick={() => navigate('/locationdetails')}>View Location Details</a>
+                <a className="link-btn" onClick={() => locationDetailsCookies(selectedLocation.locationname,selectedLocation.locationid,selectedLocation.longitude,selectedLocation.latitude,selectedLocation.severity,
+                selectedLocation.locationtype, selectedLocation.parking, selectedLocation.dumpster)}>View Location Details</a>
                 </div>
                 
               </div>
