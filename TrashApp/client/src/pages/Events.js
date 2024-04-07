@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie';
 
 export const Events = () => {
   const [cookies] = useCookies(['lastname', 'firstname', 'email']);
-  const[,setCookie] = useCookies(['eventid'])
+  const[,setCookie] = useCookies(['eventid','locationname','severity'])
   const [date, changeDate] = useState(new Date());
   const [eventData, setEventData] = useState(null);
   
@@ -66,6 +66,8 @@ export const Events = () => {
   const postCleanup = (event) => { 
     console.log(event.eventid)
       setCookie('eventid', event.eventid)
+      setCookie('locationname', event.locationname)
+      setCookie('severity', event.severity)
       navigate('/postUI') // WILL NEED TO CHANGE THIS TO A DIFFERENT PAGE FOR CLEANUP GROUPS I JUST DID THIS TO TEST
       console.log('Post Cleanup', event);
   };
