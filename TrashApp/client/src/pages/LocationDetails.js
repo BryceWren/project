@@ -8,6 +8,7 @@ import riverImage from '../images/river.jpeg';
 import lakeImage from '../images/lake.jpg';
 import campgroundImage from '../images/campground.png';
 import hikingTrailImage from '../images/hikingtrail.jpg';
+import { format, parseISO, isBefore, isAfter, isEqual, isSameDay } from 'date-fns';
 
 const LocationDetails = () => {
   const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'parking', 'dumpster']);
@@ -54,25 +55,21 @@ const LocationDetails = () => {
       .catch(error => console.error('Error fetching events:', error));
   }, [cookies]);
 
-  function getDate(test)  {
+  function getDate()  {
     const today = new Date()
     const month = today.getMonth()+1;
     const year = today.getFullYear();
     const date = today.getDate();
-    const newtest = test.toString().replace('-','')
-    const newDate =  `${year}${month}${date}`;
-    
-    console.log(newtest + ' this is new date obj ' + newDate)
+    const newDate =  `${year}-${month}-${date}`;
+    return newDate;
+  }
 
-    return newDate
-    }
+
 
 
   // Filter events based on matching location names
  
-  const filteredEvents = events.filter(event => event.locationname === cookies.locationname &&
-    event.eventdate.toString().replace('-','') <= getDate(event.eventdate.replace('-','')) ); //trying to compare the numbers but have to figure out how to match the numbers perfectly including 0's
-
+  const filteredEvents = events.filter(event => event.locationname === cookies.locationname && (isAfter(event.eventdate,getDate()) || isSameDay(parseISO(event.eventdate),getDate())));
   return (
     <div>
       <NavigationBar />
