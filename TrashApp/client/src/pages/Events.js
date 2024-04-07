@@ -53,7 +53,6 @@ export const Events = () => {
           backEventID: eventID,
           backFirstName: cookies.firstname
         });
-        setCookie('eventid', eventID)
       }catch (error) {
         console.error('An error occurred:', error);
       }
@@ -65,7 +64,8 @@ export const Events = () => {
   };
 
   const postCleanup = (event) => { 
-      //setCookies('eventid', )
+    console.log(event.eventid)
+      setCookie('eventid', event.eventid)
       navigate('/postUI') // WILL NEED TO CHANGE THIS TO A DIFFERENT PAGE FOR CLEANUP GROUPS I JUST DID THIS TO TEST
       console.log('Post Cleanup', event);
   };
