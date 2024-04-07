@@ -11,6 +11,7 @@ const PostUI = () => {
 const [cookies] = useCookies(['lastname', 'firstname', 'locationname', 'ishost', 'email', 'eventid']);
 const [eventData, setData] = useState(null);
 const [discriptor, setDescription] = useState('')
+const [changedSeverity, setChangedSeverity] = useState('')
 
 const firstName = cookies.firstname
 const lastName = cookies.lastname
@@ -27,9 +28,29 @@ useEffect(() => {
       console.error('Error fetching data:', error);
     });
 }, []);
-
+const updateMarkerColorRequest = async () => {
+  try {
+      const response = await Axios.put("http://localhost:5000/postUI", {
+          backlocationid: cookies.locationid,
+          changedcolor: changedSeverity
+      });
+      console.log(changedSeverity)
+      console.log(response)
+      //setLoginStatus(response.data); // Assuming that you want to log the response data
+  } catch (error) {
+      // Handle any errors that might occur during the request
+      console.error('An error occurred:', error);
+      return false;
+  }
+};
 
 const submitButton = () => {
+
+    updateMarkerColorRequest();
+    
+    //THIS IS WHERE YOU ADD THE .PATCH/.UPDATE WHEN THEY SUBMIT TO UPDATE SEVERITY AND OTHER INFO
+    //Axios.put( `http://localhost:5000/IndividualCleanup/${cookies.locationid}`,{changedSeverity} ) //this doesn't work needs more testing
+
   navigate('/home')
 }
 
@@ -45,7 +66,7 @@ function getDate()  {
   function getTime()  {
     const time = new Date()
     const hour = time.getHours();
-    const min = time.getMinutes(); //GOTTA GET AM OR PM
+    const min = (time.getMinutes() < 10 ? '0' : + '') + time.getMinutes(); //GOTTA GET AM OR PM
     return `${hour}:${min}`;
     }
 
@@ -57,8 +78,9 @@ function getDate()  {
     else{
       return ("V")
     }
-  }  
-   return (
+  } 
+  
+     return (
     <div>
     <NavigationBar />
      <div className="auth-form-container">
@@ -72,18 +94,17 @@ function getDate()  {
       {getTime()}
      <h5>Description:</h5>
       {}
-     <h5>Location:</h5>
-     {locationName}
-     <label>Severity: </label>
-     <select >
-                  <option value="">Select severity</option>
+     <h5>Location: {locationName}</h5>
+     <label>Severity: {`print set color here`} </label>
+     <select value={changedSeverity} onChange={(e) => setChangedSeverity(e.target.value)}>
+                  <option value="">select severity</option>
                   <option value="yellow">Spotless (Green)</option>
                   <option value="yellow">Minor (Yellow)</option>
                   <option value="red">Major (Red)</option>
                   </select >
     </div>
     <div className="popup-button">
-    <button onClick={submitButton}> Submit Form </button>
+    <button onClick={submitButton()}> Submit Form </button>
     </div>
    
     </div>

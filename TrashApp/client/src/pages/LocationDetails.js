@@ -54,13 +54,14 @@ const LocationDetails = () => {
       .then(response => setEvents(response.data))
       .catch(error => console.error('Error fetching events:', error));
   }, [cookies]);
-
+  
   function getDate()  {
     const today = new Date()
     const month = today.getMonth()+1;
     const year = today.getFullYear();
     const date = today.getDate();
     const newDate =  `${year}-${month}-${date}`;
+    console.log(events)
     return newDate;
   }
 

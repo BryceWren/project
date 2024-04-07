@@ -55,6 +55,17 @@ const updateMarkerIndividualEvent = (request, response) => {
   })
 }
 
+const updateFromGroupCleanup = (request, response) => {
+  const locationid = request.body.backlocationid
+  const locationseveritychange = request.body.changedcolor
+  pool.query("UPDATE map SET severity = $1 WHERE locationid = $2",[locationseveritychange, locationid], (error,results) => { //place holder is 15 for when i get the actual eventid from another location
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
 const getEventPost = (request, response) => {
   pool.query("SELECT * FROM events", (error,results) => {
     if (error) {
@@ -166,6 +177,7 @@ const loginUser = (request, response) => {
 module.exports = {
   //updateUserInfo,
   joinEvent,
+  updateFromGroupCleanup,
   updateMarkerIndividualEvent,
   getMapTable,
   setMapTable,

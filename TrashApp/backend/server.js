@@ -15,6 +15,7 @@ app.listen(5000, () => {console.log("Server started on port 5000")})
 
 
 app.put('/IndividualCleanup', jsonParser, db.updateMarkerIndividualEvent)
+app.put('/postUI', jsonParser, db.updateFromGroupCleanup)
 //app.put('/EditInformation', jsonParser, db.updateUserInfo)
 app.get('/events', jsonParser,db.getEventPost)
 app.post('/cleanupregisterhost', jsonParser, db.setEventPost)
