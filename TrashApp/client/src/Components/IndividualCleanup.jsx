@@ -56,7 +56,10 @@ function getDate()  {
     const time = new Date()
     const hour = time.getHours();
     const min = (time.getMinutes() < 10 ? '0' : + '') + time.getMinutes(); //GOTTA GET AM OR PM
-    return `${hour}:${min}`;
+    const timeString =  `${hour}:${min}`;
+    const eventTime = new Date(`1970-01-01T${timeString}`);
+    const formattedTime = eventTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    return formattedTime;
     }
 
   function getMembership() {

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 
 const PostUI = () => {
-const [cookies] = useCookies(['lastname', 'firstname', 'locationname', 'ishost', 'email', 'eventid']);
+const [cookies] = useCookies(['lastname', 'firstname', 'locationname', 'ishost', 'email', 'eventid','severity']);
 const [eventData, setData] = useState(null);
 const [discriptor, setDescription] = useState('')
 const [changedSeverity, setChangedSeverity] = useState('')
@@ -17,7 +17,7 @@ const firstName = cookies.firstname
 const lastName = cookies.lastname
 const locationName = cookies.locationname
 const navigate = useNavigate();
-
+const prevSeverity = cookies.severity
 useEffect(() => {
   Axios.post('http://localhost:5000/postUI')
     .then(response => {
@@ -67,7 +67,10 @@ function getDate()  {
     const time = new Date()
     const hour = time.getHours();
     const min = (time.getMinutes() < 10 ? '0' : + '') + time.getMinutes(); //GOTTA GET AM OR PM
-    return `${hour}:${min}`;
+    const timeString =  `${hour}:${min}`;
+    const eventTime = new Date(`1970-01-01T${timeString}`);
+    const formattedTime = eventTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    return formattedTime;
     }
 
   function getMembership() {
@@ -94,8 +97,7 @@ function getDate()  {
       {getTime()}
       <h5>Description:</h5>
       {}
-     <h5>Location: {locationName}</h5>
-     <label>Severity: {`print set color here`} </label>
+     <label>How clean is: {locationName} </label>
      <select value={changedSeverity} onChange={(e) => setChangedSeverity(e.target.value)}>
                   <option value="">Select severity</option>
                   <option value="green">Spotless (Green)</option>
