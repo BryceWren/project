@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie';
 
 export const Events = () => {
   const [cookies] = useCookies(['lastname', 'firstname', 'email']);
-  const[,setCookie] = useCookies(['eventid','locationname','severity','locationid'])
+  const[,setCookie] = useCookies(['eventid','locationname','severity','locationid', 'locationType'])
   const [date, changeDate] = useState(new Date());
   const [eventData, setEventData] = useState(null);
   
@@ -59,8 +59,8 @@ export const Events = () => {
   }
          //THIS NEEDS TO HAVE SOME SORT OF COUNTER ON THE BACKEND ALONGSIDE USER CREDENTIALS
   
-  const editEvent = (event) => {
-    console.log('Edit event:', event); //ONLY THE USER THAT CREATED THIS EVENT CAN MANIPULATED THE EVENT THEY CREATED... MAKE USERID POST TO THE DB TO SAVE WHICH USER DID WHAT ON EVENTS
+  const eventInfo = (event) => {
+    navigate('/EventDetails'); //ONLY THE USER THAT CREATED THIS EVENT CAN MANIPULATED THE EVENT THEY CREATED... MAKE USERID POST TO THE DB TO SAVE WHICH USER DID WHAT ON EVENTS
   };
 
   const postCleanup = (event) => { 
@@ -69,6 +69,7 @@ export const Events = () => {
       setCookie('locationname', event.locationname)
       setCookie('severity', event.severity)
       setCookie('locationid', event.locationid)
+      setCookie('locationType', event.locationtype)
       navigate('/postUI') // WILL NEED TO CHANGE THIS TO A DIFFERENT PAGE FOR CLEANUP GROUPS I JUST DID THIS TO TEST
       console.log('Post Cleanup', event);
   };
@@ -111,7 +112,7 @@ export const Events = () => {
                   </div>
                   <div className="event-details-right">
                     <button onClick={() => joinEvent(event)}>Join Event</button>
-                    <button onClick={() => editEvent(event)}>Event Info</button>  {/*HOST VIEW ONLY!!!! */}
+                    <button onClick={() => eventInfo(event)}>Event Info</button>  {/*HOST VIEW ONLY!!!! */}
                     <button onClick={() => postCleanup(event)}>Post Cleanup</button> {/*HOST VIEW ONLY!!!! */}
                   </div>
                 </div>

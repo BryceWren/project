@@ -13,7 +13,7 @@ app.get("/api", (req, res) => {
 app.listen(5000, () => {console.log("Server started on port 5000")})
 
 
-
+app.get('/EventDetails',jsonParser, db.getEventDetails)
 app.put('/IndividualCleanup', jsonParser, db.updateMarkerIndividualEvent)
 app.put('/postUI', jsonParser, db.updateFromGroupCleanup)
 //app.put('/EditInformation', jsonParser, db.updateUserInfo)

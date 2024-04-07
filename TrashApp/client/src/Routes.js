@@ -11,6 +11,7 @@ import PostUI from './pages/PostUI'
 import CleanUpRegisterHost from './pages/CleanUpRegisterHost';
 import Participants from './pages/Participants';
 import LocationDetails from './pages/LocationDetails';
+import EventDetails from './pages/EventDetails';
 
 //HELLO WORLD
 export const AppRoutes = () => {
@@ -28,6 +29,8 @@ export const AppRoutes = () => {
                 <Route path ="/CleanUpRegisterHost/*" element={<CleanUpRegisterHost/>}/>
                 <Route path ="/Participants" element={<Participants/>}/>
                 <Route path ="/locationdetails" element={<LocationDetails/>}/>
+                <Route path ="/eventdetails" element={<EventDetails/>}/>
+
             
 
             </Routes>

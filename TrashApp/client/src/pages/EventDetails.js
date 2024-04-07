@@ -8,21 +8,27 @@ import riverImage from '../images/river.jpeg';
 import lakeImage from '../images/lake.jpg';
 import campgroundImage from '../images/campground.png';
 import hikingTrailImage from '../images/hikingtrail.jpg';
-import { format, parseISO, isBefore, isAfter, isEqual, isSameDay } from 'date-fns';
 
-const LocationDetails = () => {
-  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'items', 'clothing']);
+const EventDetails = () => {
+  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity']);
   const [locationImage, setLocationImage] = useState(null);
-  const [parking, setParking] = useState('');
-  const [dumpster, setDumpster] = useState('');
+  const [items, setItems] = useState('');
+  const [clothing, setClothing] = useState('');
   const [events, setEvents] = useState([]);
+  const [event, setEventData] = useState([])
 
   useEffect(() => {
-    Axios.get('http://localhost:5000/locationdetails')
-      .then(json => setData(json.data))
-      .catch(error => console.error('Error fetching location details:', error));
+    fetchEvent();
   }, []);
 
+  const fetchEvent = async () => { 
+    try {
+      const response = await Axios.get("http://localhost:5000/EventDetails");
+      setEventData(response.data);
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
   useEffect(() => {
     // Set locationImage, parking, and dumpster based on the cookie values
     const { locationType, parking, dumpster } = cookies;
@@ -46,8 +52,7 @@ const LocationDetails = () => {
         setLocationImage(null);
         break;
     }
-    setParking(parking);
-    setDumpster(dumpster);
+
 
     // Fetch events happening in this location
     Axios.get(`http://localhost:5000/events?location=${cookies.locationname}`)
@@ -70,12 +75,12 @@ const LocationDetails = () => {
 
   // Filter events based on matching location names
  
-  const filteredEvents = events.filter(event => event.locationname === cookies.locationname && (isAfter(event.eventdate,getDate()) || isSameDay(parseISO(event.eventdate),getDate())));
+ 
   return (
     <div>
       <NavigationBar />
       <div className="auth-form-container">
-        <h2>Location Details</h2>
+        <h2>Event Details</h2>
         <form className="register-form">
           {/* Render location image */}
           {locationImage && (
@@ -85,26 +90,16 @@ const LocationDetails = () => {
           <div>
             <p>Location Name: {cookies.locationname}</p>
             <p>Location Type: {cookies.locationType}</p>
-            <p>What will be Provided: {cookies.items}</p>
-            <p>What to Wear: {cookies.clothing}</p>
+            <p>What we will be providing: {}</p>
+            <p>What to wear: {}</p>
             <p>Events Happening In <b>{cookies.locationname}</b></p>
             {/* List of events happening in this location */}
-            <ul className='location-details-container'>
-              {filteredEvents.map(event => (
-                <li key={event.id}>
-                  <p>Event: {event.locationname}</p>
-                  <p>Date: {event.eventdate}</p>
-                  <button>Join Event</button>
-                </li>
-                
-              ))}
-            </ul>
           </div>
-          <div className="button-container"></div>
+          <div className="button-container"><button>Join Event</button></div>
         </form>
       </div>
     </div>
   );
 };
 
-export default LocationDetails;
+export default EventDetails;

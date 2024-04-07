@@ -44,6 +44,16 @@ const setMapTable = (request, response) => {
   })
 }
 //EVENTS
+const getEventDetails = (request, response) => {
+  const eventid = request.body.backeventid
+  pool.query("SELECT * FROM events WHERE eventid = $1",[eventid], (error,results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
 const updateMarkerIndividualEvent = (request, response) => {
   const locationid = request.body.backlocationid
   const locationseveritychange = request.body.changedcolor
@@ -176,6 +186,7 @@ const loginUser = (request, response) => {
   */
 module.exports = {
   //updateUserInfo,
+  getEventDetails,
   joinEvent,
   updateFromGroupCleanup,
   updateMarkerIndividualEvent,
