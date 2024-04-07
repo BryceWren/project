@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 
 const PostUI = () => {
-const [cookies] = useCookies(['lastname', 'firstname', 'locationname', 'ishost', 'email']);
+const [cookies] = useCookies(['lastname', 'firstname', 'locationname', 'ishost', 'email', 'eventid']);
 const [eventData, setData] = useState(null);
 const [discriptor, setDescription] = useState('')
 
