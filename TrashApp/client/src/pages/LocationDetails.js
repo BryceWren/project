@@ -89,7 +89,7 @@ const LocationDetails = () => {
             <p>Dumpster Location: {cookies.dumpster}</p>
             <p>Events Happening In <b>{cookies.locationname}</b></p>
             {/* List of events happening in this location */}
-            <ul>
+            <ul className='location-details-container'>
               {filteredEvents.map(event => (
                 <li key={event.id}>
                   <p>Event: {event.locationname}</p>
