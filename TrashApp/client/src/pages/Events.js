@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 export const Events = () => {
-  const [cookies] = useCookies(['lastname', 'firstname', 'email'])
+  const [cookies] = useCookies(['lastname', 'firstname', 'email']);
+  const[,setCookie] = useCookies(['eventid'])
   const [date, changeDate] = useState(new Date());
   const [eventData, setEventData] = useState(null);
   
@@ -48,12 +49,11 @@ export const Events = () => {
   const joinEvent = async (event) => {
       try {
         const eventID = await event.eventid
-        console.log(eventID)
-        console.log(cookies.firstname)
         const response = await Axios.post("http://localhost:5000/events", {
           backEventID: eventID,
           backFirstName: cookies.firstname
         });
+        setCookie('eventid', eventID)
       }catch (error) {
         console.error('An error occurred:', error);
       }
@@ -64,9 +64,10 @@ export const Events = () => {
     console.log('Edit event:', event); //ONLY THE USER THAT CREATED THIS EVENT CAN MANIPULATED THE EVENT THEY CREATED... MAKE USERID POST TO THE DB TO SAVE WHICH USER DID WHAT ON EVENTS
   };
 
-  const postCleanup = (event) => {
-    navigate('/postUI') // WILL NEED TO CHANGE THIS TO A DIFFERENT PAGE FOR CLEANUP GROUPS I JUST DID THIS TO TEST
-    console.log('Post Cleanup', event);
+  const postCleanup = (event) => { 
+      //setCookies('eventid', )
+      navigate('/postUI') // WILL NEED TO CHANGE THIS TO A DIFFERENT PAGE FOR CLEANUP GROUPS I JUST DID THIS TO TEST
+      console.log('Post Cleanup', event);
   };
 
   return (
