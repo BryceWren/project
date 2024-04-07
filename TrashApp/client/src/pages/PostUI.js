@@ -92,15 +92,15 @@ function getDate()  {
       {getDate()}
       <h5>Time:</h5>
       {getTime()}
-     <h5>Description:</h5>
+      <h5>Description:</h5>
       {}
      <h5>Location: {locationName}</h5>
      <label>Severity: {`print set color here`} </label>
      <select value={changedSeverity} onChange={(e) => setChangedSeverity(e.target.value)}>
-                  <option value="">select severity</option>
-                  <option value="yellow">Spotless (Green)</option>
-                  <option value="yellow">Minor (Yellow)</option>
-                  <option value="red">Major (Red)</option>
+                  <option value="">Select severity</option>
+                  <option value="green">Spotless (Green)</option>
+                  <option value="yellow">A little Trash (Yellow)</option>
+                  <option value="red">a lot of Trash is left (Red)</option>
                   </select >
     </div>
     <div className="popup-button">
