@@ -20,6 +20,7 @@ const EventDetails = () => {
   useEffect(() => {
     fetchEvent();
   }, []);
+//my mental health is detiorating
 
   const fetchEvent = async () => { 
     try {
