@@ -60,6 +60,11 @@ export const Events = () => {
          //THIS NEEDS TO HAVE SOME SORT OF COUNTER ON THE BACKEND ALONGSIDE USER CREDENTIALS
   
   const eventInfo = (event) => {
+    setCookie('eventid', event.eventid)
+    setCookie('locationname', event.locationname)
+    setCookie('severity', event.severity)
+    setCookie('locationid', event.locationid)
+    setCookie('locationType', event.locationtype)
     navigate('/EventDetails'); //ONLY THE USER THAT CREATED THIS EVENT CAN MANIPULATED THE EVENT THEY CREATED... MAKE USERID POST TO THE DB TO SAVE WHICH USER DID WHAT ON EVENTS
   };
 

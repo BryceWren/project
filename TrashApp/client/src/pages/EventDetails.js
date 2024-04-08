@@ -10,26 +10,14 @@ import campgroundImage from '../images/campground.png';
 import hikingTrailImage from '../images/hikingtrail.jpg';
 
 const EventDetails = () => {
-  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity']);
+  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity','eventid']);
   const [locationImage, setLocationImage] = useState(null);
   const [items, setItems] = useState('');
   const [clothing, setClothing] = useState('');
-  const [events, setEvents] = useState([]);
   const [event, setEventData] = useState([])
 
-  useEffect(() => {
-    fetchEvent();
-  }, []);
-//my mental health is detiorating
 
-  const fetchEvent = async () => { 
-    try {
-      const response = await Axios.get("http://localhost:5000/EventDetails");
-      setEventData(response.data);
-    } catch (error) {
-      console.error('An error occurred:', error);
-    }
-  };
+  useEffect(() => {fetchEvent()})
   useEffect(() => {
     // Set locationImage, parking, and dumpster based on the cookie values
     const { locationType, parking, dumpster } = cookies;
@@ -70,8 +58,23 @@ const EventDetails = () => {
     console.log(events)
     return newDate;
   }
+  function getDirections(coordinatesX, coordinatesY) {
 
+    const url = `https://www.google.com.sa/maps/dir/current_location/${coordinatesX},${coordinatesY}`;
+    window.open(url, '_blank');
+    };
+  
 
+  const fetchEvent = async () => { 
+    try {
+      const response = await Axios.post("http://localhost:5000/EventDetails",{
+        backEventIdentification: cookies.eventid
+      });
+      setEventData(response.data);
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
+  };
 
 
   // Filter events based on matching location names
@@ -91,8 +94,22 @@ const EventDetails = () => {
           <div>
             <p>Location Name: {cookies.locationname}</p>
             <p>Location Type: {cookies.locationType}</p>
-            <p>What we will be providing: {}</p>
-            <p>What to wear: {}</p>
+            <div> {event.map((info, index) => (
+              <p key={index}>What we will be providing: {info.items}</p>
+            ))}</div>
+            <div> {event.map((info, index) => (
+              <p key={index}>what to wear: {info.clothing}</p>
+            ))}</div>
+            <div>
+  {event.map((info, index) => (
+    <p key={index}>
+      Coordinates: 
+      <a href="#" onClick={() => getDirections(info.latitude, info.longitude)}>
+        {info.latitude}, {info.longitude}
+      </a>
+    </p>
+  ))}
+</div>
             <p>Events Happening In <b>{cookies.locationname}</b></p>
             {/* List of events happening in this location */}
           </div>

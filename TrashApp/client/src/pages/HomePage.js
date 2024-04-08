@@ -7,7 +7,7 @@ import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export const HomePage = () => {
-  const [cookies, setCookies] = useCookies(['locationname','locationid','lattitude','longitude','locationtype','severity', 'parking', 'dumpster'])
+  const [cookies, setCookies] = useCookies(['locationname','locationid','lattitude','longitude','locationtype','severity', 'parking', 'dumpster','userLatitude', 'userLongitude'])
 
 
   const [viewport, setViewport] = useState({
@@ -182,8 +182,10 @@ export const HomePage = () => {
           onMove={evt => setViewport(evt.viewport)}
           transitionDurations="200"
           mapStyle={"mapbox://styles/mapbox/streets-v9"}
-
+        
         >
+
+
 
           {/* WE MAKING PINS */}
           {markers.map(marker => (

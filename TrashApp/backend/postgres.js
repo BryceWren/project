@@ -45,7 +45,7 @@ const setMapTable = (request, response) => {
 }
 //EVENTS
 const getEventDetails = (request, response) => {
-  const eventid = request.body.backeventid
+  const eventid = request.body.backEventIdentification
   pool.query("SELECT * FROM events WHERE eventid = $1",[eventid], (error,results) => {
     if (error) {
       throw error;
