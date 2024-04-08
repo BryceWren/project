@@ -12,6 +12,7 @@ const [cookies] = useCookies(['lastname', 'firstname', 'locationname', 'ishost',
 const [eventData, setData] = useState(null);
 const [discriptor, setDescription] = useState('')
 const [changedSeverity, setChangedSeverity] = useState('')
+const [participants,setParticipants] = useState('')
 
 const firstName = cookies.firstname
 const lastName = cookies.lastname
@@ -20,15 +21,7 @@ const eventID = cookies.eventid
 const navigate = useNavigate();
 const prevSeverity = cookies.severity
 useEffect(() => {
-  Axios.post('http://localhost:5000/postUI')
-    .then(response => {
-      getParticipants();
-      setData(response.data);
-      
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-    });
+  getParticipants()
 }, []);
 const updateMarkerColorRequest = async () => {
   try {
@@ -52,7 +45,7 @@ const getParticipants = async () => {
     const response = await Axios.post("http://localhost:5000/postUI",{
       backEventID: eventID
     });
-    console.log(response.data);
+    setParticipants(response.data);
   } catch (error){
     console.error('An error has occurred:', error); 
   }
@@ -65,7 +58,7 @@ const submitButton = () => {
   //THIS IS WHERE YOU ADD THE .PATCH/.UPDATE WHEN THEY SUBMIT TO UPDATE SEVERITY AND OTHER INFO
   //Axios.put( `http://localhost:5000/IndividualCleanup/${cookies.locationid}`,{changedSeverity} ) //this doesn't work needs more testing
 
-navigate('/home')
+//navigate('/home')
 }
 
 function getDate()  {
@@ -104,12 +97,20 @@ function getDate()  {
       <h1>Posted Cleanup</h1>
       <div className="register-form">
      {/* This is where we would put the  picture if we  actually implement it */ /*what used to be in h5 participants{firstName +" "}{lastName} {getMembership()}*/}
-     <h5>Participants: </h5> 
+     <h5>Participants: 
+      <u1>
+      {participants && participants.map((participant, index) => (
+            <li key={index}>{participant.firstname}</li>
+          ))}
+        </u1>
+        </h5> 
       <h5>Date:</h5>
       {getDate()}
       <h5>Time:</h5>
       {getTime()}
-     <h5>Description:</h5>
+     <h5>Any comments?:
+     <input/>
+     </h5>
       {}
       <label>How clean is: {locationName} </label>
      <select value={changedSeverity} onChange={(e) => setChangedSeverity(e.target.value)}>
@@ -120,7 +121,7 @@ function getDate()  {
                   </select >
     </div>
     <div className="popup-button">
-    <button onClick={submitButton()}> Submit Form </button>
+    <button onClick={submitButton}> Submit Form </button>
     </div>
    
     </div>
