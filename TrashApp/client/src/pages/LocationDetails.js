@@ -11,7 +11,7 @@ import hikingTrailImage from '../images/hikingtrail.jpg';
 import { format, parseISO, isBefore, isAfter, isEqual, isSameDay } from 'date-fns';
 
 const LocationDetails = () => {
-  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'items', 'clothing']);
+  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'dumpster', 'parking']);
   const [locationImage, setLocationImage] = useState(null);
   const [parking, setParking] = useState('');
   const [dumpster, setDumpster] = useState('');
@@ -69,7 +69,7 @@ const LocationDetails = () => {
 
 
   // Filter events based on matching location names
- 
+ console.log(events)
   const filteredEvents = events.filter(event => event.locationname === cookies.locationname && (isAfter(event.eventdate,getDate()) || isSameDay(parseISO(event.eventdate),getDate())));
   return (
     <div>
@@ -84,9 +84,8 @@ const LocationDetails = () => {
           {/* Display parking details and dumpster location based on cookie values */}
           <div>
             <p>Location Name: {cookies.locationname}</p>
-            <p>Location Type: {cookies.locationType}</p>
-            <p>What will be Provided: {cookies.items}</p>
-            <p>What to Wear: {cookies.clothing}</p>
+            <p>Where to park: {cookies.parking}</p>
+            <p>Trash Can Location: {cookies.dumpster}</p>
             <p>Events Happening In <b>{cookies.locationname}</b></p>
             {/* List of events happening in this location */}
             <ul className='location-details-container'>

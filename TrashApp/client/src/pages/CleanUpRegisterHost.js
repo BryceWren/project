@@ -20,7 +20,7 @@ const CleanUpRegister = () => {
   const [description, setDescription] = useState("");
   const [clothingAttire, setClothingAttire] = useState("");
   const [itemsToBring, setItemsToBring] = useState("");
-  const [cookies] = useCookies(["locationname", "longitude", "latitude", "severity", "locationType", "locationid"]);
+  const [cookies] = useCookies(["locationname", "longitude", "latitude", "severity", "locationType", "locationid","dumpster","parking"]);
   const [longitude, setLongitude] = useState(cookies.longitude || 0);
   const [latitude, setLatitude] = useState(cookies.latitude || 0);
   const [dateError, setDateError] = useState("");
@@ -104,8 +104,10 @@ const CleanUpRegister = () => {
         backSeverity: cookies.severity,
         backLocationType: cookies.locationType,
         backlocateid: cookies.locationid,
-        backClothing: cookies.clothing,
-        backItems: cookies.items
+        backdumpster: cookies.dumpster,
+        backparking: cookies.parking,
+        backClothing: clothingAttire,
+        backItems: itemsToBring
       });
       console.log("Registration successful");
       console.log(response);

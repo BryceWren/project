@@ -55,6 +55,9 @@ export const Settings = () => {
     removeCookies('locationname')
     removeCookies('password')
     removeCookies('severity')
+    removeCookies('dumpster')
+    removeCookies('eventid')
+    removeCookies('parking')
     navigate('/');
     setLogoutConfirmationOpen(false);
   };

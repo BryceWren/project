@@ -66,7 +66,7 @@ const PostUI = () => {
     const timeString = `${hour}:${min}`;
     const eventTime = new Date(`1970-01-01T${timeString}`);
     const formattedTime = eventTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-    return formattedTime;
+    return timeString;
   }
 
   function getMembership() {
