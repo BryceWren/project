@@ -76,6 +76,16 @@ const updateFromGroupCleanup = (request, response) => {
   })
 }
 
+const getParticipants = (request, response) => {
+  const eventid = request.body.backEventID
+  pool.query("SELECT * FROM participants WHERE eventid = $1", [eventid], (error,results) => {
+  if (error) {
+    throw error;
+  }
+  response.status(200).json(results.rows)
+})
+}
+
 const getEventPost = (request, response) => {
   pool.query("SELECT * FROM events", (error,results) => {
     if (error) {
@@ -186,6 +196,7 @@ const loginUser = (request, response) => {
   */
 module.exports = {
   //updateUserInfo,
+  getParticipants,
   getEventDetails,
   joinEvent,
   updateFromGroupCleanup,

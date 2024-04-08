@@ -16,11 +16,13 @@ const [changedSeverity, setChangedSeverity] = useState('')
 const firstName = cookies.firstname
 const lastName = cookies.lastname
 const locationName = cookies.locationname
+const eventID = cookies.eventid
 const navigate = useNavigate();
 const prevSeverity = cookies.severity
 useEffect(() => {
   Axios.post('http://localhost:5000/postUI')
     .then(response => {
+      getParticipants();
       setData(response.data);
       
     })
@@ -35,7 +37,7 @@ const updateMarkerColorRequest = async () => {
           changedcolor: changedSeverity
       });
       console.log(changedSeverity)
-      console.log(response)
+   //   console.log(response)
       //setLoginStatus(response.data); // Assuming that you want to log the response data
   } catch (error) {
       // Handle any errors that might occur during the request
@@ -44,14 +46,26 @@ const updateMarkerColorRequest = async () => {
   }
 };
 
+const getParticipants = async () => {
+  try{
+    const eventID = cookies.eventid;
+    const response = await Axios.post("http://localhost:5000/postUI",{
+      backEventID: eventID
+    });
+    console.log(response.data);
+  } catch (error){
+    console.error('An error has occurred:', error); 
+  }
+};
+
 const submitButton = () => {
 
-    updateMarkerColorRequest();
-    
-    //THIS IS WHERE YOU ADD THE .PATCH/.UPDATE WHEN THEY SUBMIT TO UPDATE SEVERITY AND OTHER INFO
-    //Axios.put( `http://localhost:5000/IndividualCleanup/${cookies.locationid}`,{changedSeverity} ) //this doesn't work needs more testing
+  updateMarkerColorRequest();
+  
+  //THIS IS WHERE YOU ADD THE .PATCH/.UPDATE WHEN THEY SUBMIT TO UPDATE SEVERITY AND OTHER INFO
+  //Axios.put( `http://localhost:5000/IndividualCleanup/${cookies.locationid}`,{changedSeverity} ) //this doesn't work needs more testing
 
-  navigate('/home')
+navigate('/home')
 }
 
 function getDate()  {
@@ -81,23 +95,23 @@ function getDate()  {
     else{
       return ("V")
     }
-  } 
-  
-     return (
+  }  
+
+   return (
     <div>
     <NavigationBar />
      <div className="auth-form-container">
       <h1>Posted Cleanup</h1>
       <div className="register-form">
-     {/* This is where we would put the  picture if we  actually implement it */}
-     <h5>Participants: </h5>{firstName +" "}{lastName} {getMembership()}
+     {/* This is where we would put the  picture if we  actually implement it */ /*what used to be in h5 participants{firstName +" "}{lastName} {getMembership()}*/}
+     <h5>Participants: </h5> 
       <h5>Date:</h5>
       {getDate()}
       <h5>Time:</h5>
       {getTime()}
-      <h5>Description:</h5>
+     <h5>Description:</h5>
       {}
-     <label>How clean is: {locationName} </label>
+      <label>How clean is: {locationName} </label>
      <select value={changedSeverity} onChange={(e) => setChangedSeverity(e.target.value)}>
                   <option value="">Select severity</option>
                   <option value="green">Spotless (Green)</option>
