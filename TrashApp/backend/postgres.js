@@ -66,9 +66,9 @@ const updateMarkerIndividualEvent = (request, response) => {
 }
 
 const updateFromGroupCleanup = (request, response) => {
-  const locationid = request.body.backlocationid
-  const locationseveritychange = request.body.changedcolor
-  pool.query("UPDATE map SET severity = $1 WHERE locationid = $2",[locationseveritychange, locationid], (error,results) => { //place holder is 15 for when i get the actual eventid from another location
+  const locationID = request.body.backlocid
+  const sevchange = request.body.backcolor
+  pool.query("UPDATE map SET severity = $1 WHERE locationid = $2",[sevchange, locationID], (error,results) => { //place holder is 15 for when i get the actual eventid from another location
     if (error) {
       throw error;
     }
