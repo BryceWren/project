@@ -96,7 +96,7 @@ const LocationDetails = () => {
                     <p>Date: {event.eventdate}</p>
                   </div>
                   <div className="location-details-right">
-                    <button className="form-btn">Event Details</button>
+                    <button className="form-btn">Join Event</button>
                   </div>
                 </div>
               ))}

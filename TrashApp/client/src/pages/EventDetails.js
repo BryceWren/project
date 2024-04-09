@@ -58,11 +58,28 @@ const EventDetails = () => {
     console.log(events)
     return newDate;
   }
-  function getDirections(coordinatesX, coordinatesY) {
+  // function getDirections(coordinatesX, coordinatesY) {
 
-    const url = `https://www.google.com.sa/maps/dir/current_location/${coordinatesX},${coordinatesY}`;
-    window.open(url, '_blank');
-    };
+  //   const url = `https://www.google.com.sa/maps/dir/current_location/${coordinatesX},${coordinatesY}`;
+  //   window.open(url, '_blank');
+  //   };
+
+  function getDirections(coordinatesX, coordinatesY) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const userLatitude = position.coords.latitude;
+        const userLongitude = position.coords.longitude;
+        const url = `https://www.google.com.sa/maps/dir/${userLatitude},${userLongitude}/${coordinatesX},${coordinatesY}`;
+        window.open(url, '_blank');
+      }, error => {
+        console.error('Error getting user location:', error);
+        const url = `https://www.google.com.sa/maps/dir/current_location/${coordinatesX},${coordinatesY}`;
+        window.open(url, '_blank');
+      });
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  }
   
 
   const fetchEvent = async () => { 
@@ -95,23 +112,22 @@ const EventDetails = () => {
             <p>Location Name: {cookies.locationname}</p>
             <p>Location Type: {cookies.locationType}</p>
             <div> {event.map((info, index) => (
-              <p key={index}>What we will be providing: {info.items}</p>
+              <p key={index}>What to wear: {info.clothing}</p>
             ))}</div>
             <div> {event.map((info, index) => (
-              <p key={index}>what to wear: {info.clothing}</p>
+              <p key={index}>What to bring: {info.items}</p>
             ))}</div>
+            
             <div>
-  {event.map((info, index) => (
-    <p key={index}>
-      Coordinates: 
-      <a href="#" onClick={() => getDirections(info.latitude, info.longitude)}>
-        {info.latitude}, {info.longitude}
-      </a>
-    </p>
-  ))}
-</div>
-            <p>Events Happening In <b>{cookies.locationname}</b></p>
-            {/* List of events happening in this location */}
+          {event.map((info, index) => (
+          <p key={index}>
+          <a href="#" onClick={() => getDirections(info.latitude, info.longitude)}>
+          Get Directions to the Event!
+          </a>
+         </p>
+        ))}
+      </div>
+            
           </div>
           <div className="button-container"><button>Join Event</button></div>
         </form>

@@ -95,7 +95,7 @@ export const Events = () => {
             clickedDate.setTime(clickedDate.getTime() + clickedDate.getTimezoneOffset() * 60000);
             return eventDate.toDateString() === date.toDateString();
           }).length === 0 ? 
-            <p>No events going on today!</p>
+            <p>No events going on this day!</p>
             :
             eventData
               .filter(event => {
@@ -118,7 +118,7 @@ export const Events = () => {
                   <div className="event-details-right">
                     <button onClick={() => joinEvent(event)}>Join Event</button>
                     <button onClick={() => eventInfo(event)}>Event Info</button>  {/*HOST VIEW ONLY!!!! */}
-                    <button onClick={() => postCleanup(event)}>Post Cleanup</button> {/*HOST VIEW ONLY!!!! */}
+                    <button onClick={() => postCleanup(event)}>Report Cleanup</button> {/*HOST VIEW ONLY!!!! */}
                   </div>
                 </div>
               ))

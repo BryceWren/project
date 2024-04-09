@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
-import { Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NavigationBar from '../Components/NavBar';
-import { Navigate } from 'react-router-dom';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
 import { useCookies } from 'react-cookie';
 
 export const Settings = () => {
-  const [cookies,,removeCookies] = useCookies(['email', 'password', 'lastName', 'firstName', 'ishost']);
-  
+  const [cookies, removeCookies] = useCookies(['email', 'password', 'lastName', 'firstName', 'ishost']);
   const userEmail = cookies.email;
   const navigate = useNavigate();
   const [logoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false);
@@ -21,27 +14,23 @@ export const Settings = () => {
   };
 
   const handleIsHost = () => {
-    if (cookies.ishost) {
-      return (<h3> Membership Status: Host</h3>);
-    } else {
-      return (<h3> Membership Status: Volunteer</h3>);
-    }
+    return cookies.ishost ? <h3>Membership Status: Host</h3> : <h3>Membership Status: Volunteer</h3>;
   };
 
   const handleLogoutConfirm = () => {
     // Perform logout actions here
-    removeCookies('userID')
-    removeCookies('email')
-    removeCookies('firstname')
-    removeCookies('ishost')
-    removeCookies('lastname')
-    removeCookies('latitude')
-    removeCookies('longitude')
-    removeCookies('locationType')
-    removeCookies('locationid')
-    removeCookies('locationname')
-    removeCookies('password')
-    removeCookies('severity')
+    removeCookies('userID');
+    removeCookies('email');
+    removeCookies('firstname');
+    removeCookies('ishost');
+    removeCookies('lastname');
+    removeCookies('latitude');
+    removeCookies('longitude');
+    removeCookies('locationType');
+    removeCookies('locationid');
+    removeCookies('locationname');
+    removeCookies('password');
+    removeCookies('severity');
     navigate('/');
     setLogoutConfirmationOpen(false);
   };
@@ -49,10 +38,6 @@ export const Settings = () => {
   const handleLogoutCancel = () => {
     setLogoutConfirmationOpen(false);
   };
-
-  // const hidePassword = () => {
-  //   return '*'.repeat(pass.length);
-  // };
 
   return (
     <div>
@@ -62,40 +47,29 @@ export const Settings = () => {
         <h1>Settings</h1>
         <div className="register-form">
           <h3>First Name: {cookies.firstname}</h3>
-          
           <h3>Last Name: {cookies.lastname}</h3>
-          
           {handleIsHost()}
-          
           <h3>Email: {userEmail}</h3>
-         
-          {/* <h3>Password: {hidePassword()}</h3> */}
-          
           <div className="button-container">
-            <button className="form-btn" onClick={() => navigate('/Editinformation')}> Edit Information</button>
+            <button className="form-btn" onClick={() => navigate('/Editinformation')}>Edit Information</button>
             <button className="form-btn" onClick={handleLogout}>Logout</button>
           </div>
         </div>
       </div>
 
       {/* Logout Confirmation Dialog */}
-      <Dialog
-        open={logoutConfirmationOpen}
-        onClose={handleLogoutCancel}
-      >
-        <DialogTitle>Logout Confirmation</DialogTitle>
-        <DialogContent>
-          Are you sure you want to logout?
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleLogoutCancel} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleLogoutConfirm} color="primary">
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {logoutConfirmationOpen && (
+        <div className="logout-confirmation">
+          <div className="confirmation-dialog">
+            <h2>Logout Confirmation</h2>
+            <p>Are you sure you want to logout?</p>
+            <div className="confirmation-buttons">
+              <button onClick={handleLogoutCancel}>Cancel</button>
+              <button onClick={handleLogoutConfirm}>Confirm</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

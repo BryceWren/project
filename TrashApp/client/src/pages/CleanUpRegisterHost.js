@@ -77,7 +77,7 @@ const CleanUpRegister = () => {
     }
 
     if (!clothingAttire) {
-      setClothingAttireError("Please provide clothing attire.");
+      setClothingAttireError("Please provide what should be worn in this event.");
       isValid = false;
     }
 

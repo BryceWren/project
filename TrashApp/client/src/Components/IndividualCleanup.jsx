@@ -58,12 +58,12 @@ const IndividualCleanup = () => {
   function getTime() {
     const time = new Date();
     const hour = time.getHours();
-    const min = (time.getMinutes() < 10 ? '0' : '') + time.getMinutes(); //GOTTA GET AM OR PM
-    const timeString = `${hour}:${min}`;
-    const eventTime = new Date(`1970-01-01T${timeString}`);
-    const formattedTime = eventTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-    return `${hour}:${min}`;
+    const min = (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
+    const period = hour >= 12 ? 'PM' : 'AM'; // Determine if it's AM or PM
+    const hour12 = hour % 12 || 12; // Convert hour to 12-hour format
+    return `${hour12}:${min} ${period}`;
   }
+  
 
   function getMembership() {
     const membership = cookies.ishost;
@@ -78,24 +78,23 @@ const IndividualCleanup = () => {
     <div>
       <NavigationBar />
       <div className="auth-form-container">
-        <h1>Posted Cleanup</h1>
+        <h1>Report Cleanup</h1>
         <div className="register-form">
           {/* This is where we would put the  picture if we  actually implement it */}
-          <h5>Participants: </h5>{firstName + " "}{lastName} {getMembership()}
-          <h5>Date:</h5>
-          {getDate()}
-          <h5>Time:</h5>
-          {getTime()}
-          <h5>What did you clean?:</h5>
+          <p><b>Name: </b>{firstName + " "}{lastName} {getMembership()}</p>
+          <p><b>Date: </b>{getDate()}</p>
+          <p><b>Time: </b>{getTime()}</p>
+          <p><b>Location: </b>{locationName}</p>
+          <p><b>What did you clean?</b></p>
           <input />
-          <h5>Location:</h5>
-          {locationName}
-          <label>How clean is {locationName}? </label>
+          
+          
+          <p><b>How clean is {locationName}? </b> </p>
           <select value={changedSeverity} onChange={(e) => setChangedSeverity(e.target.value)}>
             <option value="">Select severity</option>
             <option value="green">Spotless (Green)</option>
-            <option value="yellow">A little Trash (Yellow)</option>
-            <option value="red">a lot of Trash is left (Red)</option>
+            <option value="yellow">A Little Trash (Yellow)</option>
+            <option value="red">Still A Lot of Trash Is Left (Red)</option>
           </select>
         </div>
         <div className="popup-button">
