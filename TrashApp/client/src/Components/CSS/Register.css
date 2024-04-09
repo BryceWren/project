@@ -62,7 +62,8 @@ body{
   border-top: tan groove;
   border-right:  tan groove;
   border-left: tan groove;
-   margin-top: 75px; /*  added this cause when i took "WELCOME TO THE TRASHAPP " out it went straight to the top */
+  margin-top: 35px; /*  added this cause when i took "WELCOME TO THE TRASHAPP " out it went straight to the top */
+  max-height: 790px;
 }
 
 .register-form {
@@ -222,52 +223,41 @@ textarea {
   width: 500px;
   padding: 10px;
   border: 2px solid #636161;
-  border-radius: 40px;
+  border-radius: 30px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
-  
+  margin-bottom: 10px;
 }
 
 .event-details-container {
-  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px auto 0 auto;
   width: 500px;
-  padding: 20px;
-  border: 2px solid #636161;
-  border-radius: 15px;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
-  max-height: 410px; 
+  max-height: 500px; 
   overflow-y: scroll;
+  margin-bottom: 10px;
+  margin-right: -13px; /* Offset margin to align scrollbar */
 }
 
-/* .event-details {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-size: small;
-  
-} */
 .event-details {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
   padding: 10px;
 }
 
 .event-details-left {
-  flex: 3; /* Take up remaining space */
+  width: 60%; /* Take up remaining space */
 }
 
 .event-details-right {
-  flex: 2;
-  gap: 10px; /* Adjust the gap between buttons */
+  width:40%;/* Adjust the gap between buttons */
 }
 
-.event-details-container::-webkit-scrollbar {
-  width: 15px;
+
+/* .event-details-container::-webkit-scrollbar {
+  width: 10px;
 }
 
 /* Track */
@@ -287,7 +277,7 @@ textarea {
 /* Handle on hover */
 .event-details-container::-webkit-scrollbar-thumb:hover {
   background: #555; /* Color of the scrollbar handle on hover */
-}
+} */
 
 /* Calendar CSS */
 .react-calendar {
@@ -514,18 +504,56 @@ textarea {
   margin-top: 10px;
   white-space: nowrap;
 }
-.location-details-container {
-  background-color: white;
+
+
+/* .location-details{
+  background-color:whitesmoke;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px auto 0 auto;
+  margin: 0 auto;
+  width: 350px;
   padding: 20px;
-  border: 2px solid #636161;
-  border-radius: 15px;
+  border: 30px solid #232222;
+  border-radius: 40px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
-  max-height: 410px; 
-  overflow-y: scroll;
+  border-bottom: tan groove;
+  border-top: tan groove;
+  border-right:  tan groove;
+  border-left: tan groove;
+   margin-top: 75px;
+} */
+
+.location-details-container {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  margin-bottom: 20px;
+  scrollbar-width: thin;
 }
+
+.location-details-container {
+  /* Adjust width as needed */
+  width: 100%;
+}
+
+.event {
+  /* Add styles for each event */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px; /* Adjust spacing between items */
+}
+
+.location-details-left {
+  /* Adjust width as needed */
+  width: 50%; /* Example: Left container takes 70% */
+}
+
+.location-details-right {
+  /* Adjust width as needed */
+  width: 50%; /* Example: Right container takes 30% */
+}
+
 
 

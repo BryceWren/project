@@ -85,7 +85,7 @@ export const Events = () => {
       <div className="event-container">
         <Calendar onChange={changeValue} value={date} locale="en-US" />
         <p>The selected date is - {date.toLocaleDateString()}</p>
-      </div>
+      {/* </div> */}
       <div className="event-details-container">
         {eventData &&
           (eventData.filter(event => {
@@ -124,6 +124,7 @@ export const Events = () => {
               ))
           )}
       </div>
+    </div>
     </div>
   );
 };

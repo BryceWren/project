@@ -86,20 +86,23 @@ const LocationDetails = () => {
             <p>Location Name: {cookies.locationname}</p>
             <p>Where to park: {cookies.parking}</p>
             <p>Trash Can Location: {cookies.dumpster}</p>
-            <p>Events Happening In <b>{cookies.locationname}</b></p>
+            <p>Events Happening In the Area:</p>
             {/* List of events happening in this location */}
-            <ul className='location-details-container'>
+            <div className='location-details-container'>
               {filteredEvents.map(event => (
-                <li key={event.id}>
-                  <p>Event: {event.locationname}</p>
-                  <p>Date: {event.eventdate}</p>
-                  <button>Join Event</button>
-                </li>
-                
+                <div key={event.id} className="event">
+                  <div className="location-details-left">
+                    <p>Event: {event.locationname}</p>
+                    <p>Date: {event.eventdate}</p>
+                  </div>
+                  <div className="location-details-right">
+                    <button className="form-btn">Event Details</button>
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
-          <div className="button-container"></div>
+          
         </form>
       </div>
     </div>
