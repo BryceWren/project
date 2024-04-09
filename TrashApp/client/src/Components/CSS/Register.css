@@ -567,33 +567,6 @@ textarea {
   align-items: center;
 }
 
-.confirmation-dialog {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  text-align: center;
-}
-
-.confirmation-dialog h2 {
-  margin-bottom: 10px;
-}
-
-.confirmation-dialog p {
-  margin-bottom: 20px;
-}
-
-.confirmation-buttons button {
-  padding: 8px 20px;
-  margin: 0 10px;
-  cursor: pointer;
-}
-
-.confirmation-buttons button:hover {
-  text-decoration: none;
-  box-shadow: none;
-  transform: translateY(1px);
-}
 
 
 

@@ -14,7 +14,22 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { useCookies } from 'react-cookie';
 
-
+const ConfirmationDialog = ({ open, onClose, onConfirm, title, content }) => {
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent>{content}</DialogContent>
+      <DialogActions>
+        <Button onClick={onClose} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={onConfirm} color="primary">
+          Confirm
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 
 export const Settings = () => {
   const location = useLocation();
@@ -88,18 +103,14 @@ export const Settings = () => {
       </Box>
       
       {/* Logout Confirmation Dialog */}
-      {logoutConfirmationOpen && (
-        <div className="logout-confirmation">
-          <div className="confirmation-dialog">
-            <h2>Logout Confirmation</h2>
-            <p>Are you sure you want to logout?</p>
-            <div className="confirmation-buttons">
-              <button onClick={handleLogoutCancel}>Cancel</button>
-              <button onClick={handleLogoutConfirm}>Confirm</button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ConfirmationDialog
+        open={logoutConfirmationOpen}
+        onClose={handleLogoutCancel}
+        onConfirm={handleLogoutConfirm}
+        title="Logout Confirmation"
+        content="Are you sure you want to logout?"
+        className="logout-confirmation"
+      />
     </div>
   );
 };
