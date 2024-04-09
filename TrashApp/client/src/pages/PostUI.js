@@ -42,6 +42,9 @@ const PostUI = () => {
       console.error('An error has occurred:', error); 
     }
   };
+  const PostUIroute = (route) =>{
+    navigate('/Participants');
+  }
 
   const submitButton = () => {
     updateMarkerColorRequest();

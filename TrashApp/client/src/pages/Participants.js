@@ -28,7 +28,7 @@ export const Participants = () => {
                         <h2 style={{ whiteSpace: 'nowrap', marginRight: '20px' }}>Guest 1 <img src={guestIcon} alt="Guest Icon" style={{ width: '30px', height: '30px' }} /> </h2>
                         <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} style={{ width: '15px', height: '15px' }} /> {/* Checkbox */}
                     </div>
-                    <button type="submit" className="form-btn">
+                    <button type="submit" className="form-btn" onClick={()=>navigate('/Events')}>
                         Verify User
                     </button>
                 </div>
