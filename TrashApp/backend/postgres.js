@@ -126,14 +126,24 @@ const setEventPost = (request, response) => {
 const joinEvent = (request, response) => {
   const eventid = request.body.backEventID
   const firstname = request.body.backFirstName
-
-  pool.query('INSERT INTO participants (eventid, firstname) VALUES ($1, $2)', [eventid, firstname], (error, results) => {
-    if (error) {
-      throw error
+  pool.query('SELECT * FROM participants WHERE eventid = $1 AND firstname = $2', [eventid, firstname], (error, results) => 
+{
+  if (error){
+    throw error
+  }
+  if (results.rows.length > 0){
+    response.status(400).send('User has already joined this event')  //should give some sort of alert to user as well??
+  } else {
+    pool.query('INSERT INTO participants (eventid, firstname) VALUES ($1, $2)', [eventid, firstname], (error, results) => {
+      if (error) {
+        throw error
+      }
+        response.status(201).send('User successfully joined event')
+      
+     });
     }
-    response.status(201).send('User successfully joined event')
-  })
-}
+  });
+};
 
 const registerUser = (request, response) => {
     const first = request.body.backFname;
