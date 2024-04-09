@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../Components/CSS/Register.css';
 import NavigationBar from '../Components/NavBar';
 import Axios from 'axios';
@@ -8,25 +9,21 @@ import riverImage from '../images/river.jpeg';
 import lakeImage from '../images/lake.jpg';
 import campgroundImage from '../images/campground.png';
 import hikingTrailImage from '../images/hikingtrail.jpg';
-import { format, parseISO, isBefore, isAfter, isEqual, isSameDay } from 'date-fns';
 
 const LocationDetails = () => {
-  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'dumpster', 'parking']);
+  const navigate = useNavigate(); // Initialize useNavigate hook
+  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'latitude', 'longitude', 'locationType', 'severity', 'eventid']);
   const [locationImage, setLocationImage] = useState(null);
-  const [parking, setParking] = useState('');
-  const [dumpster, setDumpster] = useState('');
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    Axios.get('http://localhost:5000/locationdetails')
-      .then(json => setData(json.data))
-      .catch(error => console.error('Error fetching location details:', error));
-  }, []);
+    // Fetch events happening in this location
+    Axios.get(`http://localhost:5000/events?location=${cookies.locationname}`)
+      .then(response => setEvents(response.data))
+      .catch(error => console.error('Error fetching events:', error));
 
-  useEffect(() => {
-    // Set locationImage, parking, and dumpster based on the cookie values
-    const { locationType, parking, dumpster } = cookies;
-    switch (locationType) {
+    // Set locationImage based on the cookie values
+    switch (cookies.locationType) {
       case 'Beach':
         setLocationImage(beachImage);
         break;
@@ -46,31 +43,15 @@ const LocationDetails = () => {
         setLocationImage(null);
         break;
     }
-    setParking(parking);
-    setDumpster(dumpster);
-
-    // Fetch events happening in this location
-    Axios.get(`http://localhost:5000/events?location=${cookies.locationname}`)
-      .then(response => setEvents(response.data))
-      .catch(error => console.error('Error fetching events:', error));
   }, [cookies]);
-  
-  function getDate()  {
-    const today = new Date()
-    const month = today.getMonth()+1;
-    const year = today.getFullYear();
-    const date = today.getDate();
-    const newDate =  `${year}-${month}-${date}`;
-    console.log(events)
-    return newDate;
-  }
 
-
-
+  const navigateToEventDetails = (eventId) => {
+    navigate(`/eventdetails/${eventId}`);
+  };
 
   // Filter events based on matching location names
- console.log(events)
-  const filteredEvents = events.filter(event => event.locationname === cookies.locationname && (isAfter(event.eventdate,getDate()) || isSameDay(parseISO(event.eventdate),getDate())));
+  const filteredEvents = events.filter(event => event.locationname === cookies.locationname);
+
   return (
     <div>
       <NavigationBar />
@@ -96,13 +77,13 @@ const LocationDetails = () => {
                     <p>Date: {event.eventdate}</p>
                   </div>
                   <div className="location-details-right">
-                    <button className="form-btn">Join Event</button>
+                    {/* Navigates to EventDetails associated to the eventID of the location event*/}
+                    <button className="form-btn" onClick={() => navigateToEventDetails(event.eventid)}>Event Details</button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          
         </form>
       </div>
     </div>

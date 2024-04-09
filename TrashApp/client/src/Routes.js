@@ -28,8 +28,8 @@ export const AppRoutes = () => {
                 <Route path="/PostUI" element={<PostUI />} />
                 <Route path ="/CleanUpRegisterHost/*" element={<CleanUpRegisterHost/>}/>
                 <Route path ="/Participants" element={<Participants/>}/>
-                <Route path ="/locationdetails" element={<LocationDetails/>}/>
-                <Route path ="/eventdetails" element={<EventDetails/>}/>
+                <Route path ="/locationdetails*" element={<LocationDetails/>}/>
+                <Route path ="/eventdetails*" element={<EventDetails/>}/>
 
             
 
