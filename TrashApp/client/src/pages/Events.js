@@ -105,6 +105,7 @@ export const Events = () => {
                 clickedDate.setTime(clickedDate.getTime() + clickedDate.getTimezoneOffset() * 60000);
                 return eventDate.toDateString() === date.toDateString();
               })
+              .sort((a, b) => new Date(`1970-01-01T${a.eventtime}`) - new Date(`1970-01-01T${b.eventtime}`)) // Sort by event time in ascending order
               .map((event, index) => (
                 <div className="event-details" key={index}>
                   <div className="event-details-left">

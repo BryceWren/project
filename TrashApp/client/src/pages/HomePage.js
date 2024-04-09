@@ -73,7 +73,14 @@ export const HomePage = () => {
   const handleClick = ({ lngLat }) => {
     const { lng, lat } = lngLat;
     setPopupInfo({ longitude: lng, latitude: lat });
-  }
+  
+    // Update the viewport to the clicked location
+    setViewport({
+      latitude: lat,
+      longitude: lng,
+      zoom: 10, // Set the desired zoom level
+    });
+  };
 
   const handlePopupClose = () => {
     setPopupInfo(null); // Close the first popup
@@ -121,6 +128,7 @@ export const HomePage = () => {
       ]);
       // Add pin to database
       await locationdb();
+      
       // Reset form fields
       setPopupInfo(null);
       setDate('');
@@ -142,11 +150,21 @@ export const HomePage = () => {
   const handleMarkerClick = (marker) => {
     setPopupInfo(null); // Close the first popup
     setSelectedLocation(marker);
+    setViewport({
+      latitude: p.latitude,
+      longitude: p.longitude,
+      zoom: 10, // Set the desired zoom level
+    });
   }
 
   const handleDatabaseMarkerClick = (p) => {
     setSelectedLocation(p); // Set selectedLocation to the clicked marker object
     setPopupInfo(null); // Close the first popup
+    setViewport({
+      latitude: p.latitude,
+      longitude: p.longitude,
+      zoom: 10, // Set the desired zoom level
+    });
   }
 
   const mapKey = process.env.REACT_APP_MAPBOX_TOKEN;
@@ -180,7 +198,7 @@ export const HomePage = () => {
           mapboxAccessToken={mapKey}
           {...viewport}
           onMove={evt => setViewport(evt.viewport)}
-          transitionDurations="200"
+          transitionDurations= "200"
           mapStyle={"mapbox://styles/mapbox/streets-v9"}
         
         >
