@@ -195,21 +195,21 @@ const loginUser = (request, response) => {
     });
     
   }
-  /*
+  
   const updateUserInfo = (request, response) => {
     const email = request.body.backemail
     const pass = request.body.backpass
     const userid = request.body.backUserID
-    pool.query("UPDATE users SET email = $1 AND password = $2 WHERE locationid = $3",[email, pass, userid], (error,results) => { //place holder is 15 for when i get the actual eventid from another location
+    pool.query("UPDATE users SET email = $1, password = $2 WHERE userID = $3",[email, pass, userid], (error,results) => { //place holder is 15 for when i get the actual eventid from another location
       if (error) {
         throw error;
       }
       response.status(200).json(results.rows)
     })
   }
-  */
+  
 module.exports = {
-  //updateUserInfo,
+  updateUserInfo,
   getParticipants,
   getEventDetails,
   joinEvent,

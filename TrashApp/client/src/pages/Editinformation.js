@@ -29,6 +29,7 @@ const EditInformation = () => {
 
     const handleUpdate = (e) => {
         e.preventDefault();
+        updateAllSettings();
         setEmailError('');
         setPasswordError('');
         setConfirmPasswordError('');
@@ -43,6 +44,17 @@ const EditInformation = () => {
             }, 3000);
         }
     };
+    const updateAllSettings = async () => {
+        try {
+          const response = await Axios.put("http://localhost:5000/Editinformation", {
+            backemail: cookies.email,
+            backcolor: cookies.password,
+            backUserID: cookies.userID
+          });
+        } catch (error) {
+          console.error('An error occurred:', error);
+        }
+      };
 
     const validateInput = () => {
         let isValid = true;

@@ -16,7 +16,7 @@ export const LoginC = (props) => {
     const [showPassword, setShowPassword] = useState(false);
     const Navigate = useNavigate();
 
-    const [, setCookie] = useCookies(['userID','firstname','lastname','email','ishost'])
+    const [, setCookie] = useCookies(['userID','firstname','lastname','email','ishost','password'])
 
     const emailValidator = (email) => {
         if (!email) {
@@ -64,11 +64,12 @@ export const LoginC = (props) => {
                 backPassword: pass
             });
             console.log(response)
-            setCookie('userID', response.data[0].userID) 
+            setCookie('userID', response.data[0].userid) 
             setCookie('firstname', response.data[0].firstName)
             setCookie('lastname', response.data[0].lastName)
             setCookie('email', response.data[0].email)
             setCookie('ishost', response.data[0].ishost)
+            setCookie('password', response.data[0].password)
             if (response.data.length > 0) {
                 return true;
             } else {
