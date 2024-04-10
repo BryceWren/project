@@ -9,6 +9,7 @@ import riverImage from '../images/river.jpeg';
 import lakeImage from '../images/lake.jpg';
 import campgroundImage from '../images/campground.png';
 import hikingTrailImage from '../images/hikingtrail.jpg';
+import { format, parseISO, isBefore, isAfter, isEqual, isSameDay } from 'date-fns';
 
 const LocationDetails = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
@@ -45,12 +46,22 @@ const LocationDetails = () => {
     }
   }, [cookies]);
 
+  function getDate()  {
+    const today = new Date()
+    const month = today.getMonth()+1;
+    const year = today.getFullYear();
+    const date = today.getDate();
+    const newDate =  `${year}-${month}-${date}`;
+    console.log(events)
+    return newDate;
+  }
+
   const navigateToEventDetails = (eventId) => {
     navigate(`/eventdetails/${eventId}`);
   };
 
   // Filter events based on matching location names
-  const filteredEvents = events.filter(event => event.locationname === cookies.locationname);
+  const filteredEvents = events.filter(event => event.locationname === cookies.locationname && (isAfter(event.eventdate,getDate()) || isSameDay(parseISO(event.eventdate),getDate())));
 
   return (
     <div>
