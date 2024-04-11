@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../Components/CSS/Register.css';
 import NavigationBar from '../Components/NavBar';
-import axios from 'axios';
+import Axios from 'axios';
 import { useCookies } from 'react-cookie';
 import beachImage from '../images/beach.jpg';
 import riverImage from '../images/river.jpeg';
@@ -10,7 +10,7 @@ import campgroundImage from '../images/campground.png';
 import hikingTrailImage from '../images/hikingtrail.jpg';
 
 const EventDetails = () => {
-  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'eventid']);
+  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'eventid','firstname']);
   const [locationImage, setLocationImage] = useState(null);
   const [items, setItems] = useState('');
   const [clothing, setClothing] = useState('');
@@ -45,15 +45,6 @@ const EventDetails = () => {
     }
   }, [cookies]);
 
-  function getDate() {
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const year = today.getFullYear();
-    const date = today.getDate();
-    const newDate = `${year}-${month}-${date}`;
-    console.log(eventData);
-    return newDate;
-  }
   const formatDate = (dateString) => {
     const eventDate = new Date(dateString);
             eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
@@ -69,7 +60,6 @@ const EventDetails = () => {
     const formattedTime = eventTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     return formattedTime;
   };
-
   function getDirections(coordinatesX, coordinatesY) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -92,15 +82,32 @@ const EventDetails = () => {
 
   const fetchEvent = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/EventDetails', {
-        backEventIdentification: cookies.eventid,
+      const response = await Axios.post('http://localhost:5000/EventDetails', {
+        backEventIdentification: parseInt(eventId),
       });
       setEventData(response.data);
     } catch (error) {
       console.error('An error occurred:', error);
     }
   };
-
+  const urls =  (window.location).toString();
+  const segment = urls.split("/")
+  const moreseg = segment[segment.length - 1].split("?")
+  const eventId = moreseg[0];
+  console.log(eventId)
+  const joinEvent = (event, fname) => {
+    
+    const helpme = Axios.post("http://localhost:5000/JoinEvent", {
+      backEventID: event,
+      backFirstName: fname
+    })
+    .then((helpme) => {
+      alert(helpme.data.message);
+    })
+    .catch((error) => {
+      console.error('An error occurred:', error);
+    });
+  };
   return (
     <div>
       <NavigationBar />
@@ -137,16 +144,18 @@ const EventDetails = () => {
             </div>
             <div>
               {eventData.map((info, index) => (
+                <div>
                 <p key={index}>
                   <a href="#" onClick={() => getDirections(info.latitude, info.longitude)}>
                     Get Directions to the Event!
                   </a>
                 </p>
+              </div>
               ))}
+              <div className='button-container'>
+              <button onClick={joinEvent(parseInt(eventId), cookies.firstname)}>Join Event</button>
+              </div>
             </div>
-          </div>
-          <div className="button-container">
-            <button>Join Event</button>
           </div>
         </form>
       </div>

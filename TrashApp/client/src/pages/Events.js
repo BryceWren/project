@@ -80,7 +80,7 @@ export const Events = () => {
     setCookie('severity', event.severity)
     setCookie('locationid', event.locationid)
     setCookie('locationType', event.locationtype)
-    navigate('/EventDetails'); //ONLY THE USER THAT CREATED THIS EVENT CAN MANIPULATED THE EVENT THEY CREATED... MAKE USERID POST TO THE DB TO SAVE WHICH USER DID WHAT ON EVENTS
+    navigate('/EventDetails'); 
   };
 
   const postCleanup = (event) => { 
@@ -90,7 +90,7 @@ export const Events = () => {
       setCookie('severity', event.severity)
       setCookie('locationid', event.locationid)
       setCookie('locationType', event.locationtype)
-      navigate('/postUI') // WILL NEED TO CHANGE THIS TO A DIFFERENT PAGE FOR CLEANUP GROUPS I JUST DID THIS TO TEST
+      navigate('/postUI') 
       console.log('Post Cleanup', event);
   };
 
