@@ -13,9 +13,11 @@ import { format, parseISO, isBefore, isAfter, isEqual, isSameDay } from 'date-fn
 
 const LocationDetails = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
-  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'latitude', 'longitude', 'locationType', 'severity', 'eventid']);
+  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'latitude', 'longitude', 'locationType', 'severity', 'dumpster', 'parking', 'eventid']);
   const [locationImage, setLocationImage] = useState(null);
   const [events, setEvents] = useState([]);
+  const [parking, setParking] = useState('');
+  const [dumpster, setDumpster] = useState('');
 
   useEffect(() => {
     // Fetch events happening in this location
@@ -44,6 +46,8 @@ const LocationDetails = () => {
         setLocationImage(null);
         break;
     }
+    setParking(cookies.parking);
+    setDumpster(cookies.dumpster);
   }, [cookies]);
 
   function getDate()  {
