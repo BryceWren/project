@@ -54,6 +54,21 @@ const EventDetails = () => {
     console.log(eventData);
     return newDate;
   }
+  const formatDate = (dateString) => {
+    const eventDate = new Date(dateString);
+            eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
+    return eventDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
+  const formatTime = (timeString) => {
+    const eventTime = new Date(`1970-01-01T${timeString}`);
+    const formattedTime = eventTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    return formattedTime;
+  };
 
   function getDirections(coordinatesX, coordinatesY) {
     if (navigator.geolocation) {
@@ -101,6 +116,16 @@ const EventDetails = () => {
             <p>Location Name: {cookies.locationname}</p>
             <p>Location Type: {cookies.locationType}</p>
             <div>
+            <div>
+              {eventData.map((info, index) => (
+                <p key={index}>Date: {formatDate(info.eventdate)}</p>
+              ))}
+            </div>
+            <div>
+              {eventData.map((info, index) => (
+                <p key={index}>Time of Event: {formatTime(info.eventtime)}</p>
+              ))}
+            </div>
               {eventData.map((info, index) => (
                 <p key={index}>What to wear: {info.clothing}</p>
               ))}
