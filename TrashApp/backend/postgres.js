@@ -132,13 +132,15 @@ const joinEvent = (request, response) => {
     throw error
   }
   if (results.rows.length > 0){
-    response.status(400).send('User has already joined this event')  //should give some sort of alert to user as well??
+    //response.status(400).send('User has already joined this event')  //should give some sort of alert to user as well??
+    response.json({ message: "You have already joined this event" });
   } else {
     pool.query('INSERT INTO participants (eventid, firstname) VALUES ($1, $2)', [eventid, firstname], (error, results) => {
       if (error) {
         throw error
       }
-        response.status(201).send('User successfully joined event')
+        //response.status(201).send('User successfully joined event')
+        response.json({ message: "You have successfully joined this event"});
       
      });
     }

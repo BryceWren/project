@@ -46,7 +46,7 @@ export const Events = () => {
     return formattedTime;
   };
 
-  const joinEvent = async (event) => {
+ /* const joinEvent = async (event) => {
       try {
         const eventID = await event.eventid
         const response = await Axios.post("http://localhost:5000/events", {
@@ -56,7 +56,22 @@ export const Events = () => {
       }catch (error) {
         console.error('An error occurred:', error);
       }
-  }
+  }*/
+  
+  const joinEvent = (event) => {
+    const eventID = event.eventid;
+    
+    Axios.post("http://localhost:5000/events", {
+      backEventID: eventID,
+      backFirstName: cookies.firstname
+    })
+    .then((response) => {
+      alert(response.data.message);
+    })
+    .catch((error) => {
+      console.error('An error occurred:', error);
+    });
+  };
          //THIS NEEDS TO HAVE SOME SORT OF COUNTER ON THE BACKEND ALONGSIDE USER CREDENTIALS
   
   const eventInfo = (event) => {
