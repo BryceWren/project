@@ -61,7 +61,7 @@ const LocationDetails = () => {
   }
 
   const navigateToEventDetails = (eventId) => {
-    navigate(`/eventdetails/${eventId}`);
+    navigate(`/LocationEventDetails/${eventId}`);
   };
 
   // Filter events based on matching location names

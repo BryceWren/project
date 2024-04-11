@@ -12,6 +12,7 @@ import CleanUpRegisterHost from './pages/CleanUpRegisterHost';
 import Participants from './pages/Participants';
 import LocationDetails from './pages/LocationDetails';
 import EventDetails from './pages/EventDetails';
+import LocationEventDetails from './pages/LocationEventDetails';
 
 //HELLO WORLD
 export const AppRoutes = () => {
@@ -30,6 +31,8 @@ export const AppRoutes = () => {
                 <Route path ="/Participants" element={<Participants/>}/>
                 <Route path ="/locationdetails/*" element={<LocationDetails/>}/>
                 <Route path ="/eventdetails/*" element={<EventDetails/>}/>
+                <Route path ="/LocationEventDetails/*" element={<LocationEventDetails/>}/>
+
 
             
 

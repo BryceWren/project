@@ -146,7 +146,31 @@ const joinEvent = (request, response) => {
     }
   });
 };
-
+/*
+const joinLocEvent = (request, response) => {
+  const eventid = request.body.backEID
+  const firstname = request.body.backFName
+  pool.query('SELECT * FROM participants WHERE eventid = $1 AND firstname = $2', [eventid, firstname], (error, results) => 
+{
+  if (error){
+    throw error
+  }
+  if (results.rows.length > 0){
+    //response.status(400).send('User has already joined this event')  //should give some sort of alert to user as well??
+    response.json({ message: "You have already joined this event" });
+  } else {
+    pool.query('INSERT INTO participants (eventid, firstname) VALUES ($1, $2)', [eventid, firstname], (error, results) => {
+      if (error) {
+        throw error
+      }
+        //response.status(201).send('User successfully joined event')
+        response.json({ message: "You have successfully joined this event"});
+      
+     });
+    }
+  });
+};
+*/
 const registerUser = (request, response) => {
     const first = request.body.backFname;
     const last = request.body.backLname;
@@ -211,6 +235,7 @@ const loginUser = (request, response) => {
   }
   
 module.exports = {
+  //joinLocEvent,
   updateUserInfo,
   getParticipants,
   getEventDetails,

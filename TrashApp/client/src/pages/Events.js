@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie';
 
 export const Events = () => {
   const [cookies] = useCookies(['lastname', 'firstname', 'email']);
-  const[,setCookie] = useCookies(['eventid','locationname','severity','locationid', 'locationType'])
+  const[,setCookie] = useCookies(['eventid','locationname','severity','locationid', 'locationType', 'eventid'])
   const [date, changeDate] = useState(new Date());
   const [eventData, setEventData] = useState(null);
   

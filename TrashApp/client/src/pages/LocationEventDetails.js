@@ -8,7 +8,7 @@ import riverImage from '../images/river.jpeg';
 import lakeImage from '../images/lake.jpg';
 import campgroundImage from '../images/campground.png';
 import hikingTrailImage from '../images/hikingtrail.jpg';
-const EventDetails = () => {
+const LocationEventDetails = () => {
   const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'eventid']);
   const [locationImage, setLocationImage] = useState(null);
   const [items, setItems] = useState('');
@@ -147,4 +147,4 @@ const EventDetails = () => {
     </div>
   );
 };
-export default EventDetails;
+export default LocationEventDetails;
