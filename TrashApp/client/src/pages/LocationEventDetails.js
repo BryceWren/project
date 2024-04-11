@@ -85,10 +85,15 @@ const LocationEventDetails = () => {
       console.error('Geolocation is not supported by this browser.');
     }
   }
+  const urls =  (window.location).toString();
+  const segment = urls.split("/")
+  const moreseg = segment[segment.length - 1].split("?")
+  const eventId = moreseg[0];
+  console.log(eventId)
   const fetchEvent = async () => {
     try {
       const response = await axios.post('http://localhost:5000/EventDetails', {
-        backEventIdentification: cookies.eventid,
+        backEventIdentification: eventId,
       });
       setEventData(response.data);
     } catch (error) {
