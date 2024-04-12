@@ -36,7 +36,7 @@ const CleanUpRegister = () => {
     if (message) {
       timer = setTimeout(() => {
         setMessage("");
-        navigate("/events");
+        navigate("/home");
       }, 3000); // hide message after 3 seconds
     }
     return () => clearTimeout(timer);
