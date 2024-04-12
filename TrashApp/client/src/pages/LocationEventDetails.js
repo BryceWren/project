@@ -50,7 +50,7 @@ const LocationEventDetails = () => {
         break;
     }
   }, [cookies]);
-  const onButtonClick = async () => {
+  const onButtonClick = () => {
     updateParticipantsList()
     navigate('/home')
   };
@@ -77,6 +77,10 @@ const LocationEventDetails = () => {
     const formattedTime = eventTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     return formattedTime;
   };
+  const hrefClick = (coordinatesX, coordinatesY) => {
+    getDirections(coordinatesX, coordinatesY)
+    history.back()
+  }
 
   function getDirections(coordinatesX, coordinatesY) {
     if (navigator.geolocation) {
@@ -168,7 +172,7 @@ const LocationEventDetails = () => {
             <div>
               {filteredEvents.map((info, index) => (
                 <p key={index}>
-                  <a href="#" onClick={() => getDirections(info.latitude, info.longitude)}>
+                  <a href="#" onClick={() => hrefClick(info.latitude, info.longitude)}>
                     Get Directions to the Event!
                   </a>
                 </p>
