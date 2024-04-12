@@ -140,6 +140,11 @@ const LocationEventDetails = () => {
                 <p key={index}>Time of Event: {formatTime(info.eventtime)}</p>
               ))}
             </div>
+            <div>
+              {filteredEvents.map((info, index) => (
+                <p key={index}>Description of Event: {info.eventdiscription}</p>
+              ))}
+              </div>
               {filteredEvents.map((info, index) => (
                 <p key={index}>What to wear: {info.clothing}</p>
               ))}

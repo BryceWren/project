@@ -8,15 +8,14 @@ import riverImage from '../images/river.jpeg';
 import lakeImage from '../images/lake.jpg';
 import campgroundImage from '../images/campground.png';
 import hikingTrailImage from '../images/hikingtrail.jpg';
-const EventDetails = () => {
-  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'eventid']);
+const LocationEventDetails = () => {
+  const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'eventid', 'firstname']);
   const [locationImage, setLocationImage] = useState(null);
   const [items, setItems] = useState('');
   const [clothing, setClothing] = useState('');
   const [eventData, setEventData] = useState([]);
-  useEffect(() => {
-    fetchEvent();
-  }, []);
+  const eventId = cookies.eventid;
+  useEffect(() => { fetchEvent(); }, [eventId]); // Make sure to include eventId in the dependency array
   useEffect(() => {
     // Set locationImage, parking, and dumpster based on the cookie values
     const { locationType, parking, dumpster } = cookies;
@@ -59,7 +58,6 @@ const EventDetails = () => {
       day: 'numeric',
     });
   };
-
   const formatTime = (timeString) => {
     const eventTime = new Date(`1970-01-01T${timeString}`);
     const formattedTime = eventTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
@@ -85,16 +83,35 @@ const EventDetails = () => {
       console.error('Geolocation is not supported by this browser.');
     }
   }
+
+   const updateParticipantsList = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/EventDetails", {
+        backEventID: eventId,
+        backFirstName: cookies.firstname
+      });
+      console.log(response)
+      alert(response.data.message)
+      //setLoginStatus(response.data); // Assuming that you want to log the response data
+    } catch (error) {
+      // Handle any errors that might occur during the request
+      console.error('An error occurred:', error);
+      return false;
+    }
+  }; 
+  
   const fetchEvent = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/EventDetails', {
-        backEventIdentification: cookies.eventid,
-      });
+      const response = await axios.get(`http://localhost:5000/LocationEventDetails/${eventId}`);
       setEventData(response.data);
     } catch (error) {
       console.error('An error occurred:', error);
     }
   };
+
+  const filteredEvents = eventData.filter(info => info.eventid == eventId)
+  console.log(eventId)
+  
   return (
     <div>
       <NavigationBar />
@@ -111,26 +128,31 @@ const EventDetails = () => {
             <p>Location Type: {cookies.locationType}</p>
             <div>
             <div>
-              {eventData.map((info, index) => (
+              {filteredEvents.map((info, index) => (
                 <p key={index}>Date: {formatDate(info.eventdate)}</p>
               ))}
             </div>
             <div>
-              {eventData.map((info, index) => (
+              {filteredEvents.map((info, index) => (
+                <p key={index}>Description of Event: {info.eventdiscription}</p>
+              ))}
+              </div>
+            <div>
+              {filteredEvents.map((info, index) => (
                 <p key={index}>Time of Event: {formatTime(info.eventtime)}</p>
               ))}
             </div>
-              {eventData.map((info, index) => (
+              {filteredEvents.map((info, index) => (
                 <p key={index}>What to wear: {info.clothing}</p>
               ))}
             </div>
             <div>
-              {eventData.map((info, index) => (
+              {filteredEvents.map((info, index) => (
                 <p key={index}>What to bring: {info.items}</p>
               ))}
             </div>
             <div>
-              {eventData.map((info, index) => (
+              {filteredEvents.map((info, index) => (
                 <p key={index}>
                   <a href="#" onClick={() => getDirections(info.latitude, info.longitude)}>
                     Get Directions to the Event!
@@ -140,11 +162,11 @@ const EventDetails = () => {
             </div>
           </div>
           <div className="button-container">
-            <button>Join Event</button>
+            <button onClick={() => updateParticipantsList()}>Join Event</button>
           </div>
         </form>
       </div>
     </div>
   );
 };
-export default EventDetails;
+export default LocationEventDetails;
