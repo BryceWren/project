@@ -8,6 +8,8 @@ import riverImage from '../images/river.jpeg';
 import lakeImage from '../images/lake.jpg';
 import campgroundImage from '../images/campground.png';
 import hikingTrailImage from '../images/hikingtrail.jpg';
+import { useNavigate } from "react-router-dom";
+
 const LocationEventDetails = () => {
   const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'lattitude', 'longitude', 'locationType', 'severity', 'eventid', 'firstname']);
   const [locationImage, setLocationImage] = useState(null);
@@ -15,6 +17,7 @@ const LocationEventDetails = () => {
   const [clothing, setClothing] = useState('');
   const [eventData, setEventData] = useState([]);
   const eventId = cookies.eventid;
+  const navigate = useNavigate()
   useEffect(() => { fetchEvent(); }, [eventId]); // Make sure to include eventId in the dependency array
   useEffect(() => {
     // Set locationImage, parking, and dumpster based on the cookie values
@@ -83,10 +86,14 @@ const LocationEventDetails = () => {
       console.error('Geolocation is not supported by this browser.');
     }
   }
+  const onButtonClick = async () => {
+    updateParticipantsList()
+    navigate('/home')
+  };
 
-   const updateParticipantsList = async () => {
+  const updateParticipantsList = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/EventDetails", {
+      const response = await axios.post("http://localhost:5000/LocationEventDetails", {
         backEventID: eventId,
         backFirstName: cookies.firstname
       });
@@ -98,7 +105,7 @@ const LocationEventDetails = () => {
       console.error('An error occurred:', error);
       return false;
     }
-  }; 
+  };
   
   const fetchEvent = async () => {
     try {
@@ -162,7 +169,7 @@ const LocationEventDetails = () => {
             </div>
           </div>
           <div className="button-container">
-            <button onClick={() => updateParticipantsList()}>Join Event</button>
+            <button onClick={() => onButtonClick()}>Join Event</button>
           </div>
         </form>
       </div>
