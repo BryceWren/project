@@ -75,11 +75,11 @@ export const HomePage = () => {
     setPopupInfo({ longitude: lng, latitude: lat });
   
     // Update the viewport to the clicked location
-    setViewport({
-      latitude: lat,
-      longitude: lng,
-      zoom: 10, // Set the desired zoom level
-    });
+    // setViewport({
+    //   latitude: lat,
+    //   longitude: lng,
+    //   zoom: 10, // Set the desired zoom level
+    // });
   };
 
   const handlePopupClose = () => {
@@ -150,21 +150,21 @@ export const HomePage = () => {
   const handleMarkerClick = (marker) => {
     setPopupInfo(null); // Close the first popup
     setSelectedLocation(marker);
-    setViewport({
-      latitude: p.latitude,
-      longitude: p.longitude,
-      zoom: 10, // Set the desired zoom level
-    });
+    // setViewport({
+    //   latitude: p.latitude,
+    //   longitude: p.longitude,
+    //   zoom: 10, // Set the desired zoom level
+    // });
   }
 
   const handleDatabaseMarkerClick = (p) => {
     setSelectedLocation(p); // Set selectedLocation to the clicked marker object
     setPopupInfo(null); // Close the first popup
-    setViewport({
-      latitude: p.latitude,
-      longitude: p.longitude,
-      zoom: 10, // Set the desired zoom level
-    });
+    // setViewport({
+    //   latitude: p.latitude,
+    //   longitude: p.longitude,
+    //   zoom: 10, // Set the desired zoom level
+    // });
   }
 
   const mapKey = process.env.REACT_APP_MAPBOX_TOKEN;
