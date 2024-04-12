@@ -280,6 +280,24 @@ textarea {
 } */
 
 /* Calendar CSS */
+.event-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.event-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #000;
+  border-radius: 50%;
+  margin: 0 2px;
+}
+
+.event-indicator .event-dot {
+  display: inline-block;
+}
 .react-calendar {
   width: 500px; /* Set the desired width */
   max-width: 100%; 
