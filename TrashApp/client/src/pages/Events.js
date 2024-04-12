@@ -125,7 +125,7 @@ export const Events = () => {
                 <div className="event-details" key={index}>
                   <div className="event-details-left">
                     <h3>Event: {event.locationname}</h3>
-                    {/* <p>Date: {event.eventdate}</p> */}
+                    { <p>Date: {event.eventdate}</p> }
                     <p>Time: {formatTime(event.eventtime)}</p>
                     <p>Severity: {event.severity === 'red' ? 'Major' : 'Minor'}</p>
                     <p>Description: {event.eventdiscription}</p>

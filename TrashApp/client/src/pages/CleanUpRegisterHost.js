@@ -131,11 +131,9 @@ const CleanUpRegister = () => {
           <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
           <div className="error-message">{timeError}</div>
 
-          <label>Location:</label>
-          <p>Longitude: {longitude.toFixed(6)} Latitude: {latitude.toFixed(6)}</p>
-          <input id="location" type="hidden" value={`(${longitude.toFixed(6)}, ${latitude.toFixed(6)})`} />
+          <label>Location: {cookies.locationname}</label>
 
-          <label>What is the event about?</label>
+          <label>Event Discription?</label>
           <textarea value={description} onChange={handleChange} />
           <div className="error-message">{descriptionError}</div>
 
