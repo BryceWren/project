@@ -60,6 +60,16 @@ const LocationDetails = () => {
     return newDate;
   }
 
+  const formatDate = (dateString) => {
+    const eventDate = new Date(dateString);
+            eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
+    return eventDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
+
   const navigateToEventDetails = (eventId) => {
     navigate(`/LocationEventDetails/${eventId}`);
   };
@@ -89,7 +99,7 @@ const LocationDetails = () => {
                 <div key={event.id} className="event">
                   <div className="location-details-left">
                     <p>Event: {event.locationname}</p>
-                    <p>Date: {event.eventdate}</p>
+                    <p>Date: {formatDate(event.eventdate)}</p>
                   </div>
                   <div className="location-details-right">
                     {/* Navigates to EventDetails associated to the eventID of the location event*/}
