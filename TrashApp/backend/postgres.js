@@ -210,6 +210,27 @@ const loginUser = (request, response) => {
       response.status(200).json(results.rows)
     })
   }
+
+  const updateSeverity = (request, response) => {
+    const locationId = request.params.locationId;
+    const severity = request.body.severity;
+  
+    pool.query(
+      "UPDATE map SET severity = $1 WHERE locationid = $2",
+      [severity, locationId],
+      (error, results) => {
+        if (error) {
+          throw error;
+        }
+  
+        if (results.rowCount === 0) {
+          return response.status(404).json({ message: 'Location not found' });
+        }
+  
+        response.status(200).json({ message: 'Severity updated successfully' });
+      }
+    );
+  };
   
 module.exports = {
   updateUserInfo,
@@ -223,5 +244,6 @@ module.exports = {
   registerUser,
   loginUser,
   setEventPost,
-  getEventPost
+  getEventPost,
+  updateSeverity
 }

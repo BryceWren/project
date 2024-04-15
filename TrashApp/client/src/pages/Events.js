@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavigationBar from '../Components/NavBar';
 import Calendar from "react-calendar";
-import '../Components/CSS/Register.css'; // Import your custom CSS file
+import '../Components/CSS/Register.css';
 import Axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
