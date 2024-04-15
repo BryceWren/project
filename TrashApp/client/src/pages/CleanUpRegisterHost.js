@@ -116,6 +116,8 @@ const CleanUpRegister = () => {
     }
   };
 
+  const googleMapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+
   return (
     <div>
       <NavigationBar />
@@ -123,8 +125,6 @@ const CleanUpRegister = () => {
         <h2>Create a Cleanup Event!</h2>
         {message && <PopupMessage message={message} />}
         <form className="register-form">
-          <label>Location Name: {cookies.locationname}</label>
-          <label>Location Type: {cookies.locationType}</label>
           <label>Date:</label>
           <input type="date" value={date} onChange={(event) => setDate(event.target.value)} />
           <div className="error-message">{dateError}</div>
@@ -133,7 +133,10 @@ const CleanUpRegister = () => {
           <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
           <div className="error-message">{timeError}</div>
 
-          <label>Event Description?</label>
+          <label>Location Name: {cookies.locationname}</label>
+          <a href={googleMapsLink} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
+
+          <label>What is the event about?</label>
           <textarea value={description} onChange={handleChange} />
           <div className="error-message">{descriptionError}</div>
 

@@ -76,18 +76,6 @@ const updateFromGroupCleanup = (request, response) => {
   })
 }
 
-const updateSeverity = (request, response) => {
-  const locationID = request.body.backlocid;
-  const sevchange = request.body.backcolor;
-  pool.query("UPDATE map SET severity = $1 WHERE locationid = $2", [sevchange, locationID], (error, results) => {
-      if (error) {
-        throw error;
-      }
-
-      response.status(200).json(results.rows)
-    });
-};
-
 const updateMapSeverity = (request, response) => {
   const locationID = request.body.backLOCid;
   const sevchange = request.body.backColor;
@@ -248,6 +236,5 @@ module.exports = {
   registerUser,
   loginUser,
   setEventPost,
-  getEventPost,
-  updateSeverity
+  getEventPost
 }
