@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import '../Components/CSS/Register.css';
 import NavigationBar from '../Components/NavBar';
 import Axios from 'axios';
@@ -12,7 +12,7 @@ import hikingTrailImage from '../images/hikingtrail.jpg';
 import { format, parseISO, isBefore, isAfter, isEqual, isSameDay } from 'date-fns';
 
 const LocationDetails = () => {
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
   const [cookies, setCookies] = useCookies(['locationname', 'locationid', 'latitude', 'longitude', 'locationType', 'severity', 'dumpster', 'parking', 'eventid']);
   const [locationImage, setLocationImage] = useState(null);
   const [events, setEvents] = useState([]);
@@ -62,7 +62,7 @@ const LocationDetails = () => {
 
   const formatDate = (dateString) => {
     const eventDate = new Date(dateString);
-            eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
+    eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
     return eventDate.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -76,6 +76,9 @@ const LocationDetails = () => {
 
   // Filter events based on matching location names
   const filteredEvents = events.filter(event => event.locationname === cookies.locationname && (isAfter(event.eventdate,getDate()) || isSameDay(parseISO(event.eventdate),getDate())));
+
+  // Sort events by event date, with upcoming events first
+  filteredEvents.sort((a, b) => new Date(a.eventdate) - new Date(b.eventdate));
 
   return (
     <div>

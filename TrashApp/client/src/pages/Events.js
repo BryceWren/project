@@ -80,34 +80,39 @@ export const Events = () => {
     console.log('Post Cleanup', event);
   };
 
-  // Function to check if a date has associated events
-  const hasEvents = (date) => {
-    if (!eventData) return false;
+// Function to check if a date has associated events
+const hasEvents = (date) => {
+  if (!eventData) return false;
 
-    const eventDates = eventData.map(event => new Date(event.eventdate));
-    return eventDates.some(eventDate => eventDate.toDateString() === date.toDateString());
-  };
+  const eventDates = eventData.map((event) => {
+    const eventDate = new Date(event.eventdate);
+    eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
+    return eventDate;
+  });
 
-  // Custom tile content to show indicator for dates with events
-  const tileContent = ({ date }) => {
-    if (hasEvents(date)) {
-      const events = eventData.filter(event => {
-        const eventDate = new Date(event.eventdate);
-        eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
-        return eventDate.toDateString() === date.toDateString();
-      });
+  return eventDates.some((eventDate) => eventDate.toDateString() === date.toDateString());
+};
 
-      return (
-        <div className="event-indicator">
-          {events.map((event, index) => (
-            <div key={index} className="event-dot"></div>
-          ))}
-        </div>
-      );
-    } else {
-      return null;
-    }
-  };
+// Custom tile content to show indicator for dates with events
+const tileContent = ({ date }) => {
+  if (hasEvents(date)) {
+    const events = eventData.filter((event) => {
+      const eventDate = new Date(event.eventdate);
+      eventDate.setTime(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000);
+      return eventDate.toDateString() === date.toDateString();
+    });
+
+    return (
+      <div className="event-indicator">
+        {events.map((event, index) => (
+          <div key={index} className="event-dot"></div>
+        ))}
+      </div>
+    );
+  } else {
+    return null;
+  }
+};
 
   return (
     <div>
