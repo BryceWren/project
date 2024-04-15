@@ -156,11 +156,18 @@ export const HomePage = () => {
     setUpdatedSeverity(p.severity);
   };
 
+
+  const updateClick = async () => {
+    updateSeverity();
+    window.location.reload();
+  }
+
   const updateSeverity = async () => {
     try {
+      const location = selectedLocation.locationid
       const response = await Axios.put("http://localhost:5000/home", {
-        backlocid: cookies.locationid,
-        backcolor: updatedSeverity
+        backLOCid: location,
+        backColor: updatedSeverity
       });
       console.log(response.data);
     } catch (error) {
@@ -257,7 +264,7 @@ export const HomePage = () => {
                     <option value="red">Major (Red)</option>
                   </select>
                   <button
-                    onClick={() => {updateSeverity(selectedLocation.locationid, updatedSeverity);}}
+                    onClick={() => {updateClick()}}
                     className="update-button"> Update
                   </button>
                   

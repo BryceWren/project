@@ -88,6 +88,18 @@ const updateSeverity = (request, response) => {
     });
 };
 
+const updateMapSeverity = (request, response) => {
+  const locationID = request.body.backLOCid;
+  const sevchange = request.body.backColor;
+  pool.query("UPDATE map SET severity = $1 WHERE locationid = $2", [sevchange, locationID], (error, results) => {
+      if (error) {
+        throw error;
+      }
+
+      response.status(200).json(results.rows)
+    });
+};
+
 const getParticipants = (request, response) => {
   const eventid = request.body.backEventID
   pool.query("SELECT * FROM participants WHERE eventid = $1", [eventid], (error,results) => {
@@ -224,6 +236,7 @@ const loginUser = (request, response) => {
   }
   
 module.exports = {
+  updateMapSeverity,
   updateUserInfo,
   getParticipants,
   getEventDetails,
