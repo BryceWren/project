@@ -156,14 +156,15 @@ export const HomePage = () => {
     setUpdatedSeverity(p.severity);
   };
 
-  const updateSeverity = async (locationId, severity) => {
+  const updateSeverity = async () => {
     try {
-      const response = await Axios.put(`http://localhost:5000/home/${locationId}`, { severity });
+      const response = await Axios.put("http://localhost:5000/home", {
+        backlocid: cookies.locationid,
+        backcolor: updatedSeverity
+      });
       console.log(response.data);
-      // Update the selectedLocation object with the new severity
-      setSelectedLocation({ ...selectedLocation, severity: updatedSeverity });
     } catch (error) {
-      console.error('Error updating severity:', error);
+      console.error('An error occurred:', error);
     }
   };
 
@@ -259,6 +260,7 @@ export const HomePage = () => {
                     onClick={() => {updateSeverity(selectedLocation.locationid, updatedSeverity);}}
                     className="update-button"> Update
                   </button>
+                  
                 </div>
                 
               </div>
