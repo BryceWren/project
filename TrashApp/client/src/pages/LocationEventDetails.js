@@ -189,4 +189,3 @@ const LocationEventDetails = () => {
 };
 export default LocationEventDetails;
 
-//HELLLO THIS IS JANICA

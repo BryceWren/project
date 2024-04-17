@@ -51,7 +51,7 @@ export const Settings = () => {
           {handleIsHost()}
           <h3>Email: {userEmail}</h3>
           <div className="button-container">
-            <button className="form-btn" onClick={() => navigate('/Editinformation')}>Edit Information</button>
+            {/* <button className="form-btn" onClick={() => navigate('/Editinformation')}>Edit Information</button> */}
             <button className="form-btn" onClick={handleLogout}>Logout</button>
           </div>
         </div>
