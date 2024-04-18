@@ -31,6 +31,7 @@ export const Settings = () => {
     removeCookies('locationname');
     removeCookies('password');
     removeCookies('severity');
+    removeCookies('createdByHost')
     navigate('/');
     setLogoutConfirmationOpen(false);
   };

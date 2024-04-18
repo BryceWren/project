@@ -6,18 +6,20 @@ import '../Components/CSS/Register.css';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
+import { ImageSource } from "mapbox-gl";
+import crown from '../images/host-crown.png'
 
 const PostUI = () => {
-  const [cookies] = useCookies(['lastname', 'firstname', 'locationname', 'ishost', 'email', 'eventid','severity','locationid']);
+  const [cookies] = useCookies(['lastname', 'firstname', 'locationname', 'ishost', 'email', 'eventid','severity','locationid','createdByHost']);
   const [changedSeverity, setChangedSeverity] = useState('');
   const [participants, setParticipants] = useState([]);
   const [message, setMessage] = useState("");
+  const [createHost, setCreateHost] = useState([])
   const navigate = useNavigate();
 
   useEffect(() => {
     getParticipants();
   }, []);
-
   const updateMarkerColorRequest = async () => {
     try {
       const response = await Axios.put("http://localhost:5000/postUI", {
@@ -38,6 +40,7 @@ const PostUI = () => {
         backEventID: eventID
       });
       setParticipants(response.data);
+      setCreateHost(response.data)
     } catch (error) {
       console.error('An error has occurred:', error); 
     }
@@ -82,6 +85,9 @@ const PostUI = () => {
       <div className="auth-form-container">
         <h1>Report Cleanup</h1>
         <div className="register-form">
+          
+        <p><b>Hosted by: {cookies.createdByHost} <img src={crown} style={{ maxWidth: '5%', height: 'auto', margin: '-1%' }} /></b>
+          </p>
           <p><b>Participants: </b>
             <ul>
               {participants.map((participant, index) => (

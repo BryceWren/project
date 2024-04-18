@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie';
 
 export const Events = () => {
   const [cookies] = useCookies(['lastname', 'firstname', 'email']);
-  const [, setCookie] = useCookies(['eventid','locationname','severity','locationid', 'locationType', 'eventid'])
+  const [, setCookie] = useCookies(['eventid','locationname','severity','locationid', 'locationType', 'eventid','createdByHost'])
   const [date, changeDate] = useState(new Date());
   const [eventData, setEventData] = useState(null);
   const navigate = useNavigate();
@@ -76,6 +76,7 @@ export const Events = () => {
     setCookie('severity', event.severity)
     setCookie('locationid', event.locationid)
     setCookie('locationType', event.locationtype)
+    setCookie('createdByHost', event.iscreated)
     navigate('/postUI') 
     console.log('Post Cleanup', event);
   };

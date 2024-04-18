@@ -121,19 +121,31 @@ const setEventPost = (request, response) => {
   const parking = request.body.backparking
   const clothes = request.body.backClothing
   const item = request.body.backItems
+  const createdEventID = request.body.backIsCreated
 
 
 
   console.log(request.body.backlong)
 
-  pool.query('INSERT INTO events (locationid, longitude, latitude, locationname,locationtype ,eventseverity, eventdiscription, eventdate, eventtime, severity, finishedEvent, dumpster, parking, clothing, items) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15) RETURNING eventid',
-   [locationid, longitude,lattitude,locationname,locationtype ,locationseverity, desciption, date, time,locationseverity, 0, dumpster, parking, clothes, item], (error, results) => {
+  pool.query('INSERT INTO events (locationid, longitude, latitude, locationname,locationtype ,eventseverity, eventdiscription, eventdate, eventtime, severity, finishedEvent, dumpster, parking, clothing, items, iscreated) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15,$16) RETURNING eventid',
+   [locationid, longitude,lattitude,locationname,locationtype ,locationseverity, desciption, date, time,locationseverity, 0, dumpster, parking, clothes, item, createdEventID], (error, results) => {
     if (error) {
       throw error
     }
     response.status(201).send()
   })
 }
+//ADD THIS FOR HOST TO SHOW UP IN PARTICIPANTS LIST TAKE IT OUT IF NOT WORKING
+const getHostName = (request, response) => {
+  const eventid = request.body.backEventID
+  pool.query("SELECT * FROM events WHERE eventid = $1", [eventid], (error,results) => {
+  if (error) {
+    throw error;
+  }
+  response.status(200).json(results.rows)
+})
+}
+
 //USERS
 const joinEvent = (request, response) => {
   const eventid = request.body.backEventID
@@ -224,6 +236,7 @@ const loginUser = (request, response) => {
   }
   
 module.exports = {
+  getHostName, //added this to try to get the host to show as the one who created the event
   updateMapSeverity,
   updateUserInfo,
   getParticipants,

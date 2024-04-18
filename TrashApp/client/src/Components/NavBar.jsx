@@ -58,6 +58,7 @@ export const Settings = () => {
     removeCookies('dumpster')
     removeCookies('eventid')
     removeCookies('parking')
+    removeCookies('createdByHost')
     navigate('/');
     setLogoutConfirmationOpen(false);
   };
